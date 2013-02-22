@@ -52,7 +52,7 @@ namespace Test
         {
             p = new Player(new Vector2(0, 0));
             l = new Level();
-            t = new Tower(new Vector2(1024, 256 + 16));
+            t = new Tower(new Vector2(1024, 256 + 24 * 1 / 0.667f)); //0.667f = t.Scale
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
 

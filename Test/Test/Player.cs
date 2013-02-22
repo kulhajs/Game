@@ -43,8 +43,6 @@ namespace Test
         int animationLenght = 40;
         int currentFrame = 0;
 
-        int lightColor = 0;
-
         const float gravity = 8f;
         
         Vector2 velocity = new Vector2(150, 0);
@@ -93,12 +91,6 @@ namespace Test
         {
             float dx = (mouseState.X + camera.origin.X) - this.X;
             float dy = mouseState.Y - this.Y;
-            float dist = dx * dx + dy * dy;
-
-            if (dist > 300 * 300)
-                lightColor = 0;
-            else
-                lightColor = 2;
 
             this.Rotation = (float)Math.Atan((double)( dy / dx));
 

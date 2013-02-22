@@ -30,7 +30,7 @@ namespace Test
         public Tower(Vector2 position)
         {
             this.Position = position;
-            this.Scale = 1.0f;
+            this.Scale = 0.667f;
         }
 
         public bool SeePlayer { get; set; }
@@ -49,12 +49,19 @@ namespace Test
             float dy = this.Position.Y - p.Y;
             float dist = dx * dx + dy * dy;
 
-            if (dist > 300 * 300)
+            if (dist > 320 * 320 || dx < 0)
+            {
                 lightColor = 0;
+                this.SeePlayer = false;
+            }
             else
+            {
                 lightColor = 2;
+                this.SeePlayer = true;
+            }
 
-            this.Rotation = (float)Math.Atan((double)(dy / dx)); 
+            if(dx > 32 && dist < 320 * 320)
+                this.Rotation = (float)Math.Atan((double)(dy / dx)); 
 
             this.Animate();
         }
@@ -64,7 +71,7 @@ namespace Test
             if (currentFrame < animationLength / 2)
                 Source = sources[1];
             else if (currentFrame < animationLength)
-                Source = sources[0];
+                Source = sources[lightColor];
             else
                 currentFrame = 0;
 
@@ -73,7 +80,11 @@ namespace Test
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            theSpriteBatch.Draw(gun, new Vector2(this.Position.X + 33, this.Position.Y + 9), new Rectangle(0,0,64,64), Color.White, this.Rotation, new Vector2(33,9), this.Scale ,SpriteEffects.None, 0);
+            theSpriteBatch.Draw(gun, 
+                new Vector2(this.Position.X + 33 * this.Scale, this.Position.Y + 9 * this.Scale), 
+                new Rectangle(0,0,64,64), Color.White, this.Rotation, 
+                new Vector2(33, 9), this.Scale ,SpriteEffects.None, 0);
+
             theSpriteBatch.Draw(body, this.Position, this.Source, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
         }
     }
