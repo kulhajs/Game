@@ -38,12 +38,16 @@ namespace Test
             new Rectangle(448, 64, 64, 64) //END Running
         };
 
+        List<Bullet> bullets;
+        Bullet newBullet;
+
         Facing currentFacing = Facing.Right;
 
         int animationLenght = 40;
         int currentFrame = 0;
 
         const float gravity = 8f;
+        float reloadTime = 0f;
         
         Vector2 velocity = new Vector2(150, 0);
 
@@ -77,6 +81,7 @@ namespace Test
             this.Scale = 0.667f;
             this.Falling = true;
             this.Jumping = false;
+            this.bullets = new List<Bullet>();
         }
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager theContentManager)
@@ -96,6 +101,30 @@ namespace Test
 
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
+
+            if (mouseState.LeftButton == ButtonState.Pressed)
+                this.UpdateAttack(mouseState);
+
+            foreach (Bullet b in bullets)
+                b.Update(theGameTime);
+
+            if (reloadTime < 0.2f)
+                reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void UpdateAttack(MouseState mouseState)
+        {
+            if (reloadTime > 0.2f)
+                {
+                    Vector2 dir = new Vector2(mouseState.X - this.X, mouseState.Y - this.Y); //FIX: dir
+                    dir.Normalize();
+                    newBullet = new Bullet(this.Position, dir, this.Rotation);
+                    newBullet.LoadContent(contentManager);
+                    bullets.Add(newBullet);
+                    newBullet = null;
+                    reloadTime = 0f;
+            }
+
         }
 
         private void UpdateAnimation()
@@ -191,6 +220,9 @@ namespace Test
                 new Rectangle(0, 0, 64, 64), Color.White, this.Rotation, 
                 currentFacing == Facing.Right ? new Vector2(25, 19) : new Vector2(39,19), this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
+
+            foreach (Bullet b in bullets)
+                b.Draw(theSpriteBatch);
         }
     }
 }
