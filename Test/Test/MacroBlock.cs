@@ -28,9 +28,8 @@ namespace Test
 
         public Rectangle GetRectangle()
         {
-            Trace.WriteLine(blocks.Count * 64);
-            return new Rectangle((int)initPos.X, (int)initPos.Y, blocks.Count * 64, 4);
-                    }
+            return new Rectangle((int)initPos.X, (int)initPos.Y + 2, blocks.Count * 63, 8);
+        }
 
         public void Initialize()
         {

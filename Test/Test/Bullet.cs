@@ -11,7 +11,7 @@ namespace Test
     class Bullet : Sprite
     {
 
-        Vector2 velocity = new Vector2(500, 500);
+        Vector2 velocity = new Vector2(600, 600);
         Vector2 direction;
 
         public Bullet(Vector2 position, Vector2 direction, float rotation)
