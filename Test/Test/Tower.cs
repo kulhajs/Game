@@ -49,19 +49,17 @@ namespace Test
             float dy = this.Position.Y - p.Y;
             float dist = dx * dx + dy * dy;
 
-            if (dist > 320 * 320 || dx < 0)
+            if(dx > 32 && dist < 320 * 320 && (dy <  50 && dy > -50)) //TODO: Light Color / complete vision
+            {
+                this.Rotation = (float)Math.Atan((double)(dy / dx));
+                lightColor = 2;
+                this.SeePlayer = true;
+            }
+            else
             {
                 lightColor = 0;
                 this.SeePlayer = false;
             }
-            else
-            {
-                lightColor = 2;
-                this.SeePlayer = true;
-            }
-
-            if(dx > 32 && dist < 320 * 320)
-                this.Rotation = (float)Math.Atan((double)(dy / dx)); 
 
             this.Animate();
         }

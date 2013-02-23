@@ -21,6 +21,7 @@ namespace Test
     {
         Texture2D body;
         Texture2D gun;
+        Texture2D crosshair;
 
         int WIDTH = 800;
         int HEIGHT = 500;
@@ -40,7 +41,7 @@ namespace Test
 
         List<Bullet> bullets;
         Bullet newBullet;
-
+        
         Facing currentFacing = Facing.Right;
 
         int animationLenght = 40;
@@ -54,6 +55,8 @@ namespace Test
         Vector2 direction;
 
         Vector2 gunPosition = Vector2.Zero;
+
+        Vector2 crosshairPosition = Vector2.Zero;
 
         public Vector2 Direction 
             {
@@ -91,6 +94,7 @@ namespace Test
             contentManager = theContentManager;
             body = contentManager.Load<Texture2D>("body_anim_2");
             gun = contentManager.Load<Texture2D>("gun");
+            crosshair = contentManager.Load<Texture2D>("crosshair");
             this.Source = sources[0];
         }
 
@@ -116,6 +120,8 @@ namespace Test
                 gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
             else
                 gunPosition = new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
+
+            crosshairPosition = new Vector2(mouseState.X + camera.origin.X, mouseState.Y + camera.origin.Y);
         }
 
         private void UpdateAttack(MouseState mouseState, Camera camera)
@@ -247,6 +253,9 @@ namespace Test
                 new Rectangle(0, 0, 64, 64), Color.White, this.Rotation, 
                 currentFacing == Facing.Right ? new Vector2(25, 19) : new Vector2(39,19), this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
+
+            //drawcrosshair
+            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), Color.White);
 
             foreach (Bullet b in bullets)
                 b.Draw(theSpriteBatch);

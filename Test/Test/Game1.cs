@@ -44,7 +44,7 @@ namespace Test
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = WIDTH;
             graphics.PreferredBackBufferHeight = HEIGHT;
-            IsMouseVisible = true;
+            //IsMouseVisible = true;
             graphics.ApplyChanges();
         }
 
