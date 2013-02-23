@@ -32,7 +32,7 @@ namespace Test
 
         Player p;
         Level l;
-        Tower t;
+        EnemyHandler enemies;
 
         Camera camera;
 
@@ -52,7 +52,9 @@ namespace Test
         {
             p = new Player(new Vector2(0, 0));
             l = new Level();
-            t = new Tower(new Vector2(1024, 256 + 24 * 1 / 0.667f)); //0.667f = t.Scale
+
+            enemies = new EnemyHandler();
+            enemies.Initiliaze();
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
 
@@ -71,7 +73,8 @@ namespace Test
 
             p.LoadContent(this.Content);
             l.LoadContent(this.Content);
-            t.LoadContent(this.Content);
+
+            enemies.LoadContent(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -85,7 +88,8 @@ namespace Test
             ch.HandleMovingCollision(p, l);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
-            t.Update(p);
+
+            enemies.Update(p, gameTime);
             
             oldKeyboardState = currentKeyboardState;
 
@@ -113,7 +117,8 @@ namespace Test
 
             p.Draw(this.spriteBatch);
             l.Draw(this.spriteBatch);
-            t.Draw(this.spriteBatch);
+
+            enemies.Draw(this.spriteBatch);
 
             spriteBatch.DrawString(font, "FPS " + FPS, new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
             frame++;

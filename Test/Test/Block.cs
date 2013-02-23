@@ -14,9 +14,9 @@ namespace Test
     class Block : Sprite
     {
         Rectangle[] sources = new Rectangle[]{
-            new Rectangle(0,0,66,64), //22 -> 72
-            new Rectangle(66,0,64,64),
-            new Rectangle(130,0,66,64)
+            new Rectangle(0,0,66,24), //22 -> 72
+            new Rectangle(66,0,64,24),
+            new Rectangle(130,0,66,24)
         };
 
         int id;
