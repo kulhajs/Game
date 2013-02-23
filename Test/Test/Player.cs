@@ -100,38 +100,57 @@ namespace Test
             float dy = mouseState.Y - this.Y;
             this.Rotation = (float)Math.Atan((double)(dy / dx));
 
-            if (currentFacing == Facing.Right)
-                gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
-            else
-                gunPosition = new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
-
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
 
             if (mouseState.LeftButton == ButtonState.Pressed)
-                this.UpdateAttack(mouseState);
+                this.UpdateAttack(mouseState, camera);
 
             foreach (Bullet b in bullets)
                 b.Update(theGameTime);
 
             if (reloadTime < 0.2f)
                 reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
+
+            if (currentFacing == Facing.Right)
+                gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
+            else
+                gunPosition = new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
         }
 
-        private void UpdateAttack(MouseState mouseState)
+        private void UpdateAttack(MouseState mouseState, Camera camera)
         {
             if (reloadTime > 0.2f)
+            {
+                //direction of new bullet
+                float x = mouseState.X - (this.X - camera.origin.X);
+                float y = mouseState.Y - (this.Y - camera.origin.Y);
+                //if mouse is pointing in opposite direction than player, it won't shoot
+                if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
+                    return;
+                Vector2 dir = new Vector2(x, y);
+                dir.Normalize();
+
+                //coordinates of new bullet position
+                float dist = (float)Math.Sqrt((double)(30 * Scale * 30 * Scale) + (7 * Scale * 7 * Scale));
+                float xx;
+                float yy;
+                if (currentFacing == Facing.Right)
                 {
-                    Vector2 dir = new Vector2(mouseState.X - this.X, mouseState.Y - this.Y); //FIX: dir
-                    dir.Normalize();
-                    float dist = (float)Math.Sqrt((double)(30 * Scale * 30 * Scale) + (7 * Scale * 7 * Scale));
-                    float xx = gunPosition.X + (float)Math.Cos((double)Rotation) * dist;
-                    float yy = gunPosition.Y + (float)Math.Sin((double)Rotation) * dist;
-                    newBullet = new Bullet(new Vector2(xx, yy), dir, this.Rotation); //this.Position, dir, this.Rotation
-                    newBullet.LoadContent(contentManager);
-                    bullets.Add(newBullet);
-                    newBullet = null;
-                    reloadTime = 0f;
+                    xx = gunPosition.X + (float)Math.Cos((double)Rotation) * dist;
+                    yy = gunPosition.Y + (float)Math.Sin((double)Rotation) * dist;
+                }
+                else
+                {
+                    xx = gunPosition.X - (float)Math.Cos((double)Rotation) * dist;
+                    yy = gunPosition.Y - (float)Math.Sin((double)Rotation) * dist;
+                }
+
+                newBullet = new Bullet(new Vector2(xx, yy), dir, this.Rotation);
+                newBullet.LoadContent(contentManager);
+                bullets.Add(newBullet);
+                newBullet = null;
+                reloadTime = 0f;
             }
 
         }
