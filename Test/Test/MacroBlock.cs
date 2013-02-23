@@ -28,13 +28,13 @@ namespace Test
 
         public Rectangle GetRectangle()
         {
-            return new Rectangle((int)initPos.X, (int)initPos.Y + 2, blocks.Count * 63, 8);
+            return new Rectangle((int)initPos.X, (int)initPos.Y + 1, blocks.Count * 64, 7);
         }
 
         public void Initialize()
         {
             for (int i = 0; i < id.Length; i++)
-                blocks.Add(new Block(id[i], new Vector2(initPos.X + i * 63, initPos.Y)));
+                blocks.Add(new Block(id[i], new Vector2(initPos.X + i * 64, initPos.Y)));
         }
 
         public void LoadContent(ContentManager theContentManager)
