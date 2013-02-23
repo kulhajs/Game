@@ -53,6 +53,8 @@ namespace Test
 
         Vector2 direction;
 
+        Vector2 gunPosition = Vector2.Zero;
+
         public Vector2 Direction 
             {
                 get { return this.direction; }
@@ -96,8 +98,12 @@ namespace Test
         {
             float dx = (mouseState.X + camera.origin.X) - this.X;
             float dy = mouseState.Y - this.Y;
+            this.Rotation = (float)Math.Atan((double)(dy / dx));
 
-            this.Rotation = (float)Math.Atan((double)( dy / dx));
+            if (currentFacing == Facing.Right)
+                gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
+            else
+                gunPosition = new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
 
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
@@ -118,7 +124,10 @@ namespace Test
                 {
                     Vector2 dir = new Vector2(mouseState.X - this.X, mouseState.Y - this.Y); //FIX: dir
                     dir.Normalize();
-                    newBullet = new Bullet(this.Position, dir, this.Rotation);
+                    float dist = (float)Math.Sqrt((double)(30 * Scale * 30 * Scale) + (7 * Scale * 7 * Scale));
+                    float xx = gunPosition.X + (float)Math.Cos((double)Rotation) * dist;
+                    float yy = gunPosition.Y + (float)Math.Sin((double)Rotation) * dist;
+                    newBullet = new Bullet(new Vector2(xx, yy), dir, this.Rotation); //this.Position, dir, this.Rotation
                     newBullet.LoadContent(contentManager);
                     bullets.Add(newBullet);
                     newBullet = null;
@@ -213,10 +222,9 @@ namespace Test
             //draw body
             theSpriteBatch.Draw(body,  this.Position, this.Source, Color.White, 0.0f, Vector2.Zero, this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
-
+            
             //draw gun
-            theSpriteBatch.Draw(gun, 
-                currentFacing == Facing.Right ? new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale) : new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale),
+            theSpriteBatch.Draw(gun, gunPosition,
                 new Rectangle(0, 0, 64, 64), Color.White, this.Rotation, 
                 currentFacing == Facing.Right ? new Vector2(25, 19) : new Vector2(39,19), this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
