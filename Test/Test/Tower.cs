@@ -78,8 +78,10 @@ namespace Test
             {
                 bulletDirection = new Vector2(p.X - this.X, (p.Y + 10) - this.Y); //(dy-10) so it doesn't shoot on top of head
                 bulletDirection.Normalize();
+                
+                float xx = this.X + (float)Math.Cos((double)Rotation) * (float)Math.Sqrt((double)(32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale));
 
-                newBullet = new Bullet(this.Position, bulletDirection, this.Rotation);
+                newBullet = new Bullet(new Vector2(xx, Y + 5 * Scale), bulletDirection, this.Rotation);
                 newBullet.LoadContent(contentManager);
                 bullets.Add(newBullet);
                 newBullet = null;
@@ -106,15 +108,15 @@ namespace Test
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
+            foreach (Bullet b in bullets)
+                b.Draw(theSpriteBatch);
+
             theSpriteBatch.Draw(gun, 
                 new Vector2(this.Position.X + 33 * this.Scale, this.Position.Y + 9 * this.Scale), 
                 new Rectangle(0,0,64,64), Color.White, this.Rotation, 
                 new Vector2(33, 9), this.Scale ,SpriteEffects.None, 0);
 
             theSpriteBatch.Draw(body, this.Position, this.Source, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
-
-            foreach (Bullet b in bullets)
-                b.Draw(theSpriteBatch);
         }
     }
 }
