@@ -16,7 +16,8 @@ namespace Test
         Rectangle[] sources = new Rectangle[]{
             new Rectangle(0,0,64,24), 
             new Rectangle(64,0,64,24),
-            new Rectangle(128,0,64,24)
+            new Rectangle(128,0,64,24),
+            new Rectangle(192,0,64,24)
         };
 
         int id;
@@ -30,7 +31,7 @@ namespace Test
         public void LoadContent(ContentManager theContentManager)
         {
             contentManager = theContentManager;
-            base.LoadContent(contentManager, "blocks_3");
+            base.LoadContent(contentManager, "blocks_3_noise");
             this.Source = sources[id];
         }
 

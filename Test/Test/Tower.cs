@@ -21,7 +21,7 @@ namespace Test
 
         int lightColor = 0;
 
-        int vision = 400;
+        int vision = 375;
 
         float reloadTime = 0f;
 

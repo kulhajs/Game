@@ -35,7 +35,7 @@ namespace Test
         {
             p.Falling = true;
 
-            playerRectangle = new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 60 * p.Scale), (int)(16 * p.Scale), (int)(4 * p.Scale));
+            playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 60 * p.Scale), (int)(16 * p.Scale), (int)(4 * p.Scale));
             foreach (MacroBlock mb in l.levels[level])
             {
                 blockRectangle = mb.GetRectangle();

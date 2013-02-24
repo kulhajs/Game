@@ -119,8 +119,8 @@ namespace Test
 
             this.spriteBatch.Draw(background, new Vector2(camera.origin.X, camera.origin.Y - 250), new Rectangle(0, 0, 800, 800), Color.White);
 
-            p.Draw(this.spriteBatch);
             l.Draw(this.spriteBatch);
+            p.Draw(this.spriteBatch);
 
             enemies.Draw(this.spriteBatch);
 
