@@ -23,9 +23,6 @@ namespace Test
         Texture2D gun;
         Texture2D crosshair;
 
-        int WIDTH = 800;
-        int HEIGHT = 500;
-
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64), //IDLE
             new Rectangle(64, 0, 64, 64), //JUMP
@@ -216,7 +213,7 @@ namespace Test
 
             if(currentKeyboardState.IsKeyDown(Keys.Space) && !oldKeyboardState.IsKeyDown(Keys.Space) && !Falling)
             {
-                velocity.Y = 270f; //200f
+                velocity.Y = 270f; 
                 Jumping = true;
             }
 
@@ -235,9 +232,6 @@ namespace Test
             }
             else
                 velocity.Y = 0;
-
-            //if (this.X > WIDTH / 2)
-            //    this.X = WIDTH / 2;
             
             this.Position += Direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
