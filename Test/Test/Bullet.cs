@@ -34,7 +34,7 @@ namespace Test
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, this.Rotation);
+            base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.Gold, this.Rotation);
         }
     }
 }

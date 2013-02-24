@@ -27,6 +27,8 @@ namespace Test
 
         SpriteFont font;
 
+        Texture2D background;
+
         KeyboardState currentKeyboardState;
         KeyboardState oldKeyboardState;
 
@@ -44,7 +46,6 @@ namespace Test
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = WIDTH;
             graphics.PreferredBackBufferHeight = HEIGHT;
-            //IsMouseVisible = true;
             graphics.ApplyChanges();
         }
 
@@ -70,6 +71,7 @@ namespace Test
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("Font_1");
+            background = Content.Load<Texture2D>("bg");
 
             p.LoadContent(this.Content);
             l.LoadContent(this.Content);
@@ -114,6 +116,8 @@ namespace Test
                 BlendState.AlphaBlend,
                 null, null, null, null,
                 camera.transform);
+
+            this.spriteBatch.Draw(background, new Vector2(camera.origin.X, camera.origin.Y - 250), new Rectangle(0, 0, 800, 800), Color.White);
 
             p.Draw(this.spriteBatch);
             l.Draw(this.spriteBatch);
