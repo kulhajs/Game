@@ -36,6 +36,8 @@ namespace Test
             new Rectangle(448, 64, 64, 64) //END Running
         };
 
+        Rectangle switchRectangle;
+
         List<Bullet> bullets;
         Bullet newBullet;
         
@@ -75,12 +77,15 @@ namespace Test
         public bool Falling { get; set; }
 
         public bool Jumping { get; set; }
-        
+
+        public FlashDoor IntersectWithSwitch { get; set; }
+
         public Player(Vector2 position, float initRotation=0.0f)
         {
             this.Position = position;
             this.Rotation = initRotation;
             this.Scale = 0.667f;
+            this.Color = Color.White;
             this.Falling = true;
             this.Jumping = false;
             this.bullets = new List<Bullet>();
@@ -100,6 +105,11 @@ namespace Test
             float dx = (mouseState.X + camera.origin.X) - this.X;
             float dy = mouseState.Y - this.Y;
             this.Rotation = (float)Math.Atan((double)(dy / dx));
+
+            if (IntersectWithSwitch != null && IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
+                IntersectWithSwitch.Switch = false;
+            else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
+                IntersectWithSwitch.Switch = true;
 
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
@@ -239,12 +249,12 @@ namespace Test
         public void Draw(SpriteBatch theSpriteBatch)
         {
             //draw body
-            theSpriteBatch.Draw(body,  this.Position, this.Source, Color.White, 0.0f, Vector2.Zero, this.Scale, 
+            theSpriteBatch.Draw(body,  this.Position, this.Source, this.Color, 0.0f, Vector2.Zero, this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
             
             //draw gun
             theSpriteBatch.Draw(gun, gunPosition,
-                new Rectangle(0, 0, 64, 64), Color.White, this.Rotation, 
+                new Rectangle(0, 0, 64, 64), this.Color, this.Rotation, 
                 currentFacing == Facing.Right ? new Vector2(25, 19) : new Vector2(39,19), this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
 

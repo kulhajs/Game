@@ -14,18 +14,27 @@ namespace Test
         Texture2D door;
 
         int currentFrame = 0;
-        int animationLenght = 16;
+        int animationLenght = 6;
+
+        int switchFrame = 0;
+        int switchAnimationLength = 24;
 
         Vector2 switchPosition;
+        Rectangle switchSource;
 
         Rectangle[] sources = new Rectangle[] {
-            new Rectangle(0,0,64,192),
-            new Rectangle(64,0,64,192),
-            new Rectangle(0,192,64,64),
-            new Rectangle(64,192,64,64)
+            new Rectangle(0,0,64,136),
+            new Rectangle(64,0,64,136),
+            new Rectangle(128,0,64,136),
+            new Rectangle(0,136,64,64),
+            new Rectangle(0,200,64,64),
+            new Rectangle(64,136,64,64),
+            new Rectangle(64,200,64,64)
         };
 
         public bool Switch { get; set; }
+
+        public Vector2 SPosition { get { return this.switchPosition; } }
 
         public FlashDoor(Vector2 position, Vector2 switchPosition)
         {
@@ -36,12 +45,32 @@ namespace Test
 
         public void Update(GameTime theGameTime)
         {
-            this.Animate();
+            this.AnimateDoor();
+            this.AnimateSwitch();
         }
 
-        private void Animate()
+        private void AnimateSwitch()
         {
-            throw new NotImplementedException();
+            if (switchFrame < switchAnimationLength / 2)
+                if (Switch) switchSource = sources[3]; else switchSource = sources[5];
+            else if (switchFrame < switchAnimationLength)
+                if (Switch) switchSource = sources[4]; else switchSource = sources[6];
+            else
+                switchFrame = 0;
+
+            switchFrame++;
+        }
+
+        private void AnimateDoor()
+        {
+            if (currentFrame < animationLenght / 2)
+                Source = sources[0];
+            else if (currentFrame < animationLenght)
+                Source = sources[1];
+            else
+                currentFrame = 0;
+            
+            currentFrame++;
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -54,8 +83,8 @@ namespace Test
         
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            theSpriteBatch.Draw(_switch, switchPosition, Switch ? sources[2] : sources[3], Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            theSpriteBatch.Draw(door, Position, Source, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            theSpriteBatch.Draw(_switch, switchPosition, switchSource, Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            theSpriteBatch.Draw(door, Position, Switch ? Source : sources[2], Color.White, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
         }
     }
 }

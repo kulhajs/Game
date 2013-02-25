@@ -88,6 +88,7 @@ namespace Test
             currentKeyboardState = Keyboard.GetState();
 
             ch.HandleMovingCollision(p, l);
+            ch.HandleDoorCollision(p, enemies);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
 
@@ -120,9 +121,8 @@ namespace Test
             this.spriteBatch.Draw(background, new Vector2(camera.origin.X, camera.origin.Y - 250), new Rectangle(0, 0, 800, 800), Color.White);
 
             l.Draw(this.spriteBatch);
-            p.Draw(this.spriteBatch);
-
             enemies.Draw(this.spriteBatch);
+            p.Draw(this.spriteBatch);
 
             spriteBatch.DrawString(font, "FPS " + FPS, new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
             frame++;

@@ -7,8 +7,8 @@ namespace Test
 {
     class EnemyHandler
     {
-        List<Tower> towers;
-        List<FlashDoor> doors;
+        public List<Tower> towers;
+        public List<FlashDoor> doors;
 
         public EnemyHandler()
         {
@@ -25,7 +25,7 @@ namespace Test
             towers.Add(new Tower(new Vector2(1664, 256 + 24 * 1 / 0.667f)));
             towers.Add(new Tower(new Vector2(2176, 128 + 24 * 1 / 0.667f)));
             //_________________________DOORS_________________________________
-            doors.Add(new FlashDoor(new Vector2(1088, 256 - 48), new Vector2(100, 100)));
+            doors.Add(new FlashDoor(new Vector2(576, 128 + 4), new Vector2(128, 192 + 16)));
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -43,6 +43,9 @@ namespace Test
         {
             foreach (Tower t in towers)
                 t.Update(player, theGameTime);
+
+            foreach (FlashDoor f in doors)
+                f.Update(theGameTime);
         }
 
         public void Draw(SpriteBatch theSpriteBatch)
