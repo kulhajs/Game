@@ -47,7 +47,7 @@ namespace Test
         int currentFrame = 0;
 
         const float gravity = 8f;
-        float reloadTime = 0f;
+        float reloadTime = 0.2f;
         
         Vector2 velocity = new Vector2(150, 0);
 
@@ -102,10 +102,12 @@ namespace Test
 
         public void Update(MouseState mouseState, KeyboardState currentKeyboardState, KeyboardState oldKeyboardState,  GameTime theGameTime, Camera camera)
         {
+            //aiming
             float dx = (mouseState.X + camera.origin.X) - this.X;
             float dy = mouseState.Y - this.Y;
             this.Rotation = (float)Math.Atan((double)(dy / dx));
 
+            //door switch interaction
             if (IntersectWithSwitch != null && IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
                 IntersectWithSwitch.Switch = false;
             else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
@@ -120,8 +122,8 @@ namespace Test
             foreach (Bullet b in bullets)
                 b.Update(theGameTime);
 
-            if (reloadTime < 0.2f)
-                reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
+            if (reloadTime > 0.0f)
+                reloadTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
             if (currentFacing == Facing.Right)
                 gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
@@ -133,7 +135,7 @@ namespace Test
 
         private void UpdateAttack(MouseState mouseState, Camera camera)
         {
-            if (reloadTime > 0.2f)
+            if (reloadTime < 0.0f)
             {
                 //direction of new bullet
                 float x = mouseState.X - (this.X - camera.origin.X);
@@ -163,7 +165,7 @@ namespace Test
                 newBullet.LoadContent(contentManager);
                 bullets.Add(newBullet);
                 newBullet = null;
-                reloadTime = 0f;
+                reloadTime = 0.2f;
             }
 
         }

@@ -29,6 +29,8 @@ namespace Test
                 new MacroBlock(new int[] { 0, 1, 2 }, 3, 32),
                 new MacroBlock(new int[] { 0, 1, 1, 2 }, 5, 32),
                 new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 4, 36),
+                new MacroBlock(new int[] { 0, 2}, 3, 39),
+                new MacroBlock(new int[] { 3 }, 2, 40),
                 new MacroBlock(new int[] {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2}, 6, 0)
             }
         };
