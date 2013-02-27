@@ -147,18 +147,18 @@ namespace Test
                 dir.Normalize();
 
                 //coordinates of new bullet position
-                float dist = (float)Math.Sqrt((double)(30 * Scale * 30 * Scale) + (7 * Scale * 7 * Scale));
+                float dist = Fsqrt((30 * 30 * Scale * Scale) + (7 * 7 * Scale * Scale));
                 float xx;
                 float yy;
                 if (currentFacing == Facing.Right)
                 {
-                    xx = gunPosition.X + (float)Math.Cos((double)Rotation) * dist;
-                    yy = gunPosition.Y + (float)Math.Sin((double)Rotation) * dist;
+                    xx = gunPosition.X + FCos(Rotation) * dist;
+                    yy = gunPosition.Y + FSin(Rotation) * dist;
                 }
                 else
                 {
-                    xx = gunPosition.X - (float)Math.Cos((double)Rotation) * dist;
-                    yy = gunPosition.Y - (float)Math.Sin((double)Rotation) * dist;
+                    xx = gunPosition.X - FCos(Rotation) * dist;
+                    yy = gunPosition.Y - FSin(Rotation) * dist;
                 }
 
                 newBullet = new Bullet(new Vector2(xx, yy), dir, this.Rotation);

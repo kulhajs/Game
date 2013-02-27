@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -60,5 +61,42 @@ namespace Test
         {
             theSpriteBatch.Draw(texture, Position, Source, color, rotation, origin, Scale, SpriteEffects.None, 0);
         }
+
+        /// <summary>
+        /// float sqrt
+        /// </summary>
+        public float Fsqrt(float x)
+        {
+            return (float)Math.Sqrt((double)x);
+        }
+
+        /// <summary>
+        /// float arc tan
+        /// </summary>
+        public float FAtan(float x)
+        {
+            return (float)Math.Atan((double)x);
+        }
+
+        /// <summary>
+        /// float sinus
+        /// </summary>
+        public float FSin(float x)
+        {
+            return (float)Math.Sin((double)x);
+        }
+
+        /// <summary>
+        /// float cosinus
+        /// </summary>
+        public float FCos(float x)
+        {
+            return (float)Math.Cos((double)x);
+        }
+
+        /// <summary>
+        /// float Pi
+        /// </summary>
+        public float FPI { get { return (float)Math.PI; } }
     }
 }

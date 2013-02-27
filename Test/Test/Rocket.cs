@@ -15,7 +15,16 @@ namespace Test
 
         float delta = 0.025f;
 
-        public Rocket(Vector2 position,Vector2 direction ,float rotation)
+        const int animationLenght = 9;
+        int currentFrame = 0;
+
+        Rectangle[] sources = new Rectangle[] {
+            new Rectangle(0,0,16,5),
+            new Rectangle(0,5,16,5),
+            new Rectangle(0,10,16,5)
+        };
+
+        public Rocket(Vector2 position, Vector2 direction, float rotation)
         {
             this.Position = position;
             this.direction = direction;
@@ -34,7 +43,7 @@ namespace Test
 
             if (newDirection.X > direction.X)
                 direction.X += delta;
-             if (newDirection.X < direction.X)
+            if (newDirection.X < direction.X)
                 direction.X -= delta;
 
             if (newDirection.Y > direction.Y)
@@ -43,11 +52,27 @@ namespace Test
                 direction.Y -= delta;
 
             if (direction.X < 0)
-                this.Rotation = (float)Math.Atan((double)(direction.Y / direction.X));
+                this.Rotation = this.FAtan(direction.Y / direction.X);
             else
-                this.Rotation = (float)Math.Atan((double)(direction.Y / direction.X)) + (float)Math.PI;
+                this.Rotation = this.FAtan(direction.Y / direction.X) + this.FPI;
 
             Position += velocity * direction * (float)theGameTime.ElapsedGameTime.TotalSeconds;
+
+            this.Animate();
+        }
+
+        private void Animate()
+        {
+            if (currentFrame < 2 * animationLenght / 3)
+                Source = sources[0];
+            else if (currentFrame < animationLenght / 3)
+                Source = sources[1];
+            else if (currentFrame < animationLenght)
+                Source = sources[2];
+            else
+                currentFrame = 0;
+
+            currentFrame++;
         }
 
         public void Draw(SpriteBatch theSpriteBatch)
