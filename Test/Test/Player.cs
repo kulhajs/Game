@@ -22,7 +22,7 @@ namespace Test
         Texture2D body;
         Texture2D gun;
         Texture2D crosshair;
-
+         
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64), //IDLE
             new Rectangle(64, 0, 64, 64), //JUMP
@@ -36,8 +36,6 @@ namespace Test
             new Rectangle(448, 64, 64, 64) //END Running
         };
 
-        Rectangle switchRectangle;
-
         List<Bullet> bullets;
         Bullet newBullet;
         
@@ -45,6 +43,8 @@ namespace Test
 
         int animationLenght = 40;
         int currentFrame = 0;
+
+        float jumpHeight = 270f;
 
         const float gravity = 8f;
         float reloadTime = 0.2f;
@@ -84,7 +84,7 @@ namespace Test
         {
             this.Position = position;
             this.Rotation = initRotation;
-            this.Scale = 0.667f;
+            this.Scale = 0.667f; 
             this.Color = Color.White;
             this.Falling = true;
             this.Jumping = false;
@@ -225,7 +225,7 @@ namespace Test
 
             if(currentKeyboardState.IsKeyDown(Keys.Space) && !oldKeyboardState.IsKeyDown(Keys.Space) && !Falling)
             {
-                velocity.Y = 270f; 
+                velocity.Y = jumpHeight; 
                 Jumping = true;
             }
 

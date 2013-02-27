@@ -31,8 +31,8 @@ namespace Test
             new Rectangle(128, 0, 64, 64)
         };
 
-        List<Bullet> bullets;
-        Bullet newBullet;
+        List<Rocket> bullets;
+        Rocket newBullet;
 
         Vector2 bulletDirection;
 
@@ -40,7 +40,7 @@ namespace Test
         {
             this.Position = position;
             this.Scale = 0.667f;
-            bullets = new List<Bullet>();
+            bullets = new List<Rocket>();
         }
 
         public bool SeePlayer { get; set; }
@@ -61,7 +61,7 @@ namespace Test
 
             if (dx > 32 && dist < vision * vision && (dy < 100 && dy > -30)) //TODO: Light Color / complete vision
             {
-                this.Rotation = (float)Math.Atan((double)((dy - 10) / dx)); //(dy-10) so it doesn't aim on top of head
+                this.Rotation = (float)Math.Atan((double)((dy - 2) / dx)); //(dy-10) so it doesn't aim on top of head
                 lightColor = 2;
                 this.SeePlayer = true;
             }
@@ -71,25 +71,25 @@ namespace Test
                 this.SeePlayer = false;
             }
 
-            if (reloadTime < 0.1f)
+            if (reloadTime < 0.8f)
                 reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            if(reloadTime > 0.1f && SeePlayer)
+            if(reloadTime > 0.8f && SeePlayer)
             {
-                bulletDirection = new Vector2(p.X - this.X, (p.Y + 10) - this.Y); //(dy-10) so it doesn't shoot on top of head
+                bulletDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(dy-10) so it doesn't shoot on top of head
                 bulletDirection.Normalize();
                 
                 float xx = this.X + (float)Math.Cos((double)Rotation) * (float)Math.Sqrt((double)(32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale));
 
-                newBullet = new Bullet(new Vector2(xx, Y + 5 * Scale), bulletDirection, this.Rotation);
+                newBullet = new Rocket(new Vector2(xx, Y + 5 * Scale), bulletDirection, this.Rotation);
                 newBullet.LoadContent(contentManager);
                 bullets.Add(newBullet);
                 newBullet = null;
                 reloadTime = 0f;
             }
 
-            foreach (Bullet b in bullets)
-                b.Update(theGameTime);
+            foreach (Rocket b in bullets)
+                b.Update(theGameTime, new Vector2(p.X - b.X, (p.Y + 2) - b.Y));
 
             this.Animate();
         }
@@ -108,7 +108,7 @@ namespace Test
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            foreach (Bullet b in bullets)
+            foreach (Rocket b in bullets)
                 b.Draw(theSpriteBatch);
 
             theSpriteBatch.Draw(gun, 
