@@ -42,7 +42,10 @@ namespace Test
             if (newDirection.Y < direction.Y)
                 direction.Y -= delta;
 
-            //TODO: Rotation
+            if (direction.X < 0)
+                this.Rotation = (float)Math.Atan((double)(direction.Y / direction.X));
+            else
+                this.Rotation = (float)Math.Atan((double)(direction.Y / direction.X)) + (float)Math.PI;
 
             Position += velocity * direction * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
