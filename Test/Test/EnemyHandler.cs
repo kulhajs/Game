@@ -25,7 +25,8 @@ namespace Test
             towers.Add(new Tower(new Vector2(1664, 256 + 24 * 1 / 0.667f)));
             towers.Add(new Tower(new Vector2(2176, 128 + 24 * 1 / 0.667f)));
             //_________________________DOORS_________________________________
-            doors.Add(new FlashDoor(new Vector2(576, 128 + 4), new Vector2(128, 192 + 16)));
+            doors.Add(new FlashDoor(new Vector2(576, 128 + 4), new Vector2(384, 192 + 16)));
+            doors.Add(new FlashDoor(new Vector2(2432, 128 + 4), new Vector2(1152, 64 + 16)));
         }
 
         public void LoadContent(ContentManager theContentManager)

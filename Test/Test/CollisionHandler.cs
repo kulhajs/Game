@@ -9,7 +9,8 @@ namespace Test
     class CollisionHandler
     {
         Rectangle playerRectangle;
-        Rectangle doorRectangle;
+        Rectangle doorRectangle_L;
+        Rectangle doorRectangle_R;
         Rectangle switchRectangle;
         Rectangle rocketRectangle;
 
@@ -37,11 +38,18 @@ namespace Test
             {
                 if(f.Switch)
                 {
-                    doorRectangle = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 8, 122);
-                    if (doorRectangle.Intersects(playerRectangle))
+                    doorRectangle_L = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 4, 122);
+                    doorRectangle_R = new Rectangle((int)f.Position.X + 32, (int)f.Position.Y + 11, 4, 122);
+                    if (doorRectangle_L.Intersects(playerRectangle))
                     {
                         p.Hitpoints -= doorDmg;
                         p.DX = -4;
+                        p.Push = true;
+                    }
+                    else if(doorRectangle_R.Intersects(playerRectangle))
+                    {
+                        p.Hitpoints -= doorDmg;
+                        p.DX = 4;
                         p.Push = true;
                     }
                 }
@@ -49,7 +57,8 @@ namespace Test
                 switchRectangle = new Rectangle((int)f.SPosition.X + 24, (int)f.SPosition.Y + 24, 16, 16);
                 if (playerRectangle.Intersects(switchRectangle) && p.IntersectWithSwitch == null)
                     p.IntersectWithSwitch = f;
-                else if (!playerRectangle.Intersects(switchRectangle) && p.IntersectWithSwitch != null)
+
+                if (!playerRectangle.Intersects(switchRectangle) && p.IntersectWithSwitch == f)
                     p.IntersectWithSwitch = null;
             }
         }

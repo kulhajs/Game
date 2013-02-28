@@ -44,7 +44,7 @@ namespace Test
         int animationLenght = 40;
         int currentFrame = 0;
 
-        float jumpHeight = 270f;
+        float jumpHeight = 270f; 
 
         const float gravity = 8f;
         float reloadTime = 0.2f;
@@ -240,6 +240,8 @@ namespace Test
             {
                 if (DX < -1)
                     DX += 0.25f;
+                else if (DX > 1)
+                    DX -= 0.25f;
                 else
                     Push = false;
             }
