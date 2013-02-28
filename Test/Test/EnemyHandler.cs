@@ -40,10 +40,10 @@ namespace Test
                 f.LoadContent(theContentManager);
         }
 
-        public void Update(Player player, GameTime theGameTime)
+        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions)
         {
             foreach (Tower t in towers)
-                t.Update(player, theGameTime);
+                t.Update(player, theGameTime, explosions);
 
             foreach (FlashDoor f in doors)
                 f.Update(theGameTime);

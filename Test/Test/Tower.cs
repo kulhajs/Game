@@ -53,13 +53,13 @@ namespace Test
             Source = sources[1];
         }
 
-        public void Update(Player p, GameTime theGameTime)
+        public void Update(Player p, GameTime theGameTime, ExplosionHandler explosions)
         {
             float dx = this.Position.X - p.X;
             float dy = this.Position.Y - p.Y;
             float dist = dx * dx + dy * dy;
 
-            if (dx > 32 && dist < vision * vision && (dy < 100 && dy > -30)) //TODO: Light Color / complete vision
+            if (dx > 64 && dist < vision * vision && (dy < 100 && dy > -30)) //TODO: Light Color / complete vision
             {
                 this.Rotation = FAtan((dy - 2) / dx);
                 lightColor = 2;
@@ -76,7 +76,7 @@ namespace Test
 
             if(reloadTime > 1.0f && SeePlayer)
             {
-                rocketDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(dy-10) so it doesn't shoot on top of head
+                rocketDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(p.Y + 2) so it doesn't shoot on top of head
                 rocketDirection.Normalize();
                 
                 float xx = this.X + FCos(Rotation) * Fsqrt((32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale));
@@ -93,15 +93,16 @@ namespace Test
                     r.Update(theGameTime, new Vector2(p.X - r.X, (p.Y + 2) - r.Y));
 
             this.Animate();
-            this.RemoveRocket();
+            this.RemoveRocket(explosions);
         }
 
-        private void RemoveRocket()
+        private void RemoveRocket(ExplosionHandler explosions)
         {
             foreach(Rocket r in this.rockets)
             {
                 if (!r.Visible)
                 {
+                    explosions.AddExplosion(r.Position, contentManager);
                     rockets.Remove(r);
                     break;
                 }

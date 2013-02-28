@@ -34,7 +34,9 @@ namespace Test
 
         Player p;
         Level l;
+
         EnemyHandler enemies;
+        ExplosionHandler explosions;
 
         Camera camera;
 
@@ -56,6 +58,7 @@ namespace Test
 
             enemies = new EnemyHandler();
             enemies.Initiliaze();
+            explosions = new ExplosionHandler();
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
 
@@ -93,7 +96,8 @@ namespace Test
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
 
-            enemies.Update(p, gameTime);
+            enemies.Update(p, gameTime, explosions);
+            explosions.Update();
             
             oldKeyboardState = currentKeyboardState;
 
@@ -124,6 +128,7 @@ namespace Test
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
             p.Draw(this.spriteBatch);
+            explosions.Draw(this.spriteBatch);
 
             spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
             spriteBatch.DrawString(font, p.Hitpoints + " HP", new Vector2(camera.origin.X + 720, camera.origin.Y + 10), Color.Black);

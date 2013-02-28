@@ -15,6 +15,7 @@ namespace Test
         Rectangle rocketRectangle;
 
         const int doorDmg = 5;
+        const int rocketDmg = 10;
         
         public void HandleMovingCollision(Player p, Level l, int level = 0)
         {
@@ -65,7 +66,7 @@ namespace Test
 
         public void HandleRocketCollision(Player p, EnemyHandler e)
         {
-            playerRectangle = new Rectangle((int)p.X + 17, (int)p.Y + 2, 23, 34);
+            playerRectangle = new Rectangle((int)(p.X + 17 * p.Scale), (int)(p.Y + 2 * p.Scale), (int)(23 * p.Scale), (int)(34 * p.Scale));
             foreach(Tower t in e.towers)
                 foreach(Rocket r in t.rockets)
                     if (r.Visible)
@@ -74,7 +75,7 @@ namespace Test
                         if (playerRectangle.Intersects(rocketRectangle))
                         {
                             r.Visible = false;
-                            p.Color = Color.Red;
+                            p.Hitpoints -= rocketDmg;
                         }
                     }
         }
