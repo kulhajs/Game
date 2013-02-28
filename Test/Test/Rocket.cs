@@ -10,25 +10,30 @@ namespace Test
 {
     class Rocket : Sprite
     {
-        Vector2 velocity = new Vector2(250, 250);
+        Vector2 velocity = new Vector2(450, 450);
         Vector2 direction;
 
-        float delta = 0.025f;
+        float delta = 0.015f; //0.025f
+
+        float lifeTime = 3.0f;
 
         const int animationLenght = 9;
         int currentFrame = 0;
-
+        
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0,0,16,5),
             new Rectangle(0,5,16,5),
             new Rectangle(0,10,16,5)
         };
 
+        public bool Visible { get; set; }
+
         public Rocket(Vector2 position, Vector2 direction, float rotation)
         {
             this.Position = position;
             this.direction = direction;
             this.Rotation = rotation;
+            this.Visible = true;
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -39,6 +44,11 @@ namespace Test
 
         public void Update(GameTime theGameTime, Vector2 newDirection)
         {
+            if (lifeTime > 0.0f)
+                lifeTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
+            else
+                Visible = false;
+
             newDirection.Normalize();
 
             if (newDirection.X > direction.X)
@@ -57,7 +67,7 @@ namespace Test
                 this.Rotation = this.FAtan(direction.Y / direction.X) + this.FPI;
 
             Position += velocity * direction * (float)theGameTime.ElapsedGameTime.TotalSeconds;
-
+            
             this.Animate();
         }
 

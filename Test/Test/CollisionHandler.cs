@@ -11,6 +11,7 @@ namespace Test
         Rectangle playerRectangle;
         Rectangle doorRectangle;
         Rectangle switchRectangle;
+        Rectangle rocketRectangle;
         
         public void HandleMovingCollision(Player p, Level l, int level = 0)
         {
@@ -45,6 +46,22 @@ namespace Test
                 else if (!playerRectangle.Intersects(switchRectangle) && p.IntersectWithSwitch != null)
                     p.IntersectWithSwitch = null;
             }
+        }
+
+        public void HandleRocketCollision(Player p, EnemyHandler e)
+        {
+            playerRectangle = new Rectangle((int)p.X + 17, (int)p.Y + 2, 23, 34);
+            foreach(Tower t in e.towers)
+                foreach(Rocket r in t.rockets)
+                    if (r.Visible)
+                    {
+                        rocketRectangle = new Rectangle((int)r.X, (int)r.Y, 3, 3);
+                        if (playerRectangle.Intersects(rocketRectangle))
+                        {
+                            r.Visible = false;
+                            p.Color = Color.Red;
+                        }
+                    }
         }
     }
 

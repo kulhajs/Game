@@ -89,6 +89,7 @@ namespace Test
 
             ch.HandleMovingCollision(p, l);
             ch.HandleDoorCollision(p, enemies);
+            ch.HandleRocketCollision(p, enemies);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
 

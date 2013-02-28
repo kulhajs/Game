@@ -31,7 +31,7 @@ namespace Test
             new Rectangle(128, 0, 64, 64)
         };
 
-        List<Rocket> rockets;
+        public List<Rocket> rockets;
         Rocket newRocket;
 
         Vector2 rocketDirection;
@@ -71,10 +71,10 @@ namespace Test
                 this.SeePlayer = false;
             }
 
-            if (reloadTime < 1.0f)
+            if (reloadTime < 0.75f)
                 reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            if(reloadTime > 1.0f && SeePlayer)
+            if(reloadTime > 0.75f && SeePlayer)
             {
                 rocketDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(dy-10) so it doesn't shoot on top of head
                 rocketDirection.Normalize();
@@ -88,10 +88,24 @@ namespace Test
                 reloadTime = 0f;
             }
 
-            foreach (Rocket b in rockets)
-                b.Update(theGameTime, new Vector2(p.X - b.X, (p.Y + 2) - b.Y));
+            foreach (Rocket r in rockets)
+                if (r.Visible)
+                    r.Update(theGameTime, new Vector2(p.X - r.X, (p.Y + 2) - r.Y));
 
             this.Animate();
+            this.RemoveRocket();
+        }
+
+        private void RemoveRocket()
+        {
+            foreach(Rocket r in this.rockets)
+            {
+                if (!r.Visible)
+                {
+                    rockets.Remove(r);
+                    break;
+                }
+            }
         }
 
         private void Animate()
@@ -108,8 +122,9 @@ namespace Test
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
-            foreach (Rocket b in rockets)
-                b.Draw(theSpriteBatch);
+            foreach (Rocket r in rockets)
+                if (r.Visible)
+                    r.Draw(theSpriteBatch);
 
             theSpriteBatch.Draw(gun, 
                 new Vector2(this.Position.X + 33 * this.Scale, this.Position.Y + 9 * this.Scale), 
