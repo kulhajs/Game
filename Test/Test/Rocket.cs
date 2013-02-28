@@ -13,9 +13,11 @@ namespace Test
         Vector2 velocity = new Vector2(450, 450);
         Vector2 direction;
 
+        Random random = new Random();
+
         float delta = 0.015f; //0.025f
 
-        float lifeTime = 3.0f;
+        float lifeTime;
 
         const int animationLenght = 9;
         int currentFrame = 0;
@@ -34,6 +36,7 @@ namespace Test
             this.direction = direction;
             this.Rotation = rotation;
             this.Visible = true;
+            lifeTime = (float)(random.NextDouble() * 2 + 0.5);
         }
 
         public void LoadContent(ContentManager theContentManager)

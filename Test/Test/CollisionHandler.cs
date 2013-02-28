@@ -12,6 +12,8 @@ namespace Test
         Rectangle doorRectangle;
         Rectangle switchRectangle;
         Rectangle rocketRectangle;
+
+        const int doorDmg = 5;
         
         public void HandleMovingCollision(Player p, Level l, int level = 0)
         {
@@ -35,9 +37,9 @@ namespace Test
             {
                 if(f.Switch)
                 {
-                    doorRectangle = new Rectangle((int)f.Position.X, (int)f.Position.Y, 64, 136);
+                    doorRectangle = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 8, 122);
                     if (doorRectangle.Intersects(playerRectangle))
-                        p.Color = Color.Red;
+                        p.Hitpoints -= doorDmg;
                 }
 
                 switchRectangle = new Rectangle((int)f.SPosition.X + 24, (int)f.SPosition.Y + 24, 16, 16);

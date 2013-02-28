@@ -125,7 +125,9 @@ namespace Test
             enemies.Draw(this.spriteBatch);
             p.Draw(this.spriteBatch);
 
-            spriteBatch.DrawString(font, "FPS " + FPS, new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
+            spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
+            spriteBatch.DrawString(font, p.Hitpoints + " HP", new Vector2(camera.origin.X + 720, camera.origin.Y + 10), Color.Black);
+
             frame++;
             spriteBatch.End();
 

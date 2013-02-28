@@ -71,10 +71,10 @@ namespace Test
                 this.SeePlayer = false;
             }
 
-            if (reloadTime < 0.75f)
+            if (reloadTime < 1.0f)
                 reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            if(reloadTime > 0.75f && SeePlayer)
+            if(reloadTime > 1.0f && SeePlayer)
             {
                 rocketDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(dy-10) so it doesn't shoot on top of head
                 rocketDirection.Normalize();

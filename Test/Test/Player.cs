@@ -48,6 +48,8 @@ namespace Test
 
         const float gravity = 8f;
         float reloadTime = 0.2f;
+
+        const int maxHealth = 100;
         
         Vector2 velocity = new Vector2(150, 0);
 
@@ -74,6 +76,8 @@ namespace Test
             set { velocity.Y = value; }
         }
 
+        public int Hitpoints { get; set; }
+
         public bool Falling { get; set; }
 
         public bool Jumping { get; set; }
@@ -84,7 +88,8 @@ namespace Test
         {
             this.Position = position;
             this.Rotation = initRotation;
-            this.Scale = 0.667f; 
+            this.Scale = 0.667f;
+            this.Hitpoints = maxHealth;
             this.Color = Color.White;
             this.Falling = true;
             this.Jumping = false;
@@ -124,6 +129,9 @@ namespace Test
 
             if (reloadTime > 0.0f)
                 reloadTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
+
+            if (this.Hitpoints < 0)
+                this.Color = Color.Red;
 
             if (currentFacing == Facing.Right)
                 gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
