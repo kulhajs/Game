@@ -82,6 +82,8 @@ namespace Test
 
         public bool Jumping { get; set; }
 
+        public bool Push { get; set; }
+
         public FlashDoor IntersectWithSwitch { get; set; }
 
         public Player(Vector2 position, float initRotation=0.0f)
@@ -93,6 +95,7 @@ namespace Test
             this.Color = Color.White;
             this.Falling = true;
             this.Jumping = false;
+            this.Push = false;
             this.bullets = new List<Bullet>();
         }
 
@@ -213,23 +216,33 @@ namespace Test
         {
             DY = 0;
 
-            if (currentKeyboardState.IsKeyDown(Keys.D) && DX == 0 && !Jumping && !Falling)
+            if(!Push)
             {
-                DX = 1;
-                currentFacing = Facing.Right;
-            }
-            else if (currentKeyboardState.IsKeyDown(Keys.A) && DX == 0 && !Jumping && !Falling)
-            {
-                DX = -1;
-                currentFacing = Facing.Left;
-            }
+                if (currentKeyboardState.IsKeyDown(Keys.D) && DX == 0 && !Jumping && !Falling)
+                {
+                    DX = 1;
+                    currentFacing = Facing.Right;
+                }
+                else if (currentKeyboardState.IsKeyDown(Keys.A) && DX == 0 && !Jumping && !Falling)
+                {
+                    DX = -1;
+                    currentFacing = Facing.Left;
+                }
 
-            if (currentKeyboardState.IsKeyUp(Keys.D) && oldKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling)
-                DX = 0f;
-            else if (currentKeyboardState.IsKeyUp(Keys.A) && oldKeyboardState.IsKeyDown(Keys.A) && !Jumping && !Falling)
-                DX = 0f;
-            else if (currentKeyboardState.IsKeyUp(Keys.D) && currentKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling)
-                DX = 0f;
+                if (currentKeyboardState.IsKeyUp(Keys.D) && oldKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling)
+                    DX = 0f;
+                else if (currentKeyboardState.IsKeyUp(Keys.A) && oldKeyboardState.IsKeyDown(Keys.A) && !Jumping && !Falling)
+                    DX = 0f;
+                else if (currentKeyboardState.IsKeyUp(Keys.D) && currentKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling)
+                    DX = 0f;
+            }
+            else
+            {
+                if (DX < -1)
+                    DX += 0.25f;
+                else
+                    Push = false;
+            }
 
             if(currentKeyboardState.IsKeyDown(Keys.Space) && !oldKeyboardState.IsKeyDown(Keys.Space) && !Falling)
             {

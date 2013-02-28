@@ -39,7 +39,11 @@ namespace Test
                 {
                     doorRectangle = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 8, 122);
                     if (doorRectangle.Intersects(playerRectangle))
+                    {
                         p.Hitpoints -= doorDmg;
+                        p.DX = -4;
+                        p.Push = true;
+                    }
                 }
 
                 switchRectangle = new Rectangle((int)f.SPosition.X + 24, (int)f.SPosition.Y + 24, 16, 16);
