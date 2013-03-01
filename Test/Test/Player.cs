@@ -216,37 +216,32 @@ namespace Test
         {
             DY = 0;
 
-            if(!Push)
-            {
-                if (currentKeyboardState.IsKeyDown(Keys.D) && DX == 0 && !Jumping && !Falling)
+            if(!Push) //if player is not pushed away from doors (you cannot control your movement during that)
+            { 
+                if (currentKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
                 {
                     DX = 1;
                     currentFacing = Facing.Right;
                 }
-                else if (currentKeyboardState.IsKeyDown(Keys.A) && DX == 0 && !Jumping && !Falling)
+                else if (currentKeyboardState.IsKeyDown(Keys.A)  && !Jumping && !Falling)
                 {
                     DX = -1;
                     currentFacing = Facing.Left;
                 }
-
-                if (currentKeyboardState.IsKeyUp(Keys.D) && oldKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling) 
-                    DX = 0f;
-                else if (currentKeyboardState.IsKeyUp(Keys.A) && oldKeyboardState.IsKeyDown(Keys.A) && !Jumping && !Falling)
-                    DX = 0f;
-                else if (currentKeyboardState.IsKeyUp(Keys.D) && currentKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling)
-                    DX = 0f;
+                else if (!Jumping && !Falling) //if not jumping or falling, horizontal velocity = 0 no matter the previous key
+                    DX = 0.0f;
             }
             else
             {
-                if (DX < -1)
+                if (DX < -1) //push to left
                     DX += 0.25f;
-                else if (DX > 1)
+                else if (DX > 1) //push to right
                     DX -= 0.25f;
                 else
                     Push = false;
             }
 
-            if(currentKeyboardState.IsKeyDown(Keys.Space) && !oldKeyboardState.IsKeyDown(Keys.Space) && !Falling)
+            if(currentKeyboardState.IsKeyDown(Keys.W) && !oldKeyboardState.IsKeyDown(Keys.W) && !Falling)
             {
                 velocity.Y = jumpHeight; 
                 Jumping = true;
@@ -263,7 +258,6 @@ namespace Test
             {
                 velocity.Y += gravity;
                 DY = 1f;
-                //Jumping = false;
             }
             else
                 velocity.Y = 0;
