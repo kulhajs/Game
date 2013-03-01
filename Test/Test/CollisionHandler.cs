@@ -39,18 +39,18 @@ namespace Test
             {
                 if(f.Switch)
                 {
-                    doorRectangle_L = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 4, 122);
-                    doorRectangle_R = new Rectangle((int)f.Position.X + 32, (int)f.Position.Y + 11, 4, 122);
+                    doorRectangle_L = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 4, 122); //left side of door laser beam
+                    doorRectangle_R = new Rectangle((int)f.Position.X + 32, (int)f.Position.Y + 11, 4, 122); //right side of door laser beam
                     if (doorRectangle_L.Intersects(playerRectangle))
                     {
                         p.Hitpoints -= doorDmg;
-                        p.DX = -4;
+                        p.DX = -4; //push to the left
                         p.Push = true;
                     }
                     else if(doorRectangle_R.Intersects(playerRectangle))
                     {
                         p.Hitpoints -= doorDmg;
-                        p.DX = 4;
+                        p.DX = 4; //push to the right
                         p.Push = true;
                     }
                 }

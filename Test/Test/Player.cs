@@ -158,7 +158,7 @@ namespace Test
                 dir.Normalize();
 
                 //coordinates of new bullet position
-                float dist = Fsqrt((30 * 30 * Scale * Scale) + (7 * 7 * Scale * Scale));
+                float dist = Fsqrt((30 * 30 * Scale * Scale) + (7 * 7 * Scale * Scale)); //distance from Vector2.origin to position where new bullet appears
                 float xx;
                 float yy;
                 if (currentFacing == Facing.Right)
@@ -183,7 +183,7 @@ namespace Test
 
         private void UpdateAnimation()
         {
-            if (Jumping || Falling)
+            if (Jumping || Falling)        
                 this.Source = sources[1];
             else if (DX == 0)
                 this.Source = sources[0];
@@ -229,7 +229,7 @@ namespace Test
                     currentFacing = Facing.Left;
                 }
 
-                if (currentKeyboardState.IsKeyUp(Keys.D) && oldKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling)
+                if (currentKeyboardState.IsKeyUp(Keys.D) && oldKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling) 
                     DX = 0f;
                 else if (currentKeyboardState.IsKeyUp(Keys.A) && oldKeyboardState.IsKeyDown(Keys.A) && !Jumping && !Falling)
                     DX = 0f;
@@ -254,16 +254,16 @@ namespace Test
 
             if (Jumping)
             {
-                velocity.Y -= gravity; //5f
+                velocity.Y -= gravity;
                 DY = -1f;
                 if (velocity.Y < 0)
                     Jumping = false;
             }
             else if (Falling)
             {
-                velocity.Y += gravity; //5f
+                velocity.Y += gravity;
                 DY = 1f;
-                Jumping = false;
+                //Jumping = false;
             }
             else
                 velocity.Y = 0;

@@ -24,6 +24,7 @@ namespace Test
         int vision = 375;
 
         float reloadTime = 0f;
+        float initRealoadTime = 0.5f;
 
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),
@@ -57,11 +58,11 @@ namespace Test
         {
             float dx = this.Position.X - p.X;
             float dy = this.Position.Y - p.Y;
-            float dist = dx * dx + dy * dy;
+            float dist = dx * dx + dy * dy;     //distance from player to tower
 
-            if (dx > 64 && dist < vision * vision && (dy < 100 && dy > -30)) //TODO: Light Color / complete vision
+            if (dx > 64 && dist < vision * vision && (dy < 100 && dy > -30)) //if distance.X < 64 and distance y < 100 && > 30 then Rotate - facing player
             {
-                this.Rotation = FAtan((dy - 2) / dx);
+                this.Rotation = FAtan((dy + 2) / dx); //(y+2) so it doesn't aim at very top of head
                 lightColor = 2;
                 this.SeePlayer = true;
             }
@@ -71,15 +72,15 @@ namespace Test
                 this.SeePlayer = false;
             }
 
-            if (reloadTime < 1.0f)
+            if (reloadTime < initRealoadTime)
                 reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            if(reloadTime > 1.0f && SeePlayer)
+            if (reloadTime > initRealoadTime && SeePlayer)
             {
                 rocketDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(p.Y + 2) so it doesn't shoot on top of head
                 rocketDirection.Normalize();
                 
-                float xx = this.X + FCos(Rotation) * Fsqrt((32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale));
+                float xx = this.X + FCos(Rotation) * Fsqrt((32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale)); //x coordinate of new rocket
 
                 newRocket = new Rocket(new Vector2(xx, Y + 5 * Scale), rocketDirection, this.Rotation);
                 newRocket.LoadContent(contentManager);
@@ -90,7 +91,7 @@ namespace Test
 
             foreach (Rocket r in rockets)
                 if (r.Visible)
-                    r.Update(theGameTime, new Vector2(p.X - r.X, (p.Y + 2) - r.Y));
+                    r.Update(theGameTime, new Vector2(p.X - r.X, (p.Y + 2) - r.Y)); 
 
             this.Animate();
             this.RemoveRocket(explosions);
@@ -102,7 +103,7 @@ namespace Test
             {
                 if (!r.Visible)
                 {
-                    explosions.AddExplosion(r.Position, contentManager);
+                    explosions.AddExplosion(r.Position, contentManager); //each time rocket is removed, explosion is created
                     rockets.Remove(r);
                     break;
                 }
