@@ -36,7 +36,7 @@ namespace Test
             this.direction = direction;
             this.Rotation = rotation;
             this.Visible = true;
-            lifeTime = (float)(random.NextDouble() * 2 + 0.5);
+            lifeTime = (float)(random.NextDouble() * 2 + 1.0);
         }
 
         public void LoadContent(ContentManager theContentManager)
