@@ -24,7 +24,7 @@ namespace Test
         int vision = 375;
 
         float reloadTime = 0f;
-        float initRealoadTime = 0.5f;
+        float initRealoadTime = 0.05f; //1.0f - 1.25f
 
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),
@@ -77,7 +77,7 @@ namespace Test
 
             if (reloadTime > initRealoadTime && SeePlayer)
             {
-                rocketDirection = new Vector2(p.X - this.X, (p.Y + 2) - this.Y); //(p.Y + 2) so it doesn't shoot on top of head
+                rocketDirection = new Vector2((p.X + 21 * p.Scale) - this.X, (p.Y + 3 * p.Scale) - this.Y); //(p.Y + 2) so it doesn't shoot on top of head
                 rocketDirection.Normalize();
                 
                 float xx = this.X + FCos(Rotation) * Fsqrt((32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale)); //x coordinate of new rocket
@@ -91,7 +91,7 @@ namespace Test
 
             foreach (Rocket r in rockets)
                 if (r.Visible)
-                    r.Update(theGameTime, new Vector2(p.X - r.X, (p.Y + 2) - r.Y)); 
+                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+20); (p.y+2) so id doesn't aim at player.origin 
 
             this.Animate();
             this.RemoveRocket(explosions);

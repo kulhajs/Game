@@ -66,7 +66,10 @@ namespace Test
 
         public void HandleRocketCollision(Player p, EnemyHandler e)
         {
-            playerRectangle = new Rectangle((int)(p.X + 17 * p.Scale), (int)(p.Y + 2 * p.Scale), (int)(23 * p.Scale), (int)(34 * p.Scale));
+            if (p.Jumping || p.Falling)
+                playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
+            else
+                playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
             foreach(Tower t in e.towers)
                 foreach(Rocket r in t.rockets)
                     if (r.Visible)
