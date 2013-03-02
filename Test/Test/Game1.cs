@@ -21,9 +21,11 @@ namespace Test
         int frame = 0;
         float TIME = 0.0f;
         
-
+        
         const int WIDTH = 800;
         const int HEIGHT = 500;
+
+        
 
         SpriteFont font;
 
@@ -50,7 +52,7 @@ namespace Test
             graphics.PreferredBackBufferHeight = HEIGHT;
             graphics.ApplyChanges();
         }
-
+        
         protected override void Initialize()
         {
             p = new Player(new Vector2(0, 0));
@@ -87,7 +89,7 @@ namespace Test
             // Allows the game to exit
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-
+            
             currentKeyboardState = Keyboard.GetState();
 
             ch.HandleMovingCollision(p, l);

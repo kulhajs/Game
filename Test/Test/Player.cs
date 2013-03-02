@@ -16,7 +16,7 @@ namespace Test
         Left,
         Right
     }
-
+    
     class Player : Sprite
     {
         Texture2D body;
@@ -218,12 +218,12 @@ namespace Test
 
             if(!Push) //if player is not pushed away from doors (you cannot control your movement during that)
             { 
-                if (currentKeyboardState.IsKeyDown(Keys.D) && !Jumping && !Falling) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
+                if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
                 {
                     DX = 1;
                     currentFacing = Facing.Right;
                 }
-                else if (currentKeyboardState.IsKeyDown(Keys.A)  && !Jumping && !Falling)
+                else if (currentKeyboardState.IsKeyDown(Keys.A) && oldKeyboardState.IsKeyUp(Keys.D) && !Jumping && !Falling)
                 {
                     DX = -1;
                     currentFacing = Facing.Left;
