@@ -34,7 +34,8 @@ namespace Test
 
         public void HandleDoorCollision(Player p, EnemyHandler e)
         {
-            playerRectangle = new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 1 * p.Scale), (int)(27 * p.Scale), (int)(63 * p.Scale));
+            playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 12 * p.Scale), (int)(p.Y + 15 * p.Scale), (int)(27 * p.Scale), (int)(49 * p.Scale)) : 
+                                            new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 1 * p.Scale), (int)(27 * p.Scale), (int)(63 * p.Scale));
             foreach(FlashDoor f in e.doors)
             {
                 if(f.Switch)

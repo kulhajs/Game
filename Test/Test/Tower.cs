@@ -24,7 +24,7 @@ namespace Test
         int vision = 375;
 
         float reloadTime = 0f;
-        float initRealoadTime = 0.05f; //1.0f - 1.25f
+        float initRealoadTime = 1.15f; //1.0f - 1.25f
 
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),
@@ -91,7 +91,7 @@ namespace Test
 
             foreach (Rocket r in rockets)
                 if (r.Visible)
-                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+20); (p.y+2) so id doesn't aim at player.origin 
+                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+20); (p.y+3) so id doesn't aim at player.origin 
 
             this.Animate();
             this.RemoveRocket(explosions);

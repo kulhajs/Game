@@ -24,16 +24,17 @@ namespace Test
         Texture2D crosshair;
          
         Rectangle[] sources = new Rectangle[] {
-            new Rectangle(0, 0, 64, 64), //IDLE
-            new Rectangle(64, 0, 64, 64), //JUMP
-            new Rectangle(0, 64, 64, 64), //Running
-            new Rectangle(64, 64, 64, 64),
-            new Rectangle(128, 64, 64, 64), 
-            new Rectangle(192, 64, 64, 64), 
-            new Rectangle(256, 64, 64, 64), 
-            new Rectangle(320, 64, 64, 64),
-            new Rectangle(384, 64, 64, 64), 
-            new Rectangle(448, 64, 64, 64) //END Running
+            new Rectangle(0, 0, 64, 64), //IDLE         //0
+            new Rectangle(64, 0, 64, 64), //JUMP        //1
+            new Rectangle(0, 64, 64, 64), //Running     //2
+            new Rectangle(64, 64, 64, 64),              //3
+            new Rectangle(128, 64, 64, 64),             //4
+            new Rectangle(192, 64, 64, 64),             //5
+            new Rectangle(256, 64, 64, 64),             //6
+            new Rectangle(320, 64, 64, 64),             //7
+            new Rectangle(384, 64, 64, 64),             //8
+            new Rectangle(448, 64, 64, 64), //END Running 9
+            new Rectangle(128, 0, 64, 64) //Crouch      //10
         };
 
         List<Bullet> bullets;
@@ -82,6 +83,8 @@ namespace Test
 
         public bool Jumping { get; set; }
 
+        public bool Crouching { get; set; }
+
         public bool Push { get; set; }
 
         public FlashDoor IntersectWithSwitch { get; set; }
@@ -95,6 +98,7 @@ namespace Test
             this.Color = Color.White;
             this.Falling = true;
             this.Jumping = false;
+            this.Crouching = false;
             this.Push = false;
             this.bullets = new List<Bullet>();
         }
@@ -121,6 +125,14 @@ namespace Test
             else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
                 IntersectWithSwitch.Switch = true;
 
+            if (currentKeyboardState.IsKeyDown(Keys.S) && !Falling && !Jumping)
+            {
+                this.Crouching = true;
+                DX = 0;
+            }
+            else
+                this.Crouching = false;
+
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
 
@@ -137,9 +149,9 @@ namespace Test
                 this.Color = Color.Red;
 
             if (currentFacing == Facing.Right)
-                gunPosition = new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
+                gunPosition = Crouching ? new Vector2(X + 27 * this.Scale, Y + 32 * this.Scale) : new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);
             else
-                gunPosition = new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
+                gunPosition = Crouching ? new Vector2(X + 36 * this.Scale, Y + 32 * this.Scale) : new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
 
             crosshairPosition = new Vector2(mouseState.X + camera.origin.X, mouseState.Y + camera.origin.Y);
         }
@@ -218,12 +230,12 @@ namespace Test
 
             if(!Push) //if player is not pushed away from doors (you cannot control your movement during that)
             { 
-                if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
+                if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling && !Crouching) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
                 {
                     DX = 1;
                     currentFacing = Facing.Right;
                 }
-                else if (currentKeyboardState.IsKeyDown(Keys.A) && oldKeyboardState.IsKeyUp(Keys.D) && !Jumping && !Falling)
+                else if (currentKeyboardState.IsKeyDown(Keys.A) && oldKeyboardState.IsKeyUp(Keys.D) && !Jumping && !Falling && !Crouching)
                 {
                     DX = -1;
                     currentFacing = Facing.Left;
@@ -268,7 +280,7 @@ namespace Test
         public void Draw(SpriteBatch theSpriteBatch)
         {
             //draw body
-            theSpriteBatch.Draw(body,  this.Position, this.Source, this.Color, 0.0f, Vector2.Zero, this.Scale, 
+            theSpriteBatch.Draw(body, this.Position, Crouching ? sources[10] : this.Source, this.Color, 0.0f, Vector2.Zero, this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
             
             //draw gun
