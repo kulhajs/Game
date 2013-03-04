@@ -24,7 +24,7 @@ namespace Test
         int vision = 375;
 
         float reloadTime = 0f;
-        float initRealoadTime = 1.15f; //1.0f - 1.25f
+        float initRealoadTime = 1.15f; //TODO: random(1.0f - 1.25f)
 
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),

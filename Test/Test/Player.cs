@@ -85,6 +85,8 @@ namespace Test
 
         public bool Crouching { get; set; }
 
+        public bool Sliding { get; set; }
+
         public bool Push { get; set; }
 
         public FlashDoor IntersectWithSwitch { get; set; }
@@ -99,6 +101,7 @@ namespace Test
             this.Falling = true;
             this.Jumping = false;
             this.Crouching = false;
+            this.Sliding = false;
             this.Push = false;
             this.bullets = new List<Bullet>();
         }
@@ -112,7 +115,7 @@ namespace Test
             this.Source = sources[0];
         }
 
-        public void Update(MouseState mouseState, KeyboardState currentKeyboardState, KeyboardState oldKeyboardState,  GameTime theGameTime, Camera camera)
+        public void Update(MouseState mouseState, KeyboardState currentKeyboardState, KeyboardState oldKeyboardState, GameTime theGameTime, Camera camera)
         {
             //aiming
             float dx = (mouseState.X + camera.origin.X) - this.X;
@@ -125,13 +128,18 @@ namespace Test
             else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
                 IntersectWithSwitch.Switch = true;
 
-            if (currentKeyboardState.IsKeyDown(Keys.S) && !Falling && !Jumping)
+            //if not in air or already sliding then crouch, if crouch while running then slide!
+            if (currentKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S) && !Falling && !Jumping && !Sliding)
             {
                 this.Crouching = true;
-                DX = 0;
+                if (DX != 0)
+                {
+                    this.Sliding = true;
+                    DX *= 2; //multiplication of current direction (-2 or 2)
+                }
             }
-            else
-                this.Crouching = false;
+            else if (currentKeyboardState.IsKeyUp(Keys.S) && !Sliding)
+                Crouching = false;
 
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
@@ -228,7 +236,7 @@ namespace Test
         {
             DY = 0;
 
-            if(!Push) //if player is not pushed away from doors (you cannot control your movement during that)
+            if(!Push && !Sliding) //if player is not pushed away from doors (you cannot control your movement during that)
             { 
                 if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling && !Crouching) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
                 {
@@ -243,14 +251,28 @@ namespace Test
                 else if (!Jumping && !Falling) //if not jumping or falling, horizontal velocity = 0 no matter the previous key
                     DX = 0.0f;
             }
-            else
+
+            if(Push)
             {
                 if (DX < -1) //push to left
-                    DX += 0.25f;
-                else if (DX > 1) //push to right
-                    DX -= 0.25f;
+                    DX += 0.25f; //addition to given direction (-4), till it's standard direction (-1)
+                else if (DX > 1) //push to right           |
+                    DX -= 0.25f; //                      <-/ the same
                 else
                     Push = false;
+            }
+
+            if (Sliding)
+            {
+                if (DX < -1) //push to left
+                    DX += 0.05f; //addition to given direction (-2), till it's standard direction (-1)
+                else if (DX > 1) //push to right
+                    DX -= 0.05f;
+                else
+                {
+                    Sliding = false;
+                    Crouching = false;
+                }
             }
 
             if(currentKeyboardState.IsKeyDown(Keys.W) && !oldKeyboardState.IsKeyDown(Keys.W) && !Falling)
