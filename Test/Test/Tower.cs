@@ -77,7 +77,7 @@ namespace Test
 
             if (reloadTime > initRealoadTime && SeePlayer)
             {
-                rocketDirection = new Vector2((p.X + 21 * p.Scale) - this.X, (p.Y + 3 * p.Scale) - this.Y); //(p.Y + 2) so it doesn't shoot on top of head
+                rocketDirection = new Vector2((p.X + 21 * p.Scale) - this.X, (p.Y + 3 * p.Scale) - this.Y); //(p.Y + 3) so it doesn't shoot on top of head
                 rocketDirection.Normalize();
                 
                 float xx = this.X + FCos(Rotation) * Fsqrt((32 * 32 * Scale * Scale) + (9 * 9 * Scale * Scale)); //x coordinate of new rocket
@@ -91,7 +91,7 @@ namespace Test
 
             foreach (Rocket r in rockets)
                 if (r.Visible)
-                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+20); (p.y+3) so id doesn't aim at player.origin 
+                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+21); (p.y+3) so id doesn't aim at player.origin 
 
             this.Animate();
             this.RemoveRocket(explosions);

@@ -34,8 +34,7 @@ namespace Test
 
         public void HandleDoorCollision(Player p, EnemyHandler e)
         {
-            playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 12 * p.Scale), (int)(p.Y + 15 * p.Scale), (int)(27 * p.Scale), (int)(49 * p.Scale)) : 
-                                            new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 1 * p.Scale), (int)(27 * p.Scale), (int)(63 * p.Scale));
+            playerRectangle = new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 1 * p.Scale), (int)(27 * p.Scale), (int)(63 * p.Scale));
             foreach(FlashDoor f in e.doors)
             {
                 if(f.Switch)
@@ -70,7 +69,11 @@ namespace Test
             if (p.Jumping || p.Falling)
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
             else
-                playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
+                {
+               playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
+                                            :  new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
+                
+            }
             foreach(Tower t in e.towers)
                 foreach(Rocket r in t.rockets)
                     if (r.Visible)
