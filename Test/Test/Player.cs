@@ -128,19 +128,6 @@ namespace Test
             else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
                 IntersectWithSwitch.Switch = true;
 
-            //if not in air or already sliding then crouch, if crouch while running then slide!
-            if (currentKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S) && !Falling && !Jumping && !Crouching)
-            {
-                this.Crouching = true;
-                if (DX != 0)
-                {
-                    this.Sliding = true;
-                    DX *= 2; //multiplication of current direction (-2 or 2)
-                }
-            }
-            else if (currentKeyboardState.IsKeyUp(Keys.S) && !Sliding)
-                Crouching = false;
-
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
 
@@ -292,6 +279,20 @@ namespace Test
             }
             else
                 velocity.Y = 0;
+
+            //if not in air or already sliding then crouch, if crouch while running then slide!
+            if (currentKeyboardState.IsKeyDown(Keys.S) && !Falling && !Jumping && !Crouching)
+            {
+                this.Crouching = true;
+                if (DX != 0)
+                {
+                    this.Sliding = true;
+                    DX *= 2; //multiplication of current direction (-2 or 2)
+                }
+            }
+            else if (currentKeyboardState.IsKeyUp(Keys.S) && !Sliding)
+                Crouching = false;
+
             
             this.Position += Direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
