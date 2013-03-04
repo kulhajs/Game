@@ -129,7 +129,7 @@ namespace Test
                 IntersectWithSwitch.Switch = true;
 
             //if not in air or already sliding then crouch, if crouch while running then slide!
-            if (currentKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S) && !Falling && !Jumping && !Sliding)
+            if (currentKeyboardState.IsKeyDown(Keys.S) && oldKeyboardState.IsKeyUp(Keys.S) && !Falling && !Jumping && !Crouching)
             {
                 this.Crouching = true;
                 if (DX != 0)
@@ -269,13 +269,10 @@ namespace Test
                 else if (DX > 1) //push to right
                     DX -= 0.05f;
                 else
-                {
-                    Sliding = false;
-                    Crouching = false;
-                }
+                    Sliding = false; 
             }
 
-            if(currentKeyboardState.IsKeyDown(Keys.W) && !oldKeyboardState.IsKeyDown(Keys.W) && !Falling)
+            if(currentKeyboardState.IsKeyDown(Keys.W) && !oldKeyboardState.IsKeyDown(Keys.W) && !Falling && !Crouching)
             {
                 velocity.Y = jumpHeight; 
                 Jumping = true;
