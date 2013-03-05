@@ -131,7 +131,7 @@ namespace Test
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
             this.UpdateAnimation();
 
-            if (mouseState.LeftButton == ButtonState.Pressed)
+            if (mouseState.LeftButton == ButtonState.Pressed && reloadTime < 0.0f)
                 this.UpdateAttack(mouseState, camera);
 
             foreach (Bullet b in bullets)
@@ -153,47 +153,46 @@ namespace Test
 
         private void UpdateAttack(MouseState mouseState, Camera camera)
         {
-            if (reloadTime < 0.0f)
+            //direction of new bullet
+            float x = mouseState.X - (this.X - camera.origin.X);
+            float y = mouseState.Y - (this.Y - camera.origin.Y);
+            //if mouse is pointing in opposite direction than player, it won't shoot
+            if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
+                return;
+            Vector2 dir = new Vector2(x, y);
+            dir.Normalize();
+
+            //coordinates of new bullet position
+            float dist = Fsqrt((30 * 30 * Scale * Scale) + (7 * 7 * Scale * Scale)); //distance from Vector2.origin to position where new bullet appears
+            float xx;
+            float yy;
+            if (currentFacing == Facing.Right)
             {
-                //direction of new bullet
-                float x = mouseState.X - (this.X - camera.origin.X);
-                float y = mouseState.Y - (this.Y - camera.origin.Y);
-                //if mouse is pointing in opposite direction than player, it won't shoot
-                if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
-                    return;
-                Vector2 dir = new Vector2(x, y);
-                dir.Normalize();
-
-                //coordinates of new bullet position
-                float dist = Fsqrt((30 * 30 * Scale * Scale) + (7 * 7 * Scale * Scale)); //distance from Vector2.origin to position where new bullet appears
-                float xx;
-                float yy;
-                if (currentFacing == Facing.Right)
-                {
-                    xx = gunPosition.X + FCos(Rotation) * dist;
-                    yy = gunPosition.Y + FSin(Rotation) * dist;
-                }
-                else
-                {
-                    xx = gunPosition.X - FCos(Rotation) * dist;
-                    yy = gunPosition.Y - FSin(Rotation) * dist;
-                }
-
-                newBullet = new Bullet(new Vector2(xx, yy), dir, this.Rotation);
-                newBullet.LoadContent(contentManager);
-                bullets.Add(newBullet);
-                newBullet = null;
-                reloadTime = 0.2f;
+                xx = gunPosition.X + FCos(Rotation) * dist;
+                yy = gunPosition.Y + FSin(Rotation) * dist;
+            }
+            else
+            {
+                xx = gunPosition.X - FCos(Rotation) * dist;
+                yy = gunPosition.Y - FSin(Rotation) * dist;
             }
 
+            newBullet = new Bullet(new Vector2(xx, yy), dir, this.Rotation);
+            newBullet.LoadContent(contentManager);
+            bullets.Add(newBullet);
+            newBullet = null;
+            reloadTime = 0.2f;
         }
+
 
         private void UpdateAnimation()
         {
             if (Jumping || Falling)        
                 this.Source = sources[1];
-            else if (DX == 0)
+            else if (DX == 0 && !Crouching)
                 this.Source = sources[0];
+            else if(Crouching)
+                this.Source = sources[10];
             else
             {
                 if (currentFrame < animationLenght / 8)
@@ -300,7 +299,7 @@ namespace Test
         public void Draw(SpriteBatch theSpriteBatch)
         {
             //draw body
-            theSpriteBatch.Draw(body, this.Position, Crouching ? sources[10] : this.Source, this.Color, 0.0f, Vector2.Zero, this.Scale, 
+            theSpriteBatch.Draw(body, this.Position, this.Source, this.Color, 0.0f, Vector2.Zero, this.Scale, 
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
             
             //draw gun
