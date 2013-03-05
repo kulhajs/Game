@@ -16,6 +16,8 @@ namespace Test
         Texture2D gun;
         Texture2D body;
 
+        Random random = new Random();
+
         int currentFrame = 0;
         int animationLength = 24;
 
@@ -24,7 +26,7 @@ namespace Test
         int vision = 375;
 
         float reloadTime = 0f;
-        float initRealoadTime = 1.15f; //TODO: random(1.0f - 1.25f)
+        float initRealoadTime; 
 
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),
@@ -41,6 +43,7 @@ namespace Test
         {
             this.Position = position;
             this.Scale = 0.667f;
+            this.initRealoadTime = random.Next(100, 125) / 100;
             rockets = new List<Rocket>();
         }
 
