@@ -37,6 +37,8 @@ namespace Test
         Player p;
         Level l;
 
+        ItemHandler ih;
+
         EnemyHandler enemies;
         ExplosionHandler explosions;
 
@@ -57,6 +59,9 @@ namespace Test
         {
             p = new Player(new Vector2(0, 0));
             l = new Level();
+
+            ih = new ItemHandler();
+            ih.Initialize();
 
             enemies = new EnemyHandler();
             enemies.Initiliaze();
@@ -81,6 +86,8 @@ namespace Test
             p.LoadContent(this.Content);
             l.LoadContent(this.Content);
 
+            ih.LoadContent(this.Content);
+
             enemies.LoadContent(this.Content);
         }
 
@@ -100,7 +107,9 @@ namespace Test
 
             enemies.Update(p, gameTime, explosions);
             explosions.Update();
-            
+
+            ih.Update();
+
             oldKeyboardState = currentKeyboardState;
 
             TIME += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -129,6 +138,7 @@ namespace Test
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
+            ih.Draw(this.spriteBatch);
             p.Draw(this.spriteBatch);
             explosions.Draw(this.spriteBatch);
 
