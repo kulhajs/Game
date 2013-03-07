@@ -15,6 +15,10 @@ namespace Test
     {
         public List<Coin> coins;
 
+        Random random = new Random();
+
+        const int coinCount = 15;
+
         public ItemHandler()
         {
             coins = new List<Coin>();
@@ -22,7 +26,10 @@ namespace Test
 
         public void Initialize()
         {
-            coins.Add(new Coin(new Vector2(128, 196 - 16), Color.White, 0.0f));
+            for (int i = 0; i < coinCount; i++)
+            {
+                coins.Add(new Coin(new Vector2(random.Next(36) * 64 - 24, random.Next(3, 6) * 64 - 16), Color.White, 0.0f));
+            }
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -34,13 +41,27 @@ namespace Test
         public void Update()
         {
             foreach (Coin c in coins)
-                c.Update();
+                if (c.Visible)
+                    c.Update();
+
+            this.RemoveInvisible();
+        }
+
+        private void RemoveInvisible()
+        {
+            foreach(Coin c in coins)
+                if(!c.Visible)
+                {
+                    coins.Remove(c);
+                    break;
+                }
         }
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
             foreach (Coin c in coins)
-                c.Draw(theSpriteBatch);
+                if (c.Visible)
+                    c.Draw(theSpriteBatch);
         }
     }
 }

@@ -13,10 +13,11 @@ namespace Test
         Rectangle doorRectangle_R;
         Rectangle switchRectangle;
         Rectangle rocketRectangle;
+        Rectangle coinRectangle;
 
         const int doorDmg = 5;
         const int rocketDmg = 10;
-        
+
         public void HandleMovingCollision(Player p, Level l, int level = 0)
         {
             p.Falling = true;
@@ -35,9 +36,9 @@ namespace Test
         public void HandleDoorCollision(Player p, EnemyHandler e)
         {
             playerRectangle = new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 1 * p.Scale), (int)(27 * p.Scale), (int)(63 * p.Scale));
-            foreach(FlashDoor f in e.doors)
+            foreach (FlashDoor f in e.doors)
             {
-                if(f.Switch)
+                if (f.Switch)
                 {
                     doorRectangle_L = new Rectangle((int)f.Position.X + 28, (int)f.Position.Y + 11, 4, 122); //left side of door laser beam
                     doorRectangle_R = new Rectangle((int)f.Position.X + 32, (int)f.Position.Y + 11, 4, 122); //right side of door laser beam
@@ -47,7 +48,7 @@ namespace Test
                         p.DX = -4; //push to the left
                         p.Push = true;
                     }
-                    else if(doorRectangle_R.Intersects(playerRectangle))
+                    else if (doorRectangle_R.Intersects(playerRectangle))
                     {
                         p.Hitpoints -= doorDmg;
                         p.DX = 4; //push to the right
@@ -69,13 +70,13 @@ namespace Test
             if (p.Jumping || p.Falling)
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
             else
-                {
-               playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
-                                            :  new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
-                
+            {
+                playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
+                                             : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
+
             }
-            foreach(Tower t in e.towers)
-                foreach(Rocket r in t.rockets)
+            foreach (Tower t in e.towers)
+                foreach (Rocket r in t.rockets)
                     if (r.Visible)
                     {
                         rocketRectangle = new Rectangle((int)r.X, (int)r.Y, 3, 3);
@@ -86,6 +87,28 @@ namespace Test
                         }
                     }
         }
-    }
 
+        public void HandleItemCollision(Player p, ItemHandler i)
+        {
+            if (p.Jumping || p.Falling)
+                playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
+            else
+            {
+                playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
+                                              : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
+
+            }
+            foreach (Coin c in i.coins)
+
+                if (c.Visible)
+                {
+                    coinRectangle = new Rectangle((int)c.X, (int)c.Y, 16, 16);
+                    if (coinRectangle.Intersects(playerRectangle))
+                    {
+                        c.Visible = false;
+                        p.Score += 5;
+                    }
+                }
+        }
+    }
 }

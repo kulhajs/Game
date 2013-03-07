@@ -79,6 +79,8 @@ namespace Test
 
         public int Hitpoints { get; set; }
 
+        public int Score { get; set; }
+
         public bool Falling { get; set; }
 
         public bool Jumping { get; set; }
@@ -97,6 +99,7 @@ namespace Test
             this.Rotation = initRotation;
             this.Scale = 0.667f;
             this.Hitpoints = maxHealth;
+            this.Score = 0;
             this.Color = Color.White;
             this.Falling = true;
             this.Jumping = false;

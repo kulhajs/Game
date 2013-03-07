@@ -34,11 +34,14 @@ namespace Test
             new Rectangle(64,32,16,16)
         };
 
+        public bool Visible { get; set; }
+
         public Coin(Vector2 position, Color color, float rotation)
         {
             this.Position = position;
             this.Color = color;
             this.Rotation = rotation;
+            this.Visible = true;
         }
 
         public void LoadContent(ContentManager theContentManager)

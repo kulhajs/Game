@@ -102,6 +102,7 @@ namespace Test
             ch.HandleMovingCollision(p, l);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
+            ch.HandleItemCollision(p, ih);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
 
@@ -138,11 +139,12 @@ namespace Test
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
-            ih.Draw(this.spriteBatch);
+            ih.Draw(this.spriteBatch);  
             p.Draw(this.spriteBatch);
             explosions.Draw(this.spriteBatch);
 
             spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
+            spriteBatch.DrawString(font, "SCORE: " + p.Score, new Vector2(camera.origin.X + 350, camera.origin.Y + 10), Color.Black);
             spriteBatch.DrawString(font, p.Hitpoints + " HP", new Vector2(camera.origin.X + 720, camera.origin.Y + 10), Color.Black);
 
             frame++;
