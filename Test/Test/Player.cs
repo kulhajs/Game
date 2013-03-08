@@ -143,7 +143,7 @@ namespace Test
             if (reloadTime > 0.0f)
                 reloadTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            if (this.Hitpoints < 0)
+            if (this.Hitpoints <= 0)
                 this.Color = Color.Red;
 
             if (currentFacing == Facing.Right)
