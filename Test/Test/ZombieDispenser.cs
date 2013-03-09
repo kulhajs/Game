@@ -45,7 +45,7 @@ namespace Test
 
         public void Update(GameTime theGameTime)
         {
-            if(random.Next(50) == 1)
+            if(random.Next(200) == 1)
             {
                 if (random.Next(2) == 0) newZombie = new Zombie(new Vector2(this.X + 8, this.Y + 48), new Vector2(-1, 1)); else newZombie = new Zombie(new Vector2(this.X + 8, this.Y + 48), new Vector2(1, 1));
                 newZombie.LoadContent(contentManager);
@@ -55,6 +55,13 @@ namespace Test
             
             foreach (Zombie z in zombies)
                 z.Update(theGameTime);
+
+            foreach(Zombie z in zombies)
+                if(z.Y > 550)
+                {
+                    zombies.Remove(z);
+                    break;
+                }
 
             this.Animate();
         }

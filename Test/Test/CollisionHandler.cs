@@ -51,6 +51,46 @@ namespace Test
                 }
         }
 
+        public void HandleZombiePlayerCollision(Player p, EnemyHandler e)
+        {
+            playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
+                                          : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
+
+            foreach(ZombieDispenser zd in e.zombies)
+                foreach(Zombie z in zd.zombies)
+                {
+                    zombieRectangle = new Rectangle((int)(z.X + 24 * z.Scale), (int)(z.Y + 9 * z.Scale), (int)(16 * z.Scale), (int)(56 * z.Scale));
+                    if (playerRectangle.Intersects(zombieRectangle))
+                    {
+                        z.Collide = true;
+
+                        if (((z.DX < 0 && p.DX >= 0) || (z.DX > 0 && p.DX <= 0)) && z.CanBite)
+                        {
+                            p.Hitpoints -= 1;
+                            z.realoadTime = 0.0f;                            
+                        }
+
+                        if (z.DX < 0)
+                        {
+                            if (p.DX >= 0)
+                                z.X = p.X + 12 * z.Scale;
+                            else
+                                z.X = p.X - 15 * z.Scale;
+                        }
+                        else
+                        {
+                            if (p.DX <= 0)
+                                z.X = p.X - 15 * z.Scale;
+                            else
+                                z.X = p.X + 12 * z.Scale;
+                        }
+                    }
+                    else
+                        z.Collide = false;
+                }
+            
+        }
+
         public void HandleDoorCollision(Player p, EnemyHandler e)
         {
             playerRectangle = new Rectangle((int)(p.X + 16 * p.Scale), (int)(p.Y + 1 * p.Scale), (int)(27 * p.Scale), (int)(63 * p.Scale));

@@ -31,9 +31,17 @@ namespace Test
         int currentFrame = 0;
         int animationLength = 32;
 
+        public float realoadTime = 0.0f;
+        
+        float initReloadTime = 0.5f;
+
         const float gravity = 8f;
 
         public bool Falling { get; set; }
+
+        public bool Collide { get; set; }
+
+        public bool CanBite { get; set; }
 
         public float DX { get { return direction.X; } set { direction.X = value; } }
 
@@ -44,6 +52,8 @@ namespace Test
             this.Position = position;
             this.direction = direction;
             this.Falling = true;
+            this.CanBite = true;
+            this.Collide = false;
             this.Scale = 0.667f;
             if (direction.X < 0) currentFacing = Facing.Left; else currentFacing = Facing.Right;
         }
@@ -57,6 +67,11 @@ namespace Test
 
         public void Update(GameTime theGameTime)
         {
+            if (realoadTime < initReloadTime)
+                realoadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
+
+            CanBite = realoadTime >= initReloadTime ? true : false;
+
             if (Falling)
             {
                 DY = 1f;
