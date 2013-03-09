@@ -30,7 +30,8 @@ namespace Test
             doors.Add(new FlashDoor(new Vector2(576, 128 + 4), new Vector2(384, 192 + 16)));
             doors.Add(new FlashDoor(new Vector2(2432, 128 + 4), new Vector2(1152, 64 + 16)));
             //________________________ZOMBIES_________________________________
-            zombies.Add(new ZombieDispenser(new Vector2(512, 128 - 16)));
+            zombies.Add(new ZombieDispenser(new Vector2(1472, -16)));
+            zombies.Add(new ZombieDispenser(new Vector2(2496, 64 - 16)));
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -54,7 +55,7 @@ namespace Test
                 f.Update(theGameTime);
 
             foreach (ZombieDispenser z in zombies)
-                z.Update();
+                z.Update(theGameTime);
         }
 
         public void Draw(SpriteBatch theSpriteBatch)

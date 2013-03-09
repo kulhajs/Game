@@ -15,6 +15,11 @@ namespace Test
     class ZombieDispenser : Sprite
     {
 
+        Random random = new Random();
+
+        public List<Zombie> zombies;
+        Zombie newZombie;
+
         Rectangle[] sources = new Rectangle[] { 
             new Rectangle(0,0,64,64),
             new Rectangle(64,0,64,64),
@@ -28,6 +33,7 @@ namespace Test
         public ZombieDispenser(Vector2 position)
         {
             this.Position = position;
+            zombies = new List<Zombie>();
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -37,8 +43,19 @@ namespace Test
             Source = sources[0];
         }
 
-        public void Update()
+        public void Update(GameTime theGameTime)
         {
+            if(random.Next(50) == 1)
+            {
+                if (random.Next(2) == 0) newZombie = new Zombie(new Vector2(this.X + 8, this.Y + 48), new Vector2(-1, 1)); else newZombie = new Zombie(new Vector2(this.X + 8, this.Y + 48), new Vector2(1, 1));
+                newZombie.LoadContent(contentManager);
+                zombies.Add(newZombie);
+                newZombie = null;
+            }
+            
+            foreach (Zombie z in zombies)
+                z.Update(theGameTime);
+
             this.Animate();
         }
 
@@ -60,6 +77,9 @@ namespace Test
 
         public void Draw(SpriteBatch theSpriteBatch)
         {
+            foreach (Zombie z in zombies)
+                z.Draw(theSpriteBatch);
+
             base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, 0.0f);
         }
 

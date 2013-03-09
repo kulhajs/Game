@@ -14,6 +14,7 @@ namespace Test
         Rectangle switchRectangle;
         Rectangle rocketRectangle;
         Rectangle coinRectangle;
+        Rectangle zombieRectangle;
 
         const int doorDmg = 5;
         const int rocketDmg = 10;
@@ -31,6 +32,23 @@ namespace Test
                     break;
                 }
             }
+        }
+
+        public void HandleZombiesMovingCollision(EnemyHandler e, Level l, int level = 0)
+        {
+            foreach(ZombieDispenser zd in e.zombies)
+                foreach(Zombie z in zd.zombies)
+                {
+                    z.Falling = true;
+
+                    zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 60 * z.Scale), (int)(28 * z.Scale), (int)(4 * z.Scale));
+                    foreach(MacroBlock mb in l.levels[level])
+                        if(zombieRectangle.Intersects(mb.GetRectangle()))
+                        {
+                            z.Falling = false;
+                            break;
+                        }
+                }
         }
 
         public void HandleDoorCollision(Player p, EnemyHandler e)

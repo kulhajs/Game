@@ -100,6 +100,7 @@ namespace Test
             currentKeyboardState = Keyboard.GetState();
 
             ch.HandleMovingCollision(p, l);
+            ch.HandleZombiesMovingCollision(enemies, l);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
             ch.HandleItemCollision(p, ih);
