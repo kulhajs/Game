@@ -9,11 +9,13 @@ namespace Test
     {
         public List<Tower> towers;
         public List<FlashDoor> doors;
+        public List<ZombieDispenser> zombies;
 
         public EnemyHandler()
         {
             towers = new List<Tower>();
             doors = new List<FlashDoor>();
+            zombies = new List<ZombieDispenser>();
         }
 
         public void Initiliaze()
@@ -27,17 +29,20 @@ namespace Test
             //_________________________DOORS_________________________________
             doors.Add(new FlashDoor(new Vector2(576, 128 + 4), new Vector2(384, 192 + 16)));
             doors.Add(new FlashDoor(new Vector2(2432, 128 + 4), new Vector2(1152, 64 + 16)));
+            //________________________ZOMBIES_________________________________
+            zombies.Add(new ZombieDispenser(new Vector2(512, 128 - 16)));
         }
 
         public void LoadContent(ContentManager theContentManager)
         {
             foreach (Tower t in towers)
-
-                if (t.GetType() == typeof(Tower))
                     t.LoadContent(theContentManager);
 
             foreach (FlashDoor f in doors)
                 f.LoadContent(theContentManager);
+
+            foreach (ZombieDispenser z in zombies)
+                z.LoadContent(theContentManager);
         }
 
         public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions)
@@ -47,6 +52,9 @@ namespace Test
 
             foreach (FlashDoor f in doors)
                 f.Update(theGameTime);
+
+            foreach (ZombieDispenser z in zombies)
+                z.Update();
         }
 
         public void Draw(SpriteBatch theSpriteBatch)
@@ -56,6 +64,9 @@ namespace Test
 
             foreach (FlashDoor f in doors)
                 f.Draw(theSpriteBatch);
+
+            foreach (ZombieDispenser z in zombies)
+                z.Draw(theSpriteBatch);
         }
     }
 }
