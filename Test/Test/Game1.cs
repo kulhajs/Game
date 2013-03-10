@@ -32,6 +32,7 @@ namespace Test
         SpriteFont font;
 
         Texture2D background;
+        Texture2D clouds;
 
         KeyboardState currentKeyboardState;
         KeyboardState oldKeyboardState;
@@ -86,7 +87,8 @@ namespace Test
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("Font_1");
-            background = Content.Load<Texture2D>("bg");
+            background = Content.Load<Texture2D>("background");
+            clouds = Content.Load<Texture2D>("clouds");
 
             p.LoadContent(this.Content);
             l.LoadContent(this.Content);
@@ -152,7 +154,7 @@ namespace Test
                 null, null, null, null,
                 camera.transform);
 
-            this.spriteBatch.Draw(background, new Vector2(camera.origin.X, camera.origin.Y - 250), new Rectangle(0, 0, 800, 800), Color.White);
+            this.spriteBatch.Draw(background, new Vector2(camera.origin.X, -300), new Rectangle(0, 0, 800, 800), Color.White);
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
@@ -161,6 +163,8 @@ namespace Test
             p.Draw(this.spriteBatch);
             l.endOflevel.DrawFront(this.spriteBatch);
             explosions.Draw(this.spriteBatch);
+
+            this.spriteBatch.Draw(clouds, new Vector2(camera.origin.X, -300), new Rectangle(0, 0, 800, 800), Color.White);
 
             spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
             spriteBatch.DrawString(font, "SCORE: " + p.Score, new Vector2(camera.origin.X + 350, camera.origin.Y + 10), Color.Black);
