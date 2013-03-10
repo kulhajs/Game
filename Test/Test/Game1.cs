@@ -27,6 +27,8 @@ namespace Test
 
         int currentLevel = 0;
 
+        public bool ChangeLevel { get; set; }
+
         SpriteFont font;
 
         Texture2D background;
@@ -72,6 +74,9 @@ namespace Test
             ch = new CollisionHandler();
 
             l.Initialize(currentLevel);
+
+            this.ChangeLevel = false;
+
             base.Initialize();
         }
 
@@ -105,6 +110,7 @@ namespace Test
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
             ch.HandleItemCollision(p, ih);
+            ch.HandleEndLevel(this, p, l);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
 
@@ -127,6 +133,12 @@ namespace Test
             }
 
             camera.Update(p);
+
+            if(ChangeLevel)
+            {
+                currentLevel++;
+                this.Initialize();
+            }
 
             base.Update(gameTime);
         }

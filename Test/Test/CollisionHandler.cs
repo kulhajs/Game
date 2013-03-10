@@ -15,6 +15,7 @@ namespace Test
         Rectangle rocketRectangle;
         Rectangle coinRectangle;
         Rectangle zombieRectangle;
+        Rectangle eolRectangle;
 
         const int doorDmg = 5;
         const int rocketDmg = 10;
@@ -167,6 +168,14 @@ namespace Test
                         p.Score += 5;
                     }
                 }
+        }
+
+        public void HandleEndLevel(Game1 game, Player p, Level l)
+        {
+            playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
+            eolRectangle = new Rectangle((int)(l.endOflevel.X + 42), (int)l.endOflevel.Y, 10, 64);
+            if (playerRectangle.Intersects(eolRectangle))
+                game.ChangeLevel = true;
         }
     }
 }
