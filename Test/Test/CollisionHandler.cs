@@ -16,6 +16,9 @@ namespace Test
         Rectangle coinRectangle;
         Rectangle zombieRectangle;
         Rectangle eolRectangle;
+        Rectangle bulletRectangle;
+
+        Random random = new Random();
 
         const int doorDmg = 5;
         const int rocketDmg = 10;
@@ -145,6 +148,26 @@ namespace Test
                             p.Hitpoints -= rocketDmg;
                         }
                     }
+        }
+
+        public void HandleBulletZombieCollision(Player p, EnemyHandler e)
+        {
+            foreach (Bullet b in p.bullets)
+                if (b.Visible)
+                {
+                    bulletRectangle = new Rectangle((int)b.X, (int)b.Y, 2, 1);
+                    foreach (ZombieDispenser zd in e.zombies)
+                        foreach (Zombie z in zd.zombies)
+                            if (z.Visible)
+                            {
+                                zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 4 * z.Scale), (int)(28 * z.Scale), (int)(60 * z.Scale));
+                                if (bulletRectangle.Intersects(zombieRectangle))
+                                {
+                                    z.Hitpoints -= random.Next(20, 30);
+                                    b.Visible = false;
+                                }
+                            }
+                }
         }
 
         public void HandleItemCollision(Player p, ItemHandler i)

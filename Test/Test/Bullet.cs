@@ -14,11 +14,14 @@ namespace Test
         Vector2 velocity = new Vector2(600, 600);
         Vector2 direction;
 
+        public bool Visible { get; set; }
+
         public Bullet(Vector2 position, Vector2 direction, float rotation)
         {
             this.Position = position;
             this.direction = direction;
             this.Rotation = rotation;
+            this.Visible = true;
         }
 
         public void LoadContent(ContentManager theContentManager)

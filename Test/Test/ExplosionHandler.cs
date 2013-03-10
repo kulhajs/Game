@@ -23,9 +23,9 @@ namespace Test
             explosions = new List<Explosion>();
         }
 
-        public void AddExplosion(Vector2 position, ContentManager theContentManager)
+        public void AddExplosion(Vector2 position, ContentManager theContentManager, string explosionType)
         {
-            newExplosion = new Explosion(position);
+            newExplosion = new Explosion(position, explosionType);
             newExplosion.LoadContent(theContentManager);
             explosions.Add(newExplosion);
             newExplosion = null;

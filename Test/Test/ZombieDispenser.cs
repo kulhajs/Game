@@ -52,18 +52,24 @@ namespace Test
                 zombies.Add(newZombie);
                 newZombie = null;
             }
-            
-            foreach (Zombie z in zombies)
-                z.Update(theGameTime);
 
-            foreach(Zombie z in zombies)
-                if(z.Y > 550)
+            foreach (Zombie z in zombies)
+                if (z.Visible)
+                    z.Update(theGameTime);
+
+
+            this.RemoveZombies();
+            this.Animate();
+        }
+
+        private void RemoveZombies()
+        {
+            foreach (Zombie z in zombies)
+                if (z.Y > 550 || !z.Visible)
                 {
                     zombies.Remove(z);
                     break;
                 }
-
-            this.Animate();
         }
 
         private void Animate()
@@ -85,7 +91,8 @@ namespace Test
         public void Draw(SpriteBatch theSpriteBatch)
         {
             foreach (Zombie z in zombies)
-                z.Draw(theSpriteBatch);
+                if (z.Visible)
+                    z.Draw(theSpriteBatch);
 
             base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, 0.0f);
         }

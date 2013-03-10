@@ -109,14 +109,16 @@ namespace Test
             ch.HandleMovingCollision(p, l, currentLevel);
             ch.HandleZombiesMovingCollision(enemies, l, currentLevel);
             ch.HandleZombiePlayerCollision(p, enemies);
+            ch.HandleBulletZombieCollision(p, enemies);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
             ch.HandleItemCollision(p, ih);
             ch.HandleEndLevel(this, p, l);
 
-            p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera);
+            p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera, explosions);
 
             enemies.Update(p, gameTime, explosions);
+
             explosions.Update();
 
             ih.Update();

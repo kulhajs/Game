@@ -21,21 +21,24 @@ namespace Test
             new Rectangle(128,0,32,32)
         };
 
+        string explosionType;
+
         const int animationLength = 15;
         int currentFrame = 0;
 
         public bool Visible { get; private set; }
 
-        public Explosion(Vector2 position)
+        public Explosion(Vector2 position, string explosionType)
         {
             this.Position = position;
             this.Visible = true;
+            this.explosionType = explosionType;
         }
 
         public void LoadContent(ContentManager theContentManager)
         {
             contentManager = theContentManager;
-            base.LoadContent(contentManager, "explosion");
+            base.LoadContent(contentManager, explosionType);
         }
 
         public void Animate()

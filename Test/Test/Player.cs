@@ -37,7 +37,7 @@ namespace Test
             new Rectangle(128, 0, 64, 64) //Crouch      //10
         };
 
-        List<Bullet> bullets;
+        public List<Bullet> bullets;
         Bullet newBullet;
         
         Facing currentFacing = Facing.Right;
@@ -118,7 +118,7 @@ namespace Test
             this.Source = sources[0];
         }
 
-        public void Update(MouseState mouseState, KeyboardState currentKeyboardState, KeyboardState oldKeyboardState, GameTime theGameTime, Camera camera)
+        public void Update(MouseState mouseState, KeyboardState currentKeyboardState, KeyboardState oldKeyboardState, GameTime theGameTime, Camera camera, ExplosionHandler explosions)
         {
             //aiming
             float dx = (mouseState.X + camera.origin.X) - this.X;
@@ -138,13 +138,14 @@ namespace Test
                 this.UpdateAttack(mouseState, camera);
 
             foreach (Bullet b in bullets)
-                b.Update(theGameTime);
+                if (b.Visible)
+                    b.Update(theGameTime);
+
+            this.RemoveBullets(explosions);
 
             if (reloadTime > 0.0f)
                 reloadTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            //if (this.Hitpoints <= 0)
-            //    this.Color = Color.Red;
             if (this.Y > 500)
                 this.Hitpoints = 0;
 
@@ -154,6 +155,17 @@ namespace Test
                 gunPosition = Crouching ? new Vector2(X + 36 * this.Scale, Y + 32 * this.Scale) : new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
 
             crosshairPosition = new Vector2(mouseState.X + camera.origin.X, mouseState.Y + camera.origin.Y);
+        }
+
+        private void RemoveBullets(ExplosionHandler explosions)
+        {
+            foreach (Bullet b in bullets)
+                if (!b.Visible)
+                {
+                    bullets.Remove(b);
+                    explosions.AddExplosion(b.Position, contentManager, "blood");
+                    break;
+                }
         }
 
         private void UpdateAttack(MouseState mouseState, Camera camera)
@@ -317,7 +329,8 @@ namespace Test
             theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), Color.LimeGreen);
 
             foreach (Bullet b in bullets)
-                b.Draw(theSpriteBatch);
+                if (b.Visible)
+                    b.Draw(theSpriteBatch);
         }
     }
 }

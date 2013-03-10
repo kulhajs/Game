@@ -37,11 +37,17 @@ namespace Test
 
         const float gravity = 8f;
 
+        const int initialHitpoints = 100;
+
         public bool Falling { get; set; }
 
         public bool Collide { get; set; }
 
         public bool CanBite { get; set; }
+
+        public bool Visible { get; set; }
+
+        public int Hitpoints { get; set; }
 
         public float DX { get { return direction.X; } set { direction.X = value; } }
 
@@ -53,8 +59,10 @@ namespace Test
             this.direction = direction;
             this.Falling = true;
             this.CanBite = true;
+            this.Visible = true;
             this.Collide = false;
             this.Scale = 0.667f;
+            this.Hitpoints = initialHitpoints;
             if (direction.X < 0) currentFacing = Facing.Left; else currentFacing = Facing.Right;
         }
 
@@ -86,6 +94,9 @@ namespace Test
                 this.Animate();
             else
                 this.Source = sources[0];
+
+            if (this.Hitpoints <= 0)
+                this.Visible = false;
                     
         }
 
