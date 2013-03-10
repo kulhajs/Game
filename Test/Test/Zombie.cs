@@ -82,7 +82,11 @@ namespace Test
 
             Position += direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            this.Animate();
+            if (!this.Falling)
+                this.Animate();
+            else
+                this.Source = sources[0];
+                    
         }
 
         private void Animate()

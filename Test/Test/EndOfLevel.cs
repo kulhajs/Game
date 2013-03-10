@@ -16,8 +16,19 @@ namespace Test
         Texture2D back;
         Texture2D front;
 
-        Rectangle backRec = new Rectangle(0, 0, 64, 64);
-        Rectangle frontRec = new Rectangle(64, 0, 64, 64);
+        int frame;
+        int currentFrame = 0;
+        int animationLength = 4;
+
+        Rectangle[] backRec = new Rectangle[] {
+            new Rectangle(0, 0, 64, 64),
+            new Rectangle(0, 64, 64, 64)
+        };
+
+        Rectangle[] frontRec = new Rectangle[] {
+            new Rectangle(64, 0, 64, 64),
+            new Rectangle(64, 64, 64, 64)
+        };
 
         public EndOfLevel(Vector2 position)
         {
@@ -31,14 +42,26 @@ namespace Test
             front = contentManager.Load<Texture2D>("eol");
         }
 
+        public void Update()
+        {
+            if (currentFrame < animationLength / 2)
+                frame = 0;
+            else if (currentFrame < animationLength)
+                frame = 1;
+            else
+                currentFrame = 0;
+
+            currentFrame++;
+        }
+
         public void DrawBack(SpriteBatch theSpritebatch)
         {
-            theSpritebatch.Draw(back, this.Position, backRec, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
+            theSpritebatch.Draw(back, this.Position, backRec[frame], Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
         }
 
         public void DrawFront(SpriteBatch theSpritebatch)
         {
-            theSpritebatch.Draw(front, this.Position, frontRec, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
+            theSpritebatch.Draw(front, this.Position, frontRec[frame], Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
         }
     }
 }

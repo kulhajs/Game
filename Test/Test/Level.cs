@@ -82,6 +82,11 @@ namespace Test
                 mb.Initialize();
         }
 
+        public void Update()
+        {
+            endOflevel.Update();
+        }
+
         public void LoadContent(ContentManager theContentManager)
         {
             foreach (MacroBlock mb in levelBlocks)

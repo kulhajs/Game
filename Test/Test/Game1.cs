@@ -121,6 +121,8 @@ namespace Test
 
             ih.Update();
 
+            l.Update();
+
             if (p.Hitpoints <= 0)
                 this.Initialize();
 
