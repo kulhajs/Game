@@ -64,27 +64,27 @@ namespace Test
                     if (playerRectangle.Intersects(zombieRectangle))
                     {
                         z.Collide = true;
+                        if (z.CanBite)
+                        {
+                            if (z.DX < 0 && p.DX >= 0)
+                            {
+                                p.Push = true;
+                                p.DX = -3;
+                            }
+                            else if (z.DX > 0 && p.DX <= 0)
+                            {
+                                p.Push = true;
+                                p.DX = 3;
+                            }
 
-                        if (((z.DX < 0 && p.DX >= 0) || (z.DX > 0 && p.DX <= 0)) && z.CanBite)
-                        {
-                            p.Hitpoints -= 1;
-                            z.realoadTime = 0.0f;                            
+                            p.Hitpoints -= 2;
+                            z.realoadTime = 0.0f;
                         }
 
-                        if (z.DX < 0)
-                        {
-                            if (p.DX >= 0)
-                                z.X = p.X + 12 * z.Scale;
-                            else
-                                z.X = p.X - 15 * z.Scale;
-                        }
-                        else
-                        {
-                            if (p.DX <= 0)
-                                z.X = p.X - 15 * z.Scale;
-                            else
-                                z.X = p.X + 12 * z.Scale;
-                        }
+                        if (z.DX < 0 && p.DX < 0 && !p.Push)
+                            z.X = p.X - 15 * z.Scale;
+                        else if (z.DX > 0 && p.DX > 0 && !p.Push)
+                            z.X = p.X + 12 * z.Scale;
                     }
                     else
                         z.Collide = false;
