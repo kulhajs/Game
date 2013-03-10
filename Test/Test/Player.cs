@@ -143,8 +143,10 @@ namespace Test
             if (reloadTime > 0.0f)
                 reloadTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            if (this.Hitpoints <= 0)
-                this.Color = Color.Red;
+            //if (this.Hitpoints <= 0)
+            //    this.Color = Color.Red;
+            if (this.Y > 500)
+                this.Hitpoints = 0;
 
             if (currentFacing == Facing.Right)
                 gunPosition = Crouching ? new Vector2(X + 27 * this.Scale, Y + 32 * this.Scale) : new Vector2(X + 26 * this.Scale, Y + 20 * this.Scale);

@@ -25,7 +25,7 @@ namespace Test
         const int WIDTH = 800;
         const int HEIGHT = 500;
 
-        
+        int currentLevel = 0;
 
         SpriteFont font;
 
@@ -64,14 +64,14 @@ namespace Test
             ih.Initialize();
 
             enemies = new EnemyHandler();
-            enemies.Initiliaze();
+            enemies.Initiliaze(currentLevel);
             explosions = new ExplosionHandler();
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
 
             ch = new CollisionHandler();
 
-            l.Initialize(0);
+            l.Initialize(currentLevel);
             base.Initialize();
         }
 
@@ -99,8 +99,8 @@ namespace Test
             
             currentKeyboardState = Keyboard.GetState();
 
-            ch.HandleMovingCollision(p, l);
-            ch.HandleZombiesMovingCollision(enemies, l);
+            ch.HandleMovingCollision(p, l, currentLevel);
+            ch.HandleZombiesMovingCollision(enemies, l, currentLevel);
             ch.HandleZombiePlayerCollision(p, enemies);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
@@ -112,6 +112,9 @@ namespace Test
             explosions.Update();
 
             ih.Update();
+
+            if (p.Hitpoints <= 0)
+                this.Initialize();
 
             oldKeyboardState = currentKeyboardState;
 
@@ -141,8 +144,10 @@ namespace Test
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
-            ih.Draw(this.spriteBatch);  
+            ih.Draw(this.spriteBatch);
+            l.endOflevel.DrawBack(this.spriteBatch);
             p.Draw(this.spriteBatch);
+            l.endOflevel.DrawFront(this.spriteBatch);
             explosions.Draw(this.spriteBatch);
 
             spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
