@@ -43,7 +43,7 @@ namespace Test
             Source = sources[0];
         }
 
-        public void Update(GameTime theGameTime)
+        public void Update(GameTime theGameTime, ExplosionHandler explosions)
         {
             if(random.Next(200) == 1)
             {
@@ -58,16 +58,17 @@ namespace Test
                     z.Update(theGameTime);
 
 
-            this.RemoveZombies();
+            this.RemoveZombies(explosions);
             this.Animate();
         }
 
-        private void RemoveZombies()
+        private void RemoveZombies(ExplosionHandler explosions)
         {
             foreach (Zombie z in zombies)
                 if (z.Y > 550 || !z.Visible)
                 {
                     zombies.Remove(z);
+                    explosions.AddExplosion(new Vector2(z.X + 20 * z.Scale, z.Y + 10 * z.Scale), contentManager, "blood");
                     break;
                 }
         }

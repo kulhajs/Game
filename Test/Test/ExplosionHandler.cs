@@ -23,6 +23,12 @@ namespace Test
             explosions = new List<Explosion>();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="theContentManager"></param>
+        /// <param name="explosionType">"blood", "explosion"</param>
         public void AddExplosion(Vector2 position, ContentManager theContentManager, string explosionType)
         {
             newExplosion = new Explosion(position, explosionType);

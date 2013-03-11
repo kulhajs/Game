@@ -55,7 +55,7 @@ namespace Test
                 }
         }
 
-        public void HandleZombiePlayerCollision(Player p, EnemyHandler e)
+        public void HandleZombiePlayerCollision(Player p, EnemyHandler e, ExplosionHandler explosions)
         {
             playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
                                           : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
@@ -71,15 +71,17 @@ namespace Test
                         {
                             if (z.DX < 0 && p.DX >= 0)
                             {
+                                explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, "blood");
                                 p.Push = true;
                                 p.DX = -3;
                             }
                             else if (z.DX > 0 && p.DX <= 0)
                             {
+                                explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, "blood");
                                 p.Push = true;
                                 p.DX = 3;
                             }
-
+                            
                             p.Hitpoints -= 2;
                             z.realoadTime = 0.0f;
                         }
@@ -147,6 +149,17 @@ namespace Test
                             r.Visible = false;
                             p.Hitpoints -= rocketDmg;
                         }
+                        foreach(ZombieDispenser zd in e.zombies)
+                            foreach(Zombie z in zd.zombies)
+                                if (z.Visible && r.Visible)
+                                {
+                                    zombieRectangle = new Rectangle((int)(z.X + 24 * z.Scale), (int)z.Y, (int)(16 * z.Scale), (int)(60 * z.Scale));
+                                    if(rocketRectangle.Intersects(zombieRectangle))
+                                    {
+                                        r.Visible = false;
+                                        z.Hitpoints -= random.Next(30, 40);
+                                    }
+                                }
                     }
         }
 

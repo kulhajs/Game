@@ -40,7 +40,7 @@ namespace Test
         public List<Bullet> bullets;
         Bullet newBullet;
         
-        Facing currentFacing = Facing.Right;
+        public Facing currentFacing = Facing.Right;
 
         int animationLenght = 40;
         int currentFrame = 0;

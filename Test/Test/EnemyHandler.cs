@@ -57,7 +57,7 @@ namespace Test
                 f.Update(theGameTime);
 
             foreach (ZombieDispenser z in zombies)
-                z.Update(theGameTime);
+                z.Update(theGameTime, explosions);
         }
 
         public void Draw(SpriteBatch theSpriteBatch)
