@@ -20,7 +20,7 @@ namespace Test
 
         public void Initiliaze(int level)
         {
-            if(level == 0)
+            if (level == 0)
             {
                 //_________________________TOWERS________________________________
                 towers.Add(new Tower(new Vector2(1024, 256 + 24 * 1 / 0.667f)));
@@ -34,6 +34,8 @@ namespace Test
                 zombies.Add(new ZombieDispenser(new Vector2(1472, -16)));
                 zombies.Add(new ZombieDispenser(new Vector2(2496, 64 - 16)));
             }
+            else if (level == 1)
+                zombies.Add(new ZombieDispenser(new Vector2(1920, 0)));
         }
 
         public void LoadContent(ContentManager theContentManager)

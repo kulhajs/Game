@@ -37,7 +37,7 @@ namespace Test
 
         const float gravity = 8f;
 
-        const int initialHitpoints = 100;
+        const int initialHitpoints = 50;
 
         public bool Falling { get; set; }
 

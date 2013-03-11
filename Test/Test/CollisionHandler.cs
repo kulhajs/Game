@@ -20,8 +20,16 @@ namespace Test
 
         Random random = new Random();
 
-        const int doorDmg = 5;
-        const int rocketDmg = 10;
+        const int minRocketDmg = 10;
+        const int maxRocketDmg = 30;
+
+        const int minDoorDmg = 3;
+        const int maxDoorDmg = 8;
+
+        const int minZombieDmg = 2;
+        const int maxZombieDmg = 5;
+
+        const int bulletDmg = 10;
 
         public void HandleMovingCollision(Player p, Level l, int level = 0)
         {
@@ -74,16 +82,17 @@ namespace Test
                                 explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, "blood");
                                 p.Push = true;
                                 p.DX = -3;
+                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                                z.realoadTime = 0.0f;
                             }
                             else if (z.DX > 0 && p.DX <= 0)
                             {
                                 explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, "blood");
                                 p.Push = true;
                                 p.DX = 3;
+                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                                z.realoadTime = 0.0f;
                             }
-                            
-                            p.Hitpoints -= 2;
-                            z.realoadTime = 0.0f;
                         }
 
                         if (z.DX < 0 && p.DX < 0 && !p.Push)
@@ -108,13 +117,13 @@ namespace Test
                     doorRectangle_R = new Rectangle((int)f.Position.X + 32, (int)f.Position.Y + 11, 4, 122); //right side of door laser beam
                     if (doorRectangle_L.Intersects(playerRectangle))
                     {
-                        p.Hitpoints -= doorDmg;
+                        p.Hitpoints -= random.Next(minDoorDmg, maxDoorDmg);
                         p.DX = -4; //push to the left
                         p.Push = true;
                     }
                     else if (doorRectangle_R.Intersects(playerRectangle))
                     {
-                        p.Hitpoints -= doorDmg;
+                        p.Hitpoints -= random.Next(minDoorDmg, maxDoorDmg);
                         p.DX = 4; //push to the right
                         p.Push = true;
                     }
@@ -147,7 +156,7 @@ namespace Test
                         if (playerRectangle.Intersects(rocketRectangle))
                         {
                             r.Visible = false;
-                            p.Hitpoints -= rocketDmg;
+                            p.Hitpoints -= random.Next(minRocketDmg, maxRocketDmg);
                         }
                         foreach(ZombieDispenser zd in e.zombies)
                             foreach(Zombie z in zd.zombies)
@@ -157,7 +166,7 @@ namespace Test
                                     if(rocketRectangle.Intersects(zombieRectangle))
                                     {
                                         r.Visible = false;
-                                        z.Hitpoints -= random.Next(30, 40);
+                                        z.Hitpoints -= random.Next(minRocketDmg, maxRocketDmg);
                                     }
                                 }
                     }
@@ -176,7 +185,7 @@ namespace Test
                                 zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 4 * z.Scale), (int)(28 * z.Scale), (int)(60 * z.Scale));
                                 if (bulletRectangle.Intersects(zombieRectangle))
                                 {
-                                    z.Hitpoints -= random.Next(20, 30);
+                                    z.Hitpoints -= bulletDmg;
                                     b.Visible = false;
                                 }
                             }
