@@ -326,7 +326,7 @@ namespace Test
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
 
             //drawcrosshair
-            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), Color.LimeGreen);
+            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), currentFacing == Facing.Right && crosshairPosition.X > this.X || currentFacing == Facing.Left && crosshairPosition.X < this.X ? Color.LimeGreen : Color.Red);
 
             foreach (Bullet b in bullets)
                 if (b.Visible)
