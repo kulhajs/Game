@@ -296,7 +296,7 @@ namespace Test
             else
                 velocity.Y = 0;
 
-            //if not in air or already sliding then crouch, if crouch while running then slide!
+            //if not in air or already sliding then crouch, if crouch while running then slide! 
             if (currentKeyboardState.IsKeyDown(Keys.S) && !Falling && !Jumping && !Crouching)
             {
                 this.Crouching = true;

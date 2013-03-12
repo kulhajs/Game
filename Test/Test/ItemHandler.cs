@@ -15,13 +15,28 @@ namespace Test
     {
         public List<Coin> coins;
 
+        public List<FirstAid> firstAids;
+        FirstAid newFirstAid;
+
+        ContentManager contentManager;
+
         Random random = new Random();
 
         const int coinCount = 15;
 
-        public ItemHandler()
+        public ItemHandler(ContentManager theContentmanager)
         {
             coins = new List<Coin>();
+            firstAids = new List<FirstAid>();
+            contentManager = theContentmanager;
+        }
+
+        public void AddFirstAid(Vector2 position)
+        {
+            newFirstAid = new FirstAid(position);
+            newFirstAid.LoadContent(contentManager);
+            firstAids.Add(newFirstAid);
+            newFirstAid = null;
         }
 
         public void Initialize()
@@ -38,16 +53,31 @@ namespace Test
                 c.LoadContent(theContentManager);
         }
 
-        public void Update()
+        public void Update(GameTime theGameTime)
         {
             foreach (Coin c in coins)
                 if (c.Visible)
                     c.Update();
 
-            this.RemoveInvisible();
+            if (firstAids.Count > 0)
+                foreach (FirstAid f in firstAids)
+                    f.Update(theGameTime);
+
+            this.RemoveInvisibleCoins();
+            this.RemoveInvisibleFirstAids();
         }
 
-        private void RemoveInvisible()
+        private void RemoveInvisibleFirstAids()
+        {
+            foreach(FirstAid f in firstAids)
+                if(!f.Visible)
+                {
+                    firstAids.Remove(f);
+                    break;
+                }
+        }
+
+        private void RemoveInvisibleCoins()
         {
             foreach(Coin c in coins)
                 if(!c.Visible)
@@ -62,6 +92,9 @@ namespace Test
             foreach (Coin c in coins)
                 if (c.Visible)
                     c.Draw(theSpriteBatch);
+
+                foreach (FirstAid f in firstAids)
+                    f.Draw(theSpriteBatch);
         }
     }
 }

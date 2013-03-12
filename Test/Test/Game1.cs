@@ -63,7 +63,7 @@ namespace Test
             p = new Player(new Vector2(0, 0));
             l = new Level();
 
-            ih = new ItemHandler();
+            ih = new ItemHandler(this.Content);
             ih.Initialize();
 
             enemies = new EnemyHandler();
@@ -112,16 +112,16 @@ namespace Test
             ch.HandleBulletZombieCollision(p, enemies);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
-            ch.HandleItemCollision(p, ih);
+            ch.HandleItemCollision(p, ih, l, currentLevel);
             ch.HandleEndLevel(this, p, l);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera, explosions);
 
-            enemies.Update(p, gameTime, explosions);
+            enemies.Update(p, gameTime, explosions, ih);
 
             explosions.Update();
 
-            ih.Update();
+            ih.Update(gameTime);
 
             l.Update();
 

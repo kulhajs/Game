@@ -17,6 +17,7 @@ namespace Test
         Rectangle zombieRectangle;
         Rectangle eolRectangle;
         Rectangle bulletRectangle;
+        Rectangle firstAidRectangle;
 
         Random random = new Random();
 
@@ -192,7 +193,7 @@ namespace Test
                 }
         }
 
-        public void HandleItemCollision(Player p, ItemHandler i)
+        public void HandleItemCollision(Player p, ItemHandler i, Level l, int level = 0)
         {
             if (p.Jumping || p.Falling)
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
@@ -203,7 +204,6 @@ namespace Test
 
             }
             foreach (Coin c in i.coins)
-
                 if (c.Visible)
                 {
                     coinRectangle = new Rectangle((int)c.X, (int)c.Y, 16, 16);
@@ -213,6 +213,23 @@ namespace Test
                         p.Score += 5;
                     }
                 }
+
+            
+            foreach (FirstAid f in i.firstAids)
+            {
+                f.Falling = true;
+                firstAidRectangle = new Rectangle((int)f.X + 1, (int)f.Y + 3, 14, 12);
+                foreach (MacroBlock mb in l.levels[level])
+                {
+                    if (firstAidRectangle.Intersects(mb.GetRectangle()))
+                        f.Falling = false;
+                }
+                if(playerRectangle.Intersects(firstAidRectangle))
+                {
+                    p.Hitpoints += 5;
+                    f.Visible = false;
+                }
+            }
         }
 
         public void HandleEndLevel(Game1 game, Player p, Level l)

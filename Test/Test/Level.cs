@@ -12,7 +12,7 @@ namespace Test
     {
         List<MacroBlock> levelBlocks;
         public EndOfLevel endOflevel;
-
+        
         public List<List<MacroBlock>> levels = new List<List<MacroBlock>>() {
             new List<MacroBlock>(){
                 new MacroBlock(new int[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 }, 4, 0),
@@ -55,7 +55,6 @@ namespace Test
                 new MacroBlock(new int[] { 3 }, 5, 29), 
                 new MacroBlock(new int[] { 0, 1, 2 }, 2, 31),
                 new MacroBlock(new int[] { 0, 1, 1, 2 }, 4, 30),
-                //finish, maybe will be one layer lower later
                 new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 3, 35), 
                 new MacroBlock(new int[] { 0, 2 }, 2, 38), 
                 new MacroBlock(new int[] { 3 }, 1, 39),

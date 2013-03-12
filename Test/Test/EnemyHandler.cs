@@ -50,7 +50,7 @@ namespace Test
                 z.LoadContent(theContentManager);
         }
 
-        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions)
+        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih)
         {
             foreach (Tower t in towers)
                 t.Update(player, theGameTime, explosions);
@@ -59,7 +59,7 @@ namespace Test
                 f.Update(theGameTime);
 
             foreach (ZombieDispenser z in zombies)
-                z.Update(theGameTime, explosions);
+                z.Update(theGameTime, explosions, ih);
         }
 
         public void Draw(SpriteBatch theSpriteBatch)
