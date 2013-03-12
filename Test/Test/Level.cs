@@ -39,7 +39,7 @@ namespace Test
                 new MacroBlock(new int[] { 3 }, 3, 6),
                 new MacroBlock(new int[] { 3 }, 5, 6), 
                 new MacroBlock(new int[] { 0, 2 }, 2, 8), 
-                new MacroBlock(new int[] { 0, 2 }, 4, 8),
+                //new MacroBlock(new int[] { 0, 2 }, 4, 8),
                 new MacroBlock(new int[] { 3 }, 2, 11),
                 new MacroBlock(new int[] { 0, 2 }, 4, 11), 
                 new MacroBlock(new int[] { 0, 1, 2 }, 3, 14), 

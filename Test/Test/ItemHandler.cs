@@ -31,9 +31,9 @@ namespace Test
             contentManager = theContentmanager;
         }
 
-        public void AddFirstAid(Vector2 position)
+        public void AddFirstAid(Vector2 position, float dx)
         {
-            newFirstAid = new FirstAid(position);
+            newFirstAid = new FirstAid(position, dx);
             newFirstAid.LoadContent(contentManager);
             firstAids.Add(newFirstAid);
             newFirstAid = null;

@@ -67,7 +67,8 @@ namespace Test
             foreach (Zombie z in zombies)
                 if (z.Y > 550 || !z.Visible)
                 {
-                        ih.AddFirstAid(z.Position);
+                    if (random.Next(5) == 1)
+                        ih.AddFirstAid(z.Position, z.DX);
                     explosions.AddExplosion(new Vector2(z.X + 20 * z.Scale, z.Y + 10 * z.Scale), contentManager, "blood");
                     zombies.Remove(z);
                     break;

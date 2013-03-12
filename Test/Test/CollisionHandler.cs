@@ -226,7 +226,10 @@ namespace Test
                 }
                 if(playerRectangle.Intersects(firstAidRectangle))
                 {
-                    p.Hitpoints += 5;
+                    if (p.Hitpoints + 5 <= 100)
+                        p.Hitpoints += 5;
+                    else
+                        p.Hitpoints = 100;
                     f.Visible = false;
                 }
             }

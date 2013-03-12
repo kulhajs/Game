@@ -28,14 +28,11 @@ namespace Test
 
         const float gravity = 8f;
 
-        public FirstAid(Vector2 position)
+        public FirstAid(Vector2 position, float dx)
         {
             velocity.X = random.Next(50, 75);
-            if (random.Next(2) == 1)
-                direction.X = 1;
-            else
-                direction.X = -1;
-
+            this.direction.X = dx;
+            
             this.Slide = false;
             this.Visible = true;
             this.Falling = true;
