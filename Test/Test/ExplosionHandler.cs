@@ -20,7 +20,7 @@ namespace Test
 
         public ExplosionHandler()
         {
-            explosions = new List<Explosion>();
+            explosions = new List<Explosion>(50);
         }
 
         /// <summary>

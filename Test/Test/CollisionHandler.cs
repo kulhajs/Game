@@ -21,8 +21,8 @@ namespace Test
 
         Random random = new Random();
 
-        const int minRocketDmg = 10;
-        const int maxRocketDmg = 30;
+        const int minRocketDmg = 30;
+        const int maxRocketDmg = 50;
 
         const int minDoorDmg = 3;
         const int maxDoorDmg = 8;
@@ -157,6 +157,13 @@ namespace Test
                         if (playerRectangle.Intersects(rocketRectangle))
                         {
                             r.Visible = false;
+                            p.Push = true;
+
+                            if(r.DX > 0)
+                                p.DX = 4;
+                            else
+                                p.DX = -4;
+                            
                             p.Hitpoints -= random.Next(minRocketDmg, maxRocketDmg);
                         }
                         foreach(ZombieDispenser zd in e.zombies)

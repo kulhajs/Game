@@ -13,9 +13,9 @@ namespace Test
 
         public EnemyHandler()
         {
-            towers = new List<Tower>();
-            doors = new List<FlashDoor>();
-            zombies = new List<ZombieDispenser>();
+            towers = new List<Tower>(10);
+            doors = new List<FlashDoor>(5);
+            zombies = new List<ZombieDispenser>(5);
         }
 
         public void Initiliaze(int level)

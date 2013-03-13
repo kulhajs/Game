@@ -26,8 +26,8 @@ namespace Test
 
         public ItemHandler(ContentManager theContentmanager)
         {
-            coins = new List<Coin>();
-            firstAids = new List<FirstAid>();
+            coins = new List<Coin>(coinCount);
+            firstAids = new List<FirstAid>(25);
             contentManager = theContentmanager;
         }
 

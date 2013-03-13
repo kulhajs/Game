@@ -44,7 +44,7 @@ namespace Test
             this.Position = position;
             this.Scale = 0.667f;
             this.initRealoadTime = random.Next(100, 125) / 100;
-            rockets = new List<Rocket>();
+            rockets = new List<Rocket>(10);
         }
 
         public bool SeePlayer { get; set; }

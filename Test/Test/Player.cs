@@ -106,7 +106,7 @@ namespace Test
             this.Crouching = false;
             this.Sliding = false;
             this.Push = false;
-            this.bullets = new List<Bullet>();
+            this.bullets = new List<Bullet>(100);
         }
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager theContentManager)

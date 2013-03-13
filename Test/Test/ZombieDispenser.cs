@@ -33,7 +33,7 @@ namespace Test
         public ZombieDispenser(Vector2 position)
         {
             this.Position = position;
-            zombies = new List<Zombie>();
+            zombies = new List<Zombie>(25);
         }
 
         public void LoadContent(ContentManager theContentManager)

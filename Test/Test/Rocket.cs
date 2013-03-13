@@ -21,6 +21,8 @@ namespace Test
 
         const int animationLenght = 9;
         int currentFrame = 0;
+
+        public float DX { get { return direction.X; } }
         
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0,0,16,5),
