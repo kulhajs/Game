@@ -18,6 +18,7 @@ namespace Test
         Rectangle eolRectangle;
         Rectangle bulletRectangle;
         Rectangle firstAidRectangle;
+        Rectangle acidRectangle;
 
         Random random = new Random();
 
@@ -30,7 +31,7 @@ namespace Test
         const int minZombieDmg = 2;
         const int maxZombieDmg = 5;
 
-        const int bulletDmg = 10;
+        const int bulletDmg = 20;
 
         public void HandleMovingCollision(Player p, Level l, int level = 0)
         {
@@ -80,17 +81,17 @@ namespace Test
                         {
                             if (z.DX < 0 && p.DX >= 0)
                             {
-                                explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, "blood");
+                                explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, "blood", "normal", 15);
                                 p.Push = true;
-                                p.DX = -3;
+                                p.DX = -4f;
                                 p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
                                 z.realoadTime = 0.0f;
                             }
                             else if (z.DX > 0 && p.DX <= 0)
                             {
-                                explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, "blood");
+                                explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, "blood", "normal", 15);
                                 p.Push = true;
-                                p.DX = 3;
+                                p.DX = 4f;
                                 p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
                                 z.realoadTime = 0.0f;
                             }
@@ -160,9 +161,9 @@ namespace Test
                             p.Push = true;
 
                             if(r.DX > 0)
-                                p.DX = 4;
+                                p.DX = 3.5f;
                             else
-                                p.DX = -4;
+                                p.DX = -3.5f;
                             
                             p.Hitpoints -= random.Next(minRocketDmg, maxRocketDmg);
                         }
@@ -200,7 +201,7 @@ namespace Test
                 }
         }
 
-        public void HandleItemCollision(Player p, ItemHandler i, Level l, int level = 0)
+        public void HandleItemCollision(Player p, ItemHandler i, ExplosionHandler explosions, Level l, int level = 0)
         {
             if (p.Jumping || p.Falling)
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
@@ -238,6 +239,23 @@ namespace Test
                     else
                         p.Hitpoints = 100;
                     f.Visible = false;
+                }
+            }
+
+            foreach (Acid a in i.acidBalls)
+            {
+                a.Falling = true;
+                acidRectangle = new Rectangle((int)a.X + 3, (int)a.Y + 3, 8, 8);
+                foreach (MacroBlock mb in l.levels[level])
+                {
+                    if (acidRectangle.Intersects(mb.GetRectangle()))
+                        a.Falling = false;
+                }
+                if(playerRectangle.Intersects(acidRectangle) && !a.Exploded)
+                {
+                    p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                    explosions.AddExplosion(a.Position, a.contentManager, "acid", "small", 27);
+                    a.Exploded = true;
                 }
             }
         }

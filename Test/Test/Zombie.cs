@@ -35,7 +35,7 @@ namespace Test
         
         float initReloadTime = 0.5f;
 
-        const float gravity = 8f;
+        const float gravity = 9.81f;
 
         const int initialHitpoints = 50;
 

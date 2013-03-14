@@ -69,7 +69,9 @@ namespace Test
                 {
                     if (random.Next(5) == 1)
                         ih.AddFirstAid(z.Position, z.DX);
-                    explosions.AddExplosion(new Vector2(z.X + 20 * z.Scale, z.Y + 10 * z.Scale), contentManager, "blood");
+                    else if (random.Next(5) % 2 == 0)
+                        ih.AddAcid(z.Position, z.DX);
+                    explosions.AddExplosion(new Vector2(z.X + 20 * z.Scale, z.Y + 10 * z.Scale), contentManager, "blood", "normal", 15);
                     zombies.Remove(z);
                     break;
                 }

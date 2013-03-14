@@ -106,7 +106,7 @@ namespace Test
             {
                 if (!r.Visible)
                 {
-                    explosions.AddExplosion(r.Position, contentManager, "explosion"); //each time rocket is removed, explosion is created
+                    explosions.AddExplosion(r.Position, contentManager, "explosion", "normal", 15); //each time rocket is removed, explosion is created
                     rockets.Remove(r);
                     break;
                 }

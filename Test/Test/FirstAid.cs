@@ -26,12 +26,15 @@ namespace Test
 
         Random random = new Random();
 
-        const float gravity = 8f;
+        const float gravity = 9.81f;
 
-        public FirstAid(Vector2 position, float dx)
+        float friction;
+
+        public FirstAid(Vector2 position, float dx, float friction)
         {
             velocity.X = random.Next(50, 75);
             this.direction.X = dx;
+            this.friction = friction;
             
             this.Slide = false;
             this.Visible = true;
@@ -39,13 +42,13 @@ namespace Test
             this.Position = position;
         }
 
-        public void LoadContent(ContentManager theContentManager)
+        public virtual void LoadContent(ContentManager theContentManager)
         {
             contentManager = theContentManager;
             base.LoadContent(contentManager, "firstAid");
         }
 
-        public void Update(GameTime theGameTime)
+        public virtual void Update(GameTime theGameTime)
         {
             if (Falling)
             {
@@ -58,21 +61,22 @@ namespace Test
                 this.Slide = true;
             }
 
-            if(Slide)
+            if (Slide)
             {
                 if (direction.X < 0.1f)
-                    direction.X -= direction.X * 0.075f;
+                    direction.X -= direction.X * friction;
                 else if (direction.X > 0.1f)
-                    direction.X -= direction.X * 0.075f;
+                    direction.X -= direction.X * friction;
                 else direction.X = 0;
             }
 
             Position += direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        public void Draw(SpriteBatch theSpriteBatch)
+        public virtual void Draw(SpriteBatch theSpriteBatch)
         {
-            base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, 0.0f);
+            if (this.Visible)
+                base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, 0.0f);
         }
     }
 }

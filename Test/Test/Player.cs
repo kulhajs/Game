@@ -45,9 +45,9 @@ namespace Test
         int animationLenght = 40;
         int currentFrame = 0;
 
-        float jumpHeight = 270f; 
+        float jumpHeight = 300f;        //270
 
-        const float gravity = 8f;
+        const float gravity = 9.81f;    //8
         float reloadTime = 0.2f;
 
         const int maxHealth = 100;
@@ -163,7 +163,7 @@ namespace Test
                 if (!b.Visible)
                 {
                     bullets.Remove(b);
-                    explosions.AddExplosion(b.Position, contentManager, "blood");
+                    explosions.AddExplosion(b.Position, contentManager, "blood", "normal", 15);
                     break;
                 }
         }
@@ -326,7 +326,7 @@ namespace Test
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
 
             //drawcrosshair
-            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), currentFacing == Facing.Right && crosshairPosition.X > this.X || currentFacing == Facing.Left && crosshairPosition.X < this.X ? Color.LimeGreen : Color.Red);
+            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), currentFacing == Facing.Right && crosshairPosition.X > this.X || currentFacing == Facing.Left && crosshairPosition.X < this.X ? Color.Green : Color.Red);
 
             foreach (Bullet b in bullets)
                 if (b.Visible)

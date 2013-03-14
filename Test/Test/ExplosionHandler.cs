@@ -29,9 +29,9 @@ namespace Test
         /// <param name="position"></param>
         /// <param name="theContentManager"></param>
         /// <param name="explosionType">"blood", "explosion"</param>
-        public void AddExplosion(Vector2 position, ContentManager theContentManager, string explosionType)
+        public void AddExplosion(Vector2 position, ContentManager theContentManager, string explosionType, string explosionSize, int animationLength)
         {
-            newExplosion = new Explosion(position, explosionType);
+            newExplosion = new Explosion(position, explosionType, explosionSize, animationLength);
             newExplosion.LoadContent(theContentManager);
             explosions.Add(newExplosion);
             newExplosion = null;
