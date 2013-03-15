@@ -142,7 +142,10 @@ namespace Test
 
             if(ChangeLevel)
             {
-                currentLevel++;
+                if (currentLevel < 1)
+                    currentLevel++;
+                else
+                    currentLevel = 0;
                 this.Initialize();
             }
 

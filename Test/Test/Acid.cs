@@ -16,15 +16,13 @@ namespace Test
     {
         Random random = new Random();
 
-        Vector2 velocity = Vector2.Zero;
-        Vector2 direction = Vector2.Zero;
-
         public bool Exploded { get; set; }
 
         public Acid(Vector2 position, float dx, float friction)
             : base(position, dx, friction)
         {
             this.Exploded = false;
+            this.Rotation = 0.0f;
         }
 
         public override void LoadContent(ContentManager theContentManager)
@@ -37,18 +35,22 @@ namespace Test
         public override void Update(GameTime theGameTime)
         {
             base.Update(theGameTime);
-            if (this.direction.X > 0)
-                this.Rotation += direction.X * 3;
-            else if (this.direction.X < 0)
-                this.Rotation -= direction.X * 3;
+
+            if (direction.X > 0 && direction.Y == 0)
+                this.Rotation += direction.X;
+            else if (base.direction.X < 0 && direction.Y == 0)
+                this.Rotation += direction.X;
             
             if (Exploded)
+            {
                 this.Source = new Rectangle(16, 0, 16, 16);
+                this.Rotation = 0.0f;
+            }
         }
 
-        public override void Draw(SpriteBatch theSpritebatch)
+        public void Draw(SpriteBatch theSpritebatch)
         {
-            base.Draw(theSpritebatch);
+            base.Draw(theSpritebatch, new Vector2(8, 8), new Vector2(this.X - 8, this.Y + 8), Color.White, this.Rotation); //TODO: posision
         }
     }
 }

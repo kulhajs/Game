@@ -21,7 +21,7 @@ namespace Test
 
         public bool Slide { get; set; }
 
-        Vector2 direction = Vector2.Zero;
+        public Vector2 direction = Vector2.Zero;
         Vector2 velocity = Vector2.Zero;
 
         Random random = new Random();
@@ -73,7 +73,7 @@ namespace Test
             Position += direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        public virtual void Draw(SpriteBatch theSpriteBatch)
+        public void Draw(SpriteBatch theSpriteBatch)
         {
             if (this.Visible)
                 base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, 0.0f);
