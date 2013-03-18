@@ -26,6 +26,7 @@ namespace Test
         const int HEIGHT = 500;
 
         int currentLevel = 0;
+        string levelType = "blocks_industrial";
 
         public bool ChangeLevel { get; set; }
 
@@ -75,7 +76,7 @@ namespace Test
 
             ch = new CollisionHandler();
 
-            l.Initialize(currentLevel);
+            l.Initialize(currentLevel, levelType);
 
             this.ChangeLevel = false;
 
@@ -144,9 +145,13 @@ namespace Test
             if(ChangeLevel)
             {
                 if (currentLevel < 1)
+                {
                     currentLevel++;
+                }
                 else
+                {
                     currentLevel = 0;
+                }
                 this.Initialize();
             }
 

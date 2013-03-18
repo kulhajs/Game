@@ -14,17 +14,19 @@ namespace Test
         };
 
         int id;
+        string blockType;
 
-        public Block(int id, Vector2 initPosition)
+        public Block(int id, Vector2 initPosition, string blockType)
         {
             this.id = id;
+            this.blockType = blockType;
             this.Position = initPosition;
         }
 
         public void LoadContent(ContentManager theContentManager)
         {
             contentManager = theContentManager;
-            base.LoadContent(contentManager, "blocks_3_noise");
+            base.LoadContent(contentManager, blockType);
             this.Source = sources[id];
         }
 

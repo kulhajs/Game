@@ -72,13 +72,13 @@ namespace Test
             levelBlocks = new List<MacroBlock>();
         }
 
-        public void Initialize(int level)
+        public void Initialize(int level, string levelType)
         {
             levelBlocks = levels[level];
             endOflevel = ends[level];
 
             foreach (MacroBlock mb in levelBlocks)
-                mb.Initialize();
+                mb.Initialize(levelType);
         }
 
         public void Update()

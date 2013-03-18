@@ -23,7 +23,7 @@ namespace Test
         {
             this.id = id;
             this.initPos = new Vector2(column * 64, layer * 66);
-            blocks = new List<Block>();
+            blocks = new List<Block>(50);
         }
 
         public Rectangle GetRectangle()
@@ -31,10 +31,10 @@ namespace Test
             return new Rectangle((int)initPos.X, (int)initPos.Y + 1, blocks.Count * 64, 7);
         }
 
-        public void Initialize()
+        public void Initialize(string blockType)
         {
             for (int i = 0; i < id.Length; i++)
-                blocks.Add(new Block(id[i], new Vector2(initPos.X + i * 64, initPos.Y)));
+                blocks.Add(new Block(id[i], new Vector2(initPos.X + i * 64, initPos.Y), blockType));
         }
 
         public void LoadContent(ContentManager theContentManager)
