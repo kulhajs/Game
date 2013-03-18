@@ -245,7 +245,7 @@ namespace Test
             foreach (Acid a in i.acidBalls)
             {
                 a.Falling = true;
-                acidRectangle = new Rectangle((int)a.X + 3, (int)a.Y + 3, 8, 8);
+                acidRectangle = new Rectangle((int)a.X - 5, (int)a.Y - 5, 8, 8);
                 foreach (MacroBlock mb in l.levels[level])
                 {
                     if (acidRectangle.Intersects(mb.GetRectangle()))
@@ -254,7 +254,7 @@ namespace Test
                 if(playerRectangle.Intersects(acidRectangle) && !a.Exploded)
                 {
                     p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                    explosions.AddExplosion(a.Position, a.contentManager, "acid", "small", 27);
+                    explosions.AddExplosion(new Vector2(a.Position.X - 8, a.Position.Y - 8), a.contentManager, "acid", "small", 27);
                     a.Exploded = true;
                 }
             }

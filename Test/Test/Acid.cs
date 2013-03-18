@@ -50,7 +50,7 @@ namespace Test
 
         public void Draw(SpriteBatch theSpritebatch)
         {
-            base.Draw(theSpritebatch, new Vector2(8, 8), new Vector2(this.X - 8, this.Y + 8), Color.White, this.Rotation); //TODO: posision
+            theSpritebatch.Draw(this.texture, new Vector2(this.X, this.Y), this.Source, Color.White, this.Rotation, new Vector2(8, 8), 1.0f, SpriteEffects.None, 0f);
         }
     }
 }
