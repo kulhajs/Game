@@ -28,10 +28,13 @@ namespace Test
         /// </summary>
         /// <param name="position"></param>
         /// <param name="theContentManager"></param>
-        /// <param name="explosionType">"blood", "explosion"</param>
-        public void AddExplosion(Vector2 position, ContentManager theContentManager, string explosionType, string explosionSize, int animationLength)
+        /// <param name="explosionType">"blood", "explosion", "acid"</param>
+        /// <param name="animationLength">count of all frames drawn on screen (blood, explosion = 15; acid = 27)</param>
+        /// <param name="frameSize">width & height of one animation frame - assuming frame is squared (blood, explosion = 32; acid = 16)</param>
+        /// <param name="sourceCount">number of animation frames (blood = 4; explosion = 5; acid = 9)</param>
+        public void AddExplosion(Vector2 position, ContentManager theContentManager, int sourceCount, int animationLength, string explosionType, int frameSize)
         {
-            newExplosion = new Explosion(position, explosionType, explosionSize, animationLength);
+            newExplosion = new Explosion(position, sourceCount, animationLength, explosionType, frameSize);
             newExplosion.LoadContent(theContentManager);
             explosions.Add(newExplosion);
             newExplosion = null;

@@ -28,6 +28,9 @@ namespace Test
         float reloadTime = 0f;
         float initRealoadTime; 
 
+        const int rocketAnimationLength = 15;
+        const int explosionFrameCount = 5;
+
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),
             new Rectangle(64, 0, 64, 64), 
@@ -106,7 +109,7 @@ namespace Test
             {
                 if (!r.Visible)
                 {
-                    explosions.AddExplosion(r.Position, contentManager, "explosion", "normal", 15); //each time rocket is removed, explosion is created
+                    explosions.AddExplosion(r.Position, contentManager, 5, 15, "explosion", 32); //each time rocket is removed, explosion is created
                     rockets.Remove(r);
                     break;
                 }

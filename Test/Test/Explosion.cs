@@ -13,41 +13,30 @@ namespace Test
 {
     class Explosion : Sprite
     {
-        Rectangle[] sources = new Rectangle[] {
-            new Rectangle(0,0,32,32),
-            new Rectangle(32,0,32,32),
-            new Rectangle(64,0,32,32),
-            new Rectangle(96,0,32,32),
-            new Rectangle(128,0,32,32)
-        };
+        Rectangle[] sources;
 
-        Rectangle[] smallSources = new Rectangle[] {
-            new Rectangle(0, 0, 16, 16), 
-            new Rectangle(16, 0, 16, 16), 
-            new Rectangle(32, 0, 16, 16), 
-            new Rectangle(48, 0, 16, 16), 
-            new Rectangle(64, 0, 16, 16), 
-            new Rectangle(80, 0, 16, 16), 
-            new Rectangle(96, 0, 16, 16), 
-            new Rectangle(112, 0, 16, 16), 
-            new Rectangle(128, 0, 16, 16)
-        };
+        int currentFrame = 0;
+        int frame = 0;
+        int animationLength;
+        int frameSize;
+        int frameTime;
 
         string explosionType;
-        string explosionSize;
 
-        int animationLength; // 15
-        int currentFrame = 0;
+        public bool Visible { get; set; }
 
-        public bool Visible { get; private set; }
-
-        public Explosion(Vector2 position, string explosionType, string explosionSize, int animationLength)
+        public Explosion(Vector2 position, int sourceCount, int animationLength, string explosionType, int frameSize)
         {
+            sources = new Rectangle[sourceCount];
             this.Position = position;
             this.Visible = true;
             this.explosionType = explosionType;
-            this.explosionSize = explosionSize;
             this.animationLength = animationLength;
+            this.frameSize = frameSize;
+            frameTime = animationLength / sourceCount;
+
+            for (int i = 0; i < sources.Length; i++)
+                sources[i] = new Rectangle(i * frameSize, 0, frameSize, frameSize);
         }
 
         public void LoadContent(ContentManager theContentManager)
@@ -58,46 +47,18 @@ namespace Test
 
         public void Animate()
         {
-            if(explosionSize == "normal")
-            {
-                if (currentFrame < animationLength / 5)
-                    Source = sources[0];
-                else if (currentFrame < 2 * animationLength / 5)
-                    Source = sources[1];
-                else if (currentFrame < 3 * animationLength / 5)
-                    Source = sources[2];
-                else if (currentFrame < 4 * animationLength / 5)
-                    Source = sources[3];
-                else if (currentFrame < animationLength)
-                    Source = sources[4];
-                else
-                    Visible = false;
-            }
-            else if(explosionSize == "small")
-            {
-                if (currentFrame < animationLength / 9)
-                    Source = smallSources[0];
-                else if (currentFrame < 2 * animationLength / 9)
-                    Source = smallSources[1];
-                else if (currentFrame < 3 * animationLength / 9)
-                    Source = smallSources[2];
-                else if (currentFrame < 4 * animationLength / 9)
-                    Source = smallSources[3];
-                else if (currentFrame < 5 * animationLength / 9)
-                    Source = smallSources[4];
-                else if (currentFrame < 6 * animationLength / 9)
-                    Source = smallSources[5];
-                else if (currentFrame < 7 * animationLength / 9)
-                    Source = smallSources[6];
-                else if (currentFrame < 8 * animationLength / 9)
-                    Source = smallSources[7];
-                else if (currentFrame < animationLength)
-                    Source = smallSources[8];
-                else
-                    Visible = false;  
-            }
+            if (currentFrame < sources.Length - 1)
+                this.Source = sources[currentFrame];
+            else
+                this.Visible = false;
 
-            currentFrame++;
+            frame++;
+            if(frame > frameTime)
+            {
+                currentFrame++;
+                frame = 0;
+            }
+            
         }
 
         public void Draw(SpriteBatch theSpriteBatch)

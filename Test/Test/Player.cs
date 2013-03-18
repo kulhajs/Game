@@ -163,7 +163,7 @@ namespace Test
                 if (!b.Visible)
                 {
                     bullets.Remove(b);
-                    explosions.AddExplosion(b.Position, contentManager, "blood", "normal", 15);
+                    explosions.AddExplosion(b.Position, contentManager, 4, 15, "blood", 32);
                     break;
                 }
         }

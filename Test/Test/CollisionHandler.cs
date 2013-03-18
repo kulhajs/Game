@@ -81,7 +81,7 @@ namespace Test
                         {
                             if (z.DX < 0 && p.DX >= 0)
                             {
-                                explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, "blood", "normal", 15);
+                                explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
                                 p.Push = true;
                                 p.DX = -4f;
                                 p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
@@ -89,7 +89,7 @@ namespace Test
                             }
                             else if (z.DX > 0 && p.DX <= 0)
                             {
-                                explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, "blood", "normal", 15);
+                                explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
                                 p.Push = true;
                                 p.DX = 4f;
                                 p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
@@ -254,7 +254,7 @@ namespace Test
                 if(playerRectangle.Intersects(acidRectangle) && !a.Exploded)
                 {
                     p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                    explosions.AddExplosion(new Vector2(a.Position.X - 8, a.Position.Y - 8), a.contentManager, "acid", "small", 27);
+                    explosions.AddExplosion(new Vector2(a.Position.X - 8, a.Position.Y - 8), a.contentManager, 9, 27, "acid", 16);
                     a.Exploded = true;
                 }
             }
