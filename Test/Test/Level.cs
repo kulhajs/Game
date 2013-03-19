@@ -15,24 +15,34 @@ namespace Test
         
         public List<List<MacroBlock>> levels = new List<List<MacroBlock>>() {
             new List<MacroBlock>(){
-                new MacroBlock(new int[] { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 }, 4, 0),
-                new MacroBlock(new int[] { 0, 1, 2 }, 2, 10),
-                new MacroBlock(new int[] { 0, 1, 2 }, 3, 13),
-                new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 5, 12),
-                new MacroBlock(new int[] { 3 }, 2, 18),
+                new MacroBlock(new int[] { 0, 1, 1, 1, 1, 1, 2 }, 4, 0),
+                new MacroBlock(new int[] { 0, 1, 2 }, 2, 6),
+                new MacroBlock(new int[] { 0, 1, 2 }, 3, 9),
+                new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 5, 8),
+                new MacroBlock(new int[] { 3 }, 2, 14),
+                new MacroBlock(new int[] { 0, 1, 2 }, 4, 14),
+                new MacroBlock(new int[] { 0, 1, 1, 2 }, 2, 17),
                 new MacroBlock(new int[] { 0, 1, 2 }, 4, 18),
-                new MacroBlock(new int[] { 0, 1, 1, 2 }, 2, 21),
-                new MacroBlock(new int[] { 0, 1, 2 }, 4, 22),
-                new MacroBlock(new int[] { 0, 1, 2 }, 3, 26),
-                new MacroBlock(new int[] { 3 }, 4, 30),
-                new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 5, 26),
-                new MacroBlock(new int[] { 3 }, 2, 29),
-                new MacroBlock(new int[] { 0, 1, 2 }, 3, 32),
-                new MacroBlock(new int[] { 0, 1, 1, 2 }, 5, 32),
-                new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 4, 36),
-                new MacroBlock(new int[] { 0, 2}, 3, 39),
-                new MacroBlock(new int[] { 3 }, 2, 40)
-                //new MacroBlock(new int[] {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2}, 6, 0) //debug block
+                new MacroBlock(new int[] { 0, 1, 2 }, 3, 22),
+                new MacroBlock(new int[] { 3 }, 4, 26),
+                new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 5, 22),
+                new MacroBlock(new int[] { 3 }, 2, 25),
+                new MacroBlock(new int[] { 0, 1, 2 }, 3, 28),
+                new MacroBlock(new int[] { 0, 1, 1, 2 }, 5, 28),
+                new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 4, 32),
+                //new MacroBlock(new int[] { 0, 2}, 3, 39),
+                //new MacroBlock(new int[] { 3 }, 2, 40)
+                //new MacroBlock(new int[] {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2}, 6, 0), //debug block
+                new MacroBlock(new int[] { 3 }, 4, 38),
+                new MacroBlock(new int[] { 0, 2 }, 4, 40),
+                new MacroBlock(new int[] { 0, 1, 2 }, 2, 40),
+                new MacroBlock(new int[] { 0, 1, 2 }, 5, 42),
+                new MacroBlock(new int[] { 3 }, 3, 43),
+                new MacroBlock(new int[] { 3 }, 3, 46),
+                new MacroBlock(new int[] { 0, 2 }, 5, 46), 
+                new MacroBlock(new int[] { 3 }, 4, 48),
+                new MacroBlock(new int[] { 0, 2}, 3, 49),
+                new MacroBlock(new int[] { 3 }, 4, 53)
             },
             new List<MacroBlock>(){
                 new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 4, 0), 
@@ -63,7 +73,7 @@ namespace Test
         };
 
         public List<EndOfLevel> ends = new List<EndOfLevel>() {
-            new EndOfLevel(new Vector2(40 * 64, 64 + 3)),
+            new EndOfLevel(new Vector2(53 * 64, 3 * 64 + 3)),
             new EndOfLevel(new Vector2(39 * 64, 0 + 3))
         };
 

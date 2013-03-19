@@ -22,7 +22,9 @@ namespace Test
         Texture2D body;
         Texture2D gun;
         Texture2D crosshair;
-         
+
+        public HealthBar hb;
+
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64), //IDLE         //0
             new Rectangle(64, 0, 64, 64), //JUMP        //1
@@ -42,12 +44,12 @@ namespace Test
         
         public Facing currentFacing = Facing.Right;
 
-        int animationLenght = 40;
+        int animationLenght = 35; //40
         int currentFrame = 0;
 
-        float jumpHeight = 300f;        //270
+        float jumpHeight = 300f;        
 
-        const float gravity = 9.81f;    //8
+        const float gravity = 9.81f;   
         float reloadTime = 0.2f;
 
         const int maxHealth = 100;
@@ -107,6 +109,7 @@ namespace Test
             this.Sliding = false;
             this.Push = false;
             this.bullets = new List<Bullet>(100);
+            hb = new HealthBar();
         }
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager theContentManager)
@@ -116,19 +119,21 @@ namespace Test
             gun = contentManager.Load<Texture2D>("gun");
             crosshair = contentManager.Load<Texture2D>("crosshair");
             this.Source = sources[0];
+            hb.LoadContent(contentManager);
         }
 
         public void Update(MouseState mouseState, KeyboardState currentKeyboardState, KeyboardState oldKeyboardState, GameTime theGameTime, Camera camera, ExplosionHandler explosions)
         {
+            hb.Update(camera, (int)((double)Hitpoints * 1.18));
             //aiming
             float dx = (mouseState.X + camera.origin.X) - this.X;
             float dy = mouseState.Y - this.Y;
             this.Rotation = (float)Math.Atan((double)(dy / dx));
 
             //door switch interaction
-            if (IntersectWithSwitch != null && IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
+            if (IntersectWithSwitch != null && IntersectWithSwitch.Switch && UseKeyPressed(currentKeyboardState, oldKeyboardState))
                 IntersectWithSwitch.Switch = false;
-            else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
+            else if (IntersectWithSwitch != null && !IntersectWithSwitch.Switch && UseKeyPressed(currentKeyboardState, oldKeyboardState))
                 IntersectWithSwitch.Switch = true;
 
             this.UpdateMovement(currentKeyboardState, oldKeyboardState, theGameTime);
@@ -241,17 +246,17 @@ namespace Test
 
             if(!Push && !Sliding) //if player is not pushed away from doors (you cannot control your movement during that)
             { 
-                if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A) && !Jumping && !Falling && !Crouching) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
+                if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A)  && !Crouching) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
                 {
                     DX = 1;
                     currentFacing = Facing.Right;
                 }
-                else if (currentKeyboardState.IsKeyDown(Keys.A) && oldKeyboardState.IsKeyUp(Keys.D) && !Jumping && !Falling && !Crouching)
+                else if (currentKeyboardState.IsKeyDown(Keys.A) && oldKeyboardState.IsKeyUp(Keys.D) && !Crouching)
                 {
                     DX = -1;
                     currentFacing = Facing.Left;
                 }
-                else if (!Jumping && !Falling) //if not jumping or falling, horizontal velocity = 0 no matter the previous key
+                else //if (!Jumping && !Falling) //if not jumping or falling, horizontal velocity = 0 no matter the previous key
                     DX = 0.0f;
             }
 
@@ -313,6 +318,16 @@ namespace Test
             this.Position += Direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
 
+        private bool UseKeyPressed(KeyboardState currentKeyboardState, KeyboardState oldKeyboardState)
+        {
+            if (currentKeyboardState.IsKeyDown(Keys.Space) && !oldKeyboardState.IsKeyDown(Keys.Space))
+                return true;
+            else if (currentKeyboardState.IsKeyDown(Keys.E) && !oldKeyboardState.IsKeyDown(Keys.E))
+                return true;
+            else
+                return false;
+        }
+
         public void Draw(SpriteBatch theSpriteBatch)
         {
             //draw body
@@ -327,7 +342,7 @@ namespace Test
 
             //drawcrosshair
             theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), currentFacing == Facing.Right && crosshairPosition.X > this.X || currentFacing == Facing.Left && crosshairPosition.X < this.X ? Color.Green : Color.Red);
-
+            
             foreach (Bullet b in bullets)
                 if (b.Visible)
                     b.Draw(theSpriteBatch);

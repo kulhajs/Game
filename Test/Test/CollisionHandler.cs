@@ -28,36 +28,37 @@ namespace Test
         const int minDoorDmg = 3;
         const int maxDoorDmg = 8;
 
-        const int minZombieDmg = 2;
-        const int maxZombieDmg = 5;
+        const int minZombieDmg = 5; //2
+        const int maxZombieDmg = 15; //5
 
         const int bulletDmg = 20;
 
-        public void HandleMovingCollision(Player p, Level l, int level = 0)
+        public void HandleMovingCollision(Player p, Level l, Camera c, int level = 0)
         {
             p.Falling = true;
 
-            playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 60 * p.Scale), (int)(16 * p.Scale), (int)(4 * p.Scale));
+            playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 60 * p.Scale), (int)(16 * p.Scale), (int)(6 * p.Scale));
             foreach (MacroBlock mb in l.levels[level])
-            {
-                if (playerRectangle.Intersects(mb.GetRectangle()))
+                if (mb.IsOnScreen(c))
                 {
-                    p.Falling = false;
-                    break;
+                    if (playerRectangle.Intersects(mb.GetRectangle()))
+                    {
+                        p.Falling = false;
+                        break;
+                    }
                 }
-            }
         }
 
         public void HandleZombiesMovingCollision(EnemyHandler e, Level l, int level = 0)
         {
-            foreach(ZombieDispenser zd in e.zombies)
-                foreach(Zombie z in zd.zombies)
+            foreach (ZombieDispenser zd in e.zombies)
+                foreach (Zombie z in zd.zombies)
                 {
                     z.Falling = true;
 
-                    zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 60 * z.Scale), (int)(28 * z.Scale), (int)(4 * z.Scale));
-                    foreach(MacroBlock mb in l.levels[level])
-                        if(zombieRectangle.Intersects(mb.GetRectangle()))
+                    zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 60 * z.Scale), (int)(28 * z.Scale), (int)(6 * z.Scale));
+                    foreach (MacroBlock mb in l.levels[level])
+                        if (zombieRectangle.Intersects(mb.GetRectangle()))
                         {
                             z.Falling = false;
                             break;
@@ -234,8 +235,8 @@ namespace Test
                 }
                 if(playerRectangle.Intersects(firstAidRectangle))
                 {
-                    if (p.Hitpoints + 5 <= 100)
-                        p.Hitpoints += 5;
+                    if (p.Hitpoints + 25 <= 100)
+                        p.Hitpoints += 25; //5
                     else
                         p.Hitpoints = 100;
                     f.Visible = false;
@@ -245,7 +246,7 @@ namespace Test
             foreach (Acid a in i.acidBalls)
             {
                 a.Falling = true;
-                acidRectangle = new Rectangle((int)a.X - 5, (int)a.Y - 5, 8, 8);
+                acidRectangle = new Rectangle((int)a.X - 6, (int)a.Y - 6, 10, 10);
                 foreach (MacroBlock mb in l.levels[level])
                 {
                     if (acidRectangle.Intersects(mb.GetRectangle()))

@@ -28,7 +28,16 @@ namespace Test
 
         public Rectangle GetRectangle()
         {
-            return new Rectangle((int)initPos.X, (int)initPos.Y + 1, blocks.Count * 64, 7);
+            return new Rectangle((int)initPos.X, (int)initPos.Y + 1, blocks.Count * 64, 8);
+        }
+
+        public bool IsOnScreen(Camera c)
+        {
+            Rectangle cameraRectangle = new Rectangle((int)c.origin.X, (int)c.origin.Y, 800, 800);
+            if (this.GetRectangle().Intersects(cameraRectangle))
+                return true;
+            else
+                return false;
         }
 
         public void Initialize(string blockType)

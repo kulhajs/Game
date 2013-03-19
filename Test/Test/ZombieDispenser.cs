@@ -67,7 +67,7 @@ namespace Test
             foreach (Zombie z in zombies)
                 if (z.Y > 550 || !z.Visible)
                 {
-                    if (random.Next(5) == 1)
+                    if (random.Next(10) == 1)
                         ih.AddFirstAid(z.Position, z.DX);
                     else if (random.Next(5) % 2 == 0)
                         ih.AddAcid(z.Position, z.DX);

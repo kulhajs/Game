@@ -16,17 +16,20 @@ namespace Test
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        const string industrial = "blocks_industrial";
+        const string stone = "blocks_stone";
+        const string grass = "blocks_grass";
         
         int FPS = 0;
         int frame = 0;
         float TIME = 0.0f;
-        
-        
+                
         const int WIDTH = 800;
-        const int HEIGHT = 500;
+        const int HEIGHT = 480;
 
         int currentLevel = 0;
-        string levelType = "blocks_industrial";
+        string currentLevelType = industrial;
 
         public bool ChangeLevel { get; set; }
 
@@ -76,7 +79,7 @@ namespace Test
 
             ch = new CollisionHandler();
 
-            l.Initialize(currentLevel, levelType);
+            l.Initialize(currentLevel, currentLevelType);
 
             this.ChangeLevel = false;
 
@@ -108,7 +111,7 @@ namespace Test
             
             currentKeyboardState = Keyboard.GetState();
 
-            ch.HandleMovingCollision(p, l, currentLevel);
+            ch.HandleMovingCollision(p, l, camera, currentLevel);
             ch.HandleZombiesMovingCollision(enemies, l, currentLevel);
             ch.HandleZombiePlayerCollision(p, enemies, explosions);
             ch.HandleBulletZombieCollision(p, enemies);
@@ -147,10 +150,12 @@ namespace Test
                 if (currentLevel < 1)
                 {
                     currentLevel++;
+                    currentLevelType = stone;
                 }
                 else
                 {
                     currentLevel = 0;
+                    currentLevelType = industrial;
                 }
                 this.Initialize();
             }
@@ -167,7 +172,7 @@ namespace Test
                 null, null, null, null,
                 camera.transform);
 
-            this.spriteBatch.Draw(background, new Vector2(camera.origin.X, -300), new Rectangle(0, 0, 800, 800), Color.White);
+            this.spriteBatch.Draw(background, new Vector2(camera.origin.X, -320), new Rectangle(0, 0, 800, 800), Color.White);
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
@@ -177,11 +182,12 @@ namespace Test
             l.endOflevel.DrawFront(this.spriteBatch);
             explosions.Draw(this.spriteBatch);
 
-            this.spriteBatch.Draw(clouds, new Vector2(camera.origin.X, -300), new Rectangle(0, 0, 800, 800), Color.White);
+            this.spriteBatch.Draw(clouds, new Vector2(camera.origin.X, -320), new Rectangle(0, 0, 800, 800), Color.White);
 
             spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
             spriteBatch.DrawString(font, "SCORE: " + p.Score, new Vector2(camera.origin.X + 350, camera.origin.Y + 10), Color.Black);
-            spriteBatch.DrawString(font, p.Hitpoints + " HP", new Vector2(camera.origin.X + 720, camera.origin.Y + 10), Color.Black);
+            p.hb.Draw(this.spriteBatch, new Vector2(camera.origin.X + 670, camera.origin.Y + 10));
+            //spriteBatch.DrawString(font, p.Hitpoints + " HP", new Vector2(camera.origin.X + 720, camera.origin.Y + 10), Color.Black);
 
             frame++;
             spriteBatch.End();

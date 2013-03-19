@@ -18,11 +18,17 @@ namespace Test
 
         public bool Exploded { get; set; }
 
+        public bool Visible { get; set; }
+
+        float lifeTime;
+
         public Acid(Vector2 position, float dx, float friction)
             : base(position, dx, friction)
         {
             this.Exploded = false;
             this.Rotation = 0.0f;
+            this.lifeTime = (float)(random.Next(30, 50) / 10);
+            this.Visible = true;
         }
 
         public override void LoadContent(ContentManager theContentManager)
@@ -45,6 +51,10 @@ namespace Test
             {
                 this.Source = new Rectangle(16, 0, 16, 16);
                 this.Rotation = 0.0f;
+                if (lifeTime > 0.0f)
+                    lifeTime -= (float)theGameTime.ElapsedGameTime.TotalSeconds;
+                else
+                    this.Visible = false;
             }
         }
 
