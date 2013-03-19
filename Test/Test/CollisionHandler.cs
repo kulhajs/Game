@@ -15,6 +15,7 @@ namespace Test
         Rectangle rocketRectangle;
         Rectangle coinRectangle;
         Rectangle zombieRectangle;
+        Rectangle zombieHeadRectangle;
         Rectangle eolRectangle;
         Rectangle bulletRectangle;
         Rectangle firstAidRectangle;
@@ -192,10 +193,16 @@ namespace Test
                         foreach (Zombie z in zd.zombies)
                             if (z.Visible)
                             {
-                                zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 4 * z.Scale), (int)(28 * z.Scale), (int)(60 * z.Scale));
+                                zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 19 * z.Scale), (int)(28 * z.Scale), (int)(45 * z.Scale));
+                                zombieHeadRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 4 * z.Scale), (int)(22 * z.Scale), (int)(15 * z.Scale));
                                 if (bulletRectangle.Intersects(zombieRectangle))
                                 {
                                     z.Hitpoints -= bulletDmg;
+                                    b.Visible = false;
+                                }
+                                else if(bulletRectangle.Intersects(zombieHeadRectangle))
+                                {
+                                    z.Hitpoints = 0;
                                     b.Visible = false;
                                 }
                             }
