@@ -176,8 +176,8 @@ namespace Test
         private void UpdateAttack(MouseState mouseState, Camera camera)
         {
             //direction of new bullet
-            float x = mouseState.X - (this.X - camera.origin.X);
-            float y = mouseState.Y - (this.Y - camera.origin.Y);
+            float x = (mouseState.X + 8) - (this.X - camera.origin.X);
+            float y = (mouseState.Y - 8) - (this.Y - camera.origin.Y);
             //if mouse is pointing in opposite direction than player, it won't shoot
             if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
                 return;

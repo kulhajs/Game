@@ -35,7 +35,7 @@ namespace Test
 
         SpriteFont font;
 
-        Texture2D background;
+        Texture2D backgroundIndustrial;
         Texture2D clouds;
 
         KeyboardState currentKeyboardState;
@@ -92,7 +92,7 @@ namespace Test
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("Font_1");
-            background = Content.Load<Texture2D>("background");
+            backgroundIndustrial = Content.Load<Texture2D>("background_industrial");
             clouds = Content.Load<Texture2D>("clouds");
 
             p.LoadContent(this.Content);
@@ -172,7 +172,7 @@ namespace Test
                 null, null, null, null,
                 camera.transform);
 
-            this.spriteBatch.Draw(background, new Vector2(camera.origin.X, -320), new Rectangle(0, 0, 800, 800), Color.White);
+            this.spriteBatch.Draw(backgroundIndustrial, new Vector2(camera.origin.X, -320), new Rectangle(0, 0, 800, 800), Color.White);
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);

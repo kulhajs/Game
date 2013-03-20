@@ -32,13 +32,15 @@ namespace Test
         const int minZombieDmg = 5; //2
         const int maxZombieDmg = 15; //5
 
+        const int firstAidHealth = 20;
+
         const int bulletDmg = 20;
 
         public void HandleMovingCollision(Player p, Level l, Camera c, int level = 0)
         {
             p.Falling = true;
 
-            playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 60 * p.Scale), (int)(16 * p.Scale), (int)(6 * p.Scale));
+            playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 58 * p.Scale), (int)(16 * p.Scale), (int)(6 * p.Scale));
             foreach (MacroBlock mb in l.levels[level])
                 if (mb.IsOnScreen(c))
                 {
@@ -148,7 +150,7 @@ namespace Test
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
             else
             {
-                playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
+                playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(45 * p.Scale))
                                              : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
 
             }
@@ -177,7 +179,7 @@ namespace Test
                                     if(rocketRectangle.Intersects(zombieRectangle))
                                     {
                                         r.Visible = false;
-                                        z.Hitpoints -= random.Next(minRocketDmg, maxRocketDmg);
+                                        z.Hitpoints = 0;
                                     }
                                 }
                     }
@@ -215,7 +217,7 @@ namespace Test
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
             else
             {
-                playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
+                playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(50 * p.Scale))
                                               : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
 
             }
@@ -242,8 +244,8 @@ namespace Test
                 }
                 if(playerRectangle.Intersects(firstAidRectangle))
                 {
-                    if (p.Hitpoints + 25 <= 100)
-                        p.Hitpoints += 25; //5
+                    if (p.Hitpoints + firstAidHealth <= 100)
+                        p.Hitpoints += firstAidHealth; 
                     else
                         p.Hitpoints = 100;
                     f.Visible = false;
@@ -261,7 +263,7 @@ namespace Test
                 }
                 if(playerRectangle.Intersects(acidRectangle) && !a.Exploded)
                 {
-                    p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                    p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg) / 2;
                     explosions.AddExplosion(new Vector2(a.Position.X - 8, a.Position.Y - 8), a.contentManager, 9, 27, "acid", 16);
                     a.Exploded = true;
                 }
