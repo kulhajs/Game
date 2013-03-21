@@ -28,7 +28,7 @@ namespace Test
         const int WIDTH = 800;
         const int HEIGHT = 480;
 
-        int currentLevel = 0;
+        int currentLevel = 2;
         string currentLevelType = industrial;
 
         public bool ChangeLevel { get; set; }
@@ -59,7 +59,7 @@ namespace Test
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = WIDTH;
             graphics.PreferredBackBufferHeight = HEIGHT;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.ApplyChanges();
         }
         

@@ -51,6 +51,25 @@ namespace Test
                 zombies.Add(new ZombieDispenser(new Vector2(17 * 64, 0)));
                 zombies.Add(new ZombieDispenser(new Vector2(30 * 64, 0)));
             }
+            else if (level == 2)
+            {
+                //_________________________TOWERS_________________________________
+                towers.Add(new Tower(new Vector2(10 * 64, 4 * 64 + 22 * 1 / 0.667f)));
+                towers.Add(new Tower(new Vector2(12 * 64 + 6, 18 * 1 / 0.667f)));
+                towers.Add(new Tower(new Vector2(23 * 64 + 6, 2 * 64 + 24 * 1 / 0.667f)));
+                towers.Add(new Tower(new Vector2(33 * 64 + 6, 4 * 64 + 24 * 1 / 0.667f)));
+                towers.Add(new Tower(new Vector2(40 * 64 + 6, 2 * 64 + 24 * 1 / 0.667f)));
+                //_________________________DOORS__________________________________
+                doors.Add(new FlashDoor(new Vector2(13 * 64, 1 * 64 + 2), new Vector2(6 * 64, 0 * 64 + 16)));
+                doors.Add(new FlashDoor(new Vector2(15 * 64, 4 * 64 + 6), new Vector2(14 * 64, 2 * 64 + 16)));
+                doors.Add(new FlashDoor(new Vector2(15 * 64, 1 * 64 + 2), new Vector2(16 * 64, 5 * 64 + 16)));
+                doors.Add(new FlashDoor(new Vector2(19 * 64, 0 * 64 + 2), new Vector2(23 * 64, 4 * 64 + 16)));
+                doors.Add(new FlashDoor(new Vector2(35 * 64, 0 * 64 + 2), new Vector2(30 * 64, -64 + 16)));
+                //________________________ZOMBIES_________________________________
+                zombies.Add(new ZombieDispenser(new Vector2(9 * 64, -64)));
+                zombies.Add(new ZombieDispenser(new Vector2(26 * 64, 0)));
+                zombies.Add(new ZombieDispenser(new Vector2(36 * 64, -64)));
+            }
         }
 
         public void LoadContent(ContentManager theContentManager)
