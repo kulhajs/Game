@@ -96,31 +96,21 @@ namespace Test
                 new MacroBlock(new int[] { 0, 2 }, 2, 34),
                 new MacroBlock(new int[] { 0, 2 }, 2, 37),
                 new MacroBlock(new int[] { 0, 1, 2 }, 4, 37),
-                new MacroBlock(new int[] { 3 }, 3, 40)
-                //new MacroBlock(new int[] { 0, 2 }, 4, 8),
-                //new MacroBlock(new int[] { 3 }, 2, 11),
-                //new MacroBlock(new int[] { 0, 2 }, 4, 11), 
-                //new MacroBlock(new int[] { 0, 1, 1, 2 }, 5, 14), 
-                //new MacroBlock(new int[] { 0, 2 }, 2, 17), 
-                //new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 4, 20), 
-                //new MacroBlock(new int[] { 0, 2 }, 3, 22), 
-                //new MacroBlock(new int[] { 0, 2 }, 5, 25), 
-                //new MacroBlock(new int[] { 3 }, 4, 27), 
-                //new MacroBlock(new int[] { 3 }, 3, 28), 
-                //new MacroBlock(new int[] { 3 }, 2, 29), 
-                //new MacroBlock(new int[] { 3 }, 5, 29), 
-                //new MacroBlock(new int[] { 0, 1, 1, 2 }, 4, 30),
-                //new MacroBlock(new int[] { 0, 1, 1, 1, 2 }, 3, 35), 
-                //new MacroBlock(new int[] { 0, 2 }, 2, 38), 
-                //new MacroBlock(new int[] { 3 }, 1, 39)
-                //new MacroBlock(new int[] {0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2}, 6, 0) //debug block
+                new MacroBlock(new int[] { 3 }, 3, 40),
+                new MacroBlock(new int[] { 0, 1, 2 }, 2, 41),
+                new MacroBlock(new int[] { 0, 1, 1, 2 }, 4, 42),
+                new MacroBlock(new int[] { 0, 2 }, 3, 47),
+                new MacroBlock(new int[] { 0, 2 }, 1, 48),
+                new MacroBlock(new int[] { 0, 2 }, 2, 50),
+                new MacroBlock(new int[] { 0, 1, 1, 2 }, 4, 50),
+                new MacroBlock(new int[] { 3 }, 3, 55),
             }
         };
 
         public List<EndOfLevel> ends = new List<EndOfLevel>() {
             new EndOfLevel(new Vector2(53 * 64, 3 * 64 + 3)),
             new EndOfLevel(new Vector2(39 * 64, 0 + 3)),
-            new EndOfLevel(new Vector2(39 * 64, 0 + 3))
+            new EndOfLevel(new Vector2(48 * 64, 0 + 3))
         };
 
         public Level()
