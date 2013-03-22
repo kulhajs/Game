@@ -181,6 +181,7 @@ namespace Test
             //if mouse is pointing in opposite direction than player, it won't shoot
             if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
                 return;
+            
             Vector2 dir = new Vector2(x, y);
             dir.Normalize();
 
@@ -213,7 +214,7 @@ namespace Test
                 this.Source = sources[1];
             else if (DX == 0 && !Crouching)
                 this.Source = sources[0];
-            else if(Crouching)
+            else if (Crouching)
                 this.Source = sources[10];
             else
             {
@@ -233,8 +234,7 @@ namespace Test
                     Source = sources[8];
                 else if (currentFrame < animationLenght)
                     Source = sources[9];
-                else
-                    currentFrame = 0;
+                else currentFrame = 0;
 
                 currentFrame++;
             }

@@ -36,12 +36,12 @@ namespace Test
 
         const int bulletDmg = 20;
 
-        public void HandleMovingCollision(Player p, Level l, Camera c, int level = 0)
+        public void HandleMovingCollision(Player p, Level l, Camera c)
         {
             p.Falling = true;
 
             playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 58 * p.Scale), (int)(16 * p.Scale), (int)(6 * p.Scale));
-            foreach (MacroBlock mb in l.levels[level])
+            foreach (MacroBlock mb in l.levelBlocks)
                 if (mb.IsOnScreen(c))
                 {
                     if (playerRectangle.Intersects(mb.GetRectangle()))
@@ -52,7 +52,7 @@ namespace Test
                 }
         }
 
-        public void HandleZombiesMovingCollision(EnemyHandler e, Level l, int level = 0)
+        public void HandleZombiesMovingCollision(EnemyHandler e, Level l)
         {
             foreach (ZombieDispenser zd in e.zombies)
                 foreach (Zombie z in zd.zombies)
@@ -60,7 +60,7 @@ namespace Test
                     z.Falling = true;
 
                     zombieRectangle = new Rectangle((int)(z.X + 18 * z.Scale), (int)(z.Y + 60 * z.Scale), (int)(28 * z.Scale), (int)(6 * z.Scale));
-                    foreach (MacroBlock mb in l.levels[level])
+                    foreach (MacroBlock mb in l.levelBlocks)
                         if (zombieRectangle.Intersects(mb.GetRectangle()))
                         {
                             z.Falling = false;
@@ -211,7 +211,7 @@ namespace Test
                 }
         }
 
-        public void HandleItemCollision(Player p, ItemHandler i, ExplosionHandler explosions, Level l, int level = 0)
+        public void HandleItemCollision(Player p, ItemHandler i, ExplosionHandler explosions, Level l)
         {
             if (p.Jumping || p.Falling)
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
@@ -237,7 +237,7 @@ namespace Test
             {
                 f.Falling = true;
                 firstAidRectangle = new Rectangle((int)f.X + 1, (int)f.Y + 3, 14, 12);
-                foreach (MacroBlock mb in l.levels[level])
+                foreach (MacroBlock mb in l.levelBlocks)
                 {
                     if (firstAidRectangle.Intersects(mb.GetRectangle()))
                         f.Falling = false;
@@ -256,7 +256,7 @@ namespace Test
             {
                 a.Falling = true;
                 acidRectangle = new Rectangle((int)a.X - 6, (int)a.Y - 6, 10, 10);
-                foreach (MacroBlock mb in l.levels[level])
+                foreach (MacroBlock mb in l.levelBlocks)
                 {
                     if (acidRectangle.Intersects(mb.GetRectangle()))
                         a.Falling = false;

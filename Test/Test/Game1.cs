@@ -28,7 +28,7 @@ namespace Test
         const int WIDTH = 800;
         const int HEIGHT = 480;
 
-        int currentLevel = 2;
+        int currentLevel = 0;
         string currentLevelType = industrial;
 
         public bool ChangeLevel { get; set; }
@@ -111,13 +111,13 @@ namespace Test
             
             currentKeyboardState = Keyboard.GetState();
 
-            ch.HandleMovingCollision(p, l, camera, currentLevel);
-            ch.HandleZombiesMovingCollision(enemies, l, currentLevel);
+            ch.HandleMovingCollision(p, l, camera);
+            ch.HandleZombiesMovingCollision(enemies, l);
             ch.HandleZombiePlayerCollision(p, enemies, explosions);
             ch.HandleBulletZombieCollision(p, enemies);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
-            ch.HandleItemCollision(p, ih, explosions, l, currentLevel);
+            ch.HandleItemCollision(p, ih, explosions, l);
             ch.HandleEndLevel(this, p, l);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera, explosions);
@@ -147,10 +147,10 @@ namespace Test
 
             if(ChangeLevel)
             {
-                if (currentLevel < 1)
+                if (currentLevel < 2)
                 {
                     currentLevel++;
-                    currentLevelType = stone;
+                    currentLevelType = industrial;
                 }
                 else
                 {
