@@ -44,60 +44,6 @@ namespace Test
                     }
                 }
             }
-
-            //    if (level == 0)
-            //    {
-            //        //_________________________TOWERS________________________________
-            //        towers.Add(new Tower(new Vector2(12 * 64, 4 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(20 * 64, 1 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(22 * 64, 4 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(30 * 64, 2 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(46 * 64, 2 * 64 + 24 * 1 / 0.667f)));
-            //        //_________________________DOORS_________________________________
-            //        doors.Add(new FlashDoor(new Vector2(5 * 64, 2 * 64 + 4), new Vector2(2 * 64, 3 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(33 * 64, 2 * 64 + 4), new Vector2(14 * 64, 1 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(50 * 64, 1 * 64 + 4), new Vector2(40 * 64, 1 * 64 + 16)));
-            //        //________________________ZOMBIES_________________________________
-            //        zombies.Add(new ZombieDispenser(new Vector2(19 * 64, 0 * 64 - 16)));
-            //        zombies.Add(new ZombieDispenser(new Vector2(35 * 64, 0 * 64 - 16)));
-            //        zombies.Add(new ZombieDispenser(new Vector2(41 * 64, 0 * 64 - 16)));
-            //    }
-            //    else if (level == 1)
-            //    {
-            //        //_________________________TOWERS_________________________________
-            //        towers.Add(new Tower(new Vector2(6 * 64, 4 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(15 * 64, 2 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(24 * 64, 3 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(32 * 64, 3 * 64 + 24 * 1 / 0.667f)));
-            //        //_________________________DOORS__________________________________
-            //        doors.Add(new FlashDoor(new Vector2(17 * 64, 3 * 64 + 6), new Vector2(11 * 64, 1 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(36 * 64, 1 * 64 + 4), new Vector2(18 * 64, 3 * 64 + 16)));
-            //        //________________________ZOMBIES_________________________________
-            //        zombies.Add(new ZombieDispenser(new Vector2(17 * 64, 0 * 64 - 16)));
-            //        zombies.Add(new ZombieDispenser(new Vector2(30 * 64, 0 * 64 - 16)));
-            //    }
-            //    else if (level == 2)
-            //    {
-            //        //_________________________TOWERS_________________________________
-            //        towers.Add(new Tower(new Vector2(10 * 64, 4 * 64 + 22 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(12 * 64 + 6, 18 * 1 / 0.667f))); //TODO: Normalize to * 64 format
-            //        towers.Add(new Tower(new Vector2(23 * 64 + 6, 2 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(33 * 64 + 6, 4 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(40 * 64 + 6, 2 * 64 + 24 * 1 / 0.667f)));
-            //        towers.Add(new Tower(new Vector2(55 * 64 + 6, 2 * 64 + 24 * 1 / 0.667f)));
-            //        //_________________________DOORS__________________________________
-            //        doors.Add(new FlashDoor(new Vector2(13 * 64, 1 * 64 + 2), new Vector2(6 * 64, 0 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(15 * 64, 4 * 64 + 6), new Vector2(14 * 64, 2 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(15 * 64, 1 * 64 + 2), new Vector2(16 * 64, 5 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(19 * 64, 0 * 64 + 2), new Vector2(23 * 64, 4 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(35 * 64, 0 * 64 + 2), new Vector2(30 * 64, -1 * 64 + 16)));
-            //        doors.Add(new FlashDoor(new Vector2(49 * 64, -1 * 64 + 2), new Vector2(52 * 64, 3 * 64 + 16)));
-            //        //________________________ZOMBIES_________________________________
-            //        zombies.Add(new ZombieDispenser(new Vector2(9 * 64, -1 * 64)));
-            //        zombies.Add(new ZombieDispenser(new Vector2(26 * 64, 0)));
-            //        zombies.Add(new ZombieDispenser(new Vector2(36 * 64, -1 * 64)));
-            //        zombies.Add(new ZombieDispenser(new Vector2(46 * 64, -1 * 64)));
-            //    }
         }
 
         public void LoadContent(ContentManager theContentManager)
