@@ -95,8 +95,17 @@ namespace Test
         }
 
         /// <summary>
+        /// float absolute value
+        /// </summary>
+        public float FAbs(float x)
+        {
+            return (float)Math.Abs((double)x);
+        }
+
+        /// <summary>
         /// float Pi
         /// </summary>
         public float FPI { get { return (float)Math.PI; } }
+
     }
 }

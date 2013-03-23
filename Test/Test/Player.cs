@@ -93,6 +93,8 @@ namespace Test
 
         public bool Push { get; set; }
 
+        public float RelativeX { get; private set; }
+
         public FlashDoor IntersectWithSwitch { get; set; }
 
         public Player(Vector2 position, float initRotation=0.0f)

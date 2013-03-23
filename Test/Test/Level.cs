@@ -33,7 +33,7 @@ namespace Test
             using (StreamReader reader = new StreamReader(path))
             {
                 string line;
-                while((line = reader.ReadLine()) != null)
+                while((line = reader.ReadLine()) != null) //block length \t layer \t column
                 {
                     if (line.StartsWith("#"))
                         continue;

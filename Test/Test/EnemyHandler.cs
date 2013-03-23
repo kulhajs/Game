@@ -27,7 +27,7 @@ namespace Test
             using (StreamReader reader = new StreamReader(path))
             {
                 string line;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null)  //type of enemy (T, D, Z) \t column \t layer
                 {
                     if (line.StartsWith("#"))
                         continue;

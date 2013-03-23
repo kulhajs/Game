@@ -67,6 +67,7 @@ namespace Test
         {
             p = new Player(new Vector2(0, 0));
             l = new Level();
+            l.Initialize(currentLevel, currentLevelType);
 
             ih = new ItemHandler(this.Content);
             ih.Initialize();
@@ -79,7 +80,6 @@ namespace Test
 
             ch = new CollisionHandler();
 
-            l.Initialize(currentLevel, currentLevelType);
 
             this.ChangeLevel = false;
 
@@ -97,6 +97,7 @@ namespace Test
 
             p.LoadContent(this.Content);
             l.LoadContent(this.Content);
+
 
             ih.LoadContent(this.Content);
 
@@ -130,6 +131,8 @@ namespace Test
 
             l.Update();
 
+            camera.Update(p);
+
             if (p.Hitpoints <= 0)
                 this.Initialize();
 
@@ -143,19 +146,15 @@ namespace Test
                 frame = 0;
             }
 
-            camera.Update(p);
-
             if(ChangeLevel)
             {
                 if (currentLevel < 2)
                 {
                     currentLevel++;
-                    currentLevelType = industrial;
                 }
                 else
                 {
                     currentLevel = 0;
-                    currentLevelType = industrial;
                 }
                 this.Initialize();
             }
