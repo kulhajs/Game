@@ -58,10 +58,10 @@ namespace Test
                 z.LoadContent(theContentManager);
         }
 
-        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih)
+        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih, SoundHandler sounds)
         {
             foreach (Tower t in towers)
-                t.Update(player, theGameTime, explosions);
+                t.Update(player, theGameTime, explosions, sounds);
 
             foreach (FlashDoor f in doors)
                 f.Update(theGameTime);

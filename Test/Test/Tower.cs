@@ -16,8 +16,6 @@ namespace Test
         Texture2D gun;
         Texture2D body;
 
-        SoundEffect explosion;
-
         Random random = new Random();
 
         int currentFrame = 0;
@@ -59,12 +57,9 @@ namespace Test
             contentManager = theContentManager;
             gun = contentManager.Load<Texture2D>("enemy_tower_gun");
             body = contentManager.Load<Texture2D>("enemy_tower_body");
-            Source = sources[1];
+            Source = sources[1];}
 
-            explosion = theContentManager.Load<SoundEffect>("Sounds/explosion_1");
-        }
-
-        public void Update(Player p, GameTime theGameTime, ExplosionHandler explosions)
+        public void Update(Player p, GameTime theGameTime, ExplosionHandler explosions, SoundHandler sounds)
         {
             float dx = this.Position.X - p.X;
             float dy = this.Position.Y - p.Y;
@@ -104,19 +99,17 @@ namespace Test
                     r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+21); (p.y+3) so id doesn't aim at player.origin 
 
             this.Animate();
-            this.RemoveRocket(explosions, p);
+            this.RemoveRocket(explosions, sounds, p);
         }
 
-        private void RemoveRocket(ExplosionHandler explosions, Player p)
+        private void RemoveRocket(ExplosionHandler explosions, SoundHandler sounds, Player p)
         {
             foreach(Rocket r in this.rockets)
             {
                 if (!r.Visible)
                 {
-                    float volume = (-(FAbs(r.X - p.X) / 400f) + 1) / 4;
-                    float pan = ((r.X - p.X) / 400f) / 3f;
+                    sounds.PlayExplosion(p, r);
                     explosions.AddExplosion(r.Position, contentManager, 5, 15, "explosion", 32); //each time rocket is removed, explosion is created
-                    explosion.Play(volume > 0.0f ? volume : 0.0f, 0.0f, pan);
                     rockets.Remove(r);
                     break;
                 }

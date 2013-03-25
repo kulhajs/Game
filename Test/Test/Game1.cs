@@ -44,10 +44,11 @@ namespace Test
         Player p;
         Level l;
 
-        ItemHandler ih;
+        ItemHandler items;
 
         EnemyHandler enemies;
         ExplosionHandler explosions;
+        SoundHandler sounds;
 
         Camera camera;
 
@@ -69,12 +70,13 @@ namespace Test
             l = new Level();
             l.Initialize(currentLevel, currentLevelType);
 
-            ih = new ItemHandler(this.Content);
-            ih.Initialize();
+            items = new ItemHandler(this.Content);
+            items.Initialize();
 
             enemies = new EnemyHandler();
             enemies.Initiliaze(currentLevel);
             explosions = new ExplosionHandler();
+            sounds = new SoundHandler();
 
             camera = new Camera(graphics.GraphicsDevice.Viewport);
 
@@ -99,9 +101,10 @@ namespace Test
             l.LoadContent(this.Content);
 
 
-            ih.LoadContent(this.Content);
+            items.LoadContent(this.Content);
 
             enemies.LoadContent(this.Content);
+            sounds.LoadContent(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -114,20 +117,20 @@ namespace Test
 
             ch.HandleMovingCollision(p, l, camera);
             ch.HandleZombiesMovingCollision(enemies, l);
-            ch.HandleZombiePlayerCollision(p, enemies, explosions);
+            ch.HandleZombiePlayerCollision(p, enemies, explosions, sounds);
             ch.HandleBulletZombieCollision(p, enemies);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
-            ch.HandleItemCollision(p, ih, explosions, l);
+            ch.HandleItemCollision(p, items, explosions, l);
             ch.HandleEndLevel(this, p, l);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera, explosions);
 
-            enemies.Update(p, gameTime, explosions, ih);
+            enemies.Update(p, gameTime, explosions, items, sounds);
 
             explosions.Update();
 
-            ih.Update(gameTime);
+            items.Update(gameTime);
 
             l.Update();
 
@@ -175,7 +178,7 @@ namespace Test
 
             l.Draw(this.spriteBatch);
             enemies.Draw(this.spriteBatch);
-            ih.Draw(this.spriteBatch);
+            items.Draw(this.spriteBatch);
             l.endOflevel.DrawBack(this.spriteBatch);
             p.Draw(this.spriteBatch);
             l.endOflevel.DrawFront(this.spriteBatch);

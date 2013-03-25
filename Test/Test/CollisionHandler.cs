@@ -29,8 +29,8 @@ namespace Test
         const int minDoorDmg = 3;
         const int maxDoorDmg = 8;
 
-        const int minZombieDmg = 5; //2
-        const int maxZombieDmg = 15; //5
+        const int minZombieDmg = 5; 
+        const int maxZombieDmg = 15; 
 
         const int firstAidHealth = 20;
 
@@ -69,7 +69,7 @@ namespace Test
                 }
         }
 
-        public void HandleZombiePlayerCollision(Player p, EnemyHandler e, ExplosionHandler explosions)
+        public void HandleZombiePlayerCollision(Player p, EnemyHandler e, ExplosionHandler explosions, SoundHandler sounds)
         {
             playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
                                           : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
@@ -86,19 +86,18 @@ namespace Test
                             if (z.DX < 0 && p.DX >= 0)
                             {
                                 explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
-                                p.Push = true;
                                 p.DX = -4f;
-                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                                z.realoadTime = 0.0f;
                             }
                             else if (z.DX > 0 && p.DX <= 0)
                             {
                                 explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
-                                p.Push = true;
                                 p.DX = 4f;
-                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                                z.realoadTime = 0.0f;
                             }
+
+                            p.Push = true;
+                            p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                            sounds.PlayHurt(p, z);
+                            z.realoadTime = 0.0f;
                         }
 
                         if (z.DX < 0 && p.DX < 0 && !p.Push)
@@ -171,6 +170,7 @@ namespace Test
                             
                             p.Hitpoints -= random.Next(minRocketDmg, maxRocketDmg);
                         }
+
                         foreach(ZombieDispenser zd in e.zombies)
                             foreach(Zombie z in zd.zombies)
                                 if (z.Visible && r.Visible)
