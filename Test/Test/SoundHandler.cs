@@ -16,24 +16,30 @@ namespace Test
     {
         SoundEffect explosion;
         SoundEffect hurt;
+        //SoundEffect pickUp;
 
         public void LoadContent(ContentManager theContentManager)
         {
             explosion = theContentManager.Load<SoundEffect>("Sounds/explosion");
             hurt = theContentManager.Load<SoundEffect>("Sounds/hurt");
+            //pickUp = theContentManager.Load<SoundEffect>("Sounds/pickUp");
         }
 
         public void PlayExplosion(Player p, Rocket r)
         {
             float volume = (-(FAbs(r.X - p.X) / 400f) + 1) / 4;
-            float pan = ((r.X - p.X) / 400f) / 3.33f;
-            explosion.Play(volume > 0.0f ? volume : 0.0f, 0.0f, pan);
+            explosion.Play(volume > 0.0f ? volume : 0.0f, 0.0f, r.X - p.X > 0 ? 0.25f : -0.25f);
         }
 
         public void PlayHurt(Player p, Zombie z)
         {
-            hurt.Play(0.25f, 0.0f, z.X - p.X > 0 ? 0.33f : -0.33f);
+            hurt.Play(0.25f, 0.0f, z.X - p.X > 0 ? 0.25f : -0.25f);
         }
+
+        //public void PlayPickUp()
+        //{
+        //    pickUp.Play(0.25f, 0.0f, 0.0f);
+        //}
 
         private float FAbs(float x)
         {

@@ -87,17 +87,20 @@ namespace Test
                             {
                                 explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
                                 p.DX = -4f;
+                                p.Push = true;
+                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                                sounds.PlayHurt(p, z);
+                                z.realoadTime = 0.0f;
                             }
                             else if (z.DX > 0 && p.DX <= 0)
                             {
                                 explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
                                 p.DX = 4f;
+                                p.Push = true;
+                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                                sounds.PlayHurt(p, z);
+                                z.realoadTime = 0.0f;
                             }
-
-                            p.Push = true;
-                            p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                            sounds.PlayHurt(p, z);
-                            z.realoadTime = 0.0f;
                         }
 
                         if (z.DX < 0 && p.DX < 0 && !p.Push)

@@ -290,6 +290,7 @@ namespace Test
 
             if (Jumping)
             {
+                this.Crouching = false;
                 velocity.Y -= gravity;
                 DY = -1f;
                 if (velocity.Y < 0)
@@ -297,6 +298,7 @@ namespace Test
             }
             else if (Falling)
             {
+                this.Crouching = false;
                 velocity.Y += gravity;
                 DY = 1f;
             }
