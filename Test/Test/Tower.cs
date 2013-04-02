@@ -31,6 +31,8 @@ namespace Test
         const int rocketAnimationLength = 15;
         const int explosionFrameCount = 5;
 
+        public bool OnScreen { get; set; }
+
         Rectangle[] sources = new Rectangle[] {
             new Rectangle(0, 0, 64, 64),
             new Rectangle(64, 0, 64, 64), 
@@ -59,8 +61,25 @@ namespace Test
             body = contentManager.Load<Texture2D>("enemy_tower_body");
             Source = sources[1];}
 
-        public void Update(Player p, GameTime theGameTime, ExplosionHandler explosions, SoundHandler sounds)
+        public void Update(Player p, GameTime theGameTime, ExplosionHandler explosions, SoundHandler sounds, Camera c)
         {
+
+            foreach (Rocket r in rockets)
+                if (r.Visible)
+                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+21); (p.y+3) so it doesn't aim at player.origin 
+
+
+            if (reloadTime < initRealoadTime)
+                reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
+
+            this.Animate();
+            this.RemoveRocket(explosions, sounds, p);
+
+            this.OnScreen = this.X - c.origin.X < 800 ? true : false;
+            
+            if (!OnScreen)
+                return;
+
             float dx = this.Position.X - p.X;
             float dy = this.Position.Y - p.Y;
             float dist = dx * dx + dy * dy;     //distance from player to tower
@@ -77,9 +96,6 @@ namespace Test
                 this.SeePlayer = false;
             }
 
-            if (reloadTime < initRealoadTime)
-                reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
-
             if (reloadTime > initRealoadTime && SeePlayer)
             {
                 rocketDirection = new Vector2((p.X + 21 * p.Scale) - this.X, (p.Y + 3 * p.Scale) - this.Y); //(p.Y + 3) so it doesn't shoot on top of head
@@ -94,12 +110,6 @@ namespace Test
                 reloadTime = 0f;
             }
 
-            foreach (Rocket r in rockets)
-                if (r.Visible)
-                    r.Update(theGameTime, new Vector2((p.X + 21 * p.Scale) - r.X, (p.Y + 3 * p.Scale) - r.Y)); //(p.x+21); (p.y+3) so id doesn't aim at player.origin 
-
-            this.Animate();
-            this.RemoveRocket(explosions, sounds, p);
         }
 
         private void RemoveRocket(ExplosionHandler explosions, SoundHandler sounds, Player p)

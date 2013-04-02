@@ -58,6 +58,7 @@ namespace Test
             else
             {
                 direction.Y = 0;
+                velocity.Y = 0;
                 this.Slide = true;
             }
 
@@ -73,7 +74,7 @@ namespace Test
             Position += direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
         }
 
-        public void Draw(SpriteBatch theSpriteBatch)
+        public virtual void Draw(SpriteBatch theSpriteBatch)
         {
             if (this.Visible)
                 base.Draw(theSpriteBatch, Vector2.Zero, this.Position, Color.White, 0.0f);

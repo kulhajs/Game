@@ -161,7 +161,7 @@ namespace Test
             else
                 gunPosition = Crouching ? new Vector2(X + 36 * this.Scale, Y + 32 * this.Scale) : new Vector2(X + 38 * this.Scale, Y + 20 * this.Scale);
 
-            crosshairPosition = new Vector2(mouseState.X + camera.origin.X, mouseState.Y + camera.origin.Y);
+            crosshairPosition = new Vector2(mouseState.X - 4 + camera.origin.X, mouseState.Y - 4 + camera.origin.Y);
         }
 
         private void RemoveBullets(ExplosionHandler explosions)
@@ -178,8 +178,8 @@ namespace Test
         private void UpdateAttack(MouseState mouseState, Camera camera)
         {
             //direction of new bullet
-            float x = (mouseState.X + 8) - (this.X - camera.origin.X);
-            float y = (mouseState.Y - 8) - (this.Y - camera.origin.Y);
+            float x = mouseState.X - (this.X - camera.origin.X);
+            float y = mouseState.Y - (this.Y - camera.origin.Y);
             //if mouse is pointing in opposite direction than player, it won't shoot
             if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
                 return;
@@ -245,7 +245,7 @@ namespace Test
         private void UpdateMovement(KeyboardState currentKeyboardState, KeyboardState oldKeyboardState, GameTime theGameTime)
         {
             DY = 0;
-
+            
             if(!Push && !Sliding) //if player is not pushed away from doors (you cannot control your movement during that)
             { 
                 if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A)  && !Crouching) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
@@ -275,7 +275,7 @@ namespace Test
             if (Sliding)
             {
                 if (DX < -1) //push to left
-                    DX += 0.05f; //addition to given direction (-2), till it's standard direction (-1)
+                    DX += 0.05f; //addition to given direction , till it's standard direction abs(1)
                 else if (DX > 1) //push to right
                     DX -= 0.05f;
                 else
@@ -287,6 +287,7 @@ namespace Test
                 velocity.Y = jumpHeight; 
                 Jumping = true;
             }
+
 
             if (Jumping)
             {

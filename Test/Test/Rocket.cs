@@ -45,6 +45,7 @@ namespace Test
         {
             contentManager = theContentManager;
             base.LoadContent(contentManager, "rocket");
+            this.Source = sources[0];
         }
 
         public void Update(GameTime theGameTime, Vector2 newDirection)

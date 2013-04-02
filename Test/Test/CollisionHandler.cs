@@ -74,44 +74,44 @@ namespace Test
             playerRectangle = p.Crouching ? new Rectangle((int)(p.X + 24 * p.Scale), (int)(p.Y + 9 * p.Scale), (int)(9 * p.Scale), (int)(40 * p.Scale))
                                           : new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(60 * p.Scale));
 
-            foreach(ZombieDispenser zd in e.zombies)
-                foreach(Zombie z in zd.zombies)
-                {
-                    zombieRectangle = new Rectangle((int)(z.X + 24 * z.Scale), (int)(z.Y + 9 * z.Scale), (int)(16 * z.Scale), (int)(56 * z.Scale));
-                    if (playerRectangle.Intersects(zombieRectangle))
+            foreach (ZombieDispenser zd in e.zombies)
+                foreach (Zombie z in zd.zombies)
+                    if (z.OnScreen)
                     {
-                        z.Collide = true;
-                        if (z.CanBite)
+                        zombieRectangle = new Rectangle((int)(z.X + 24 * z.Scale), (int)(z.Y + 9 * z.Scale), (int)(16 * z.Scale), (int)(56 * z.Scale));
+                        if (playerRectangle.Intersects(zombieRectangle))
                         {
-                            if (z.DX < 0 && p.DX >= 0)
+                            z.Collide = true;
+                            if (z.CanBite)
                             {
-                                explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
-                                p.DX = -4f;
-                                p.Push = true;
-                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                                sounds.PlayHurt(p, z);
-                                z.realoadTime = 0.0f;
+                                if (z.DX < 0 && p.DX >= 0)
+                                {
+                                    explosions.AddExplosion(new Vector2(p.X - 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
+                                    p.DX = -4f;
+                                    p.Push = true;
+                                    p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                                    sounds.PlayHurt(p, z);
+                                    z.realoadTime = 0.0f;
+                                }
+                                else if (z.DX > 0 && p.DX <= 0)
+                                {
+                                    explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
+                                    p.DX = 4f;
+                                    p.Push = true;
+                                    p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
+                                    sounds.PlayHurt(p, z);
+                                    z.realoadTime = 0.0f;
+                                }
                             }
-                            else if (z.DX > 0 && p.DX <= 0)
-                            {
-                                explosions.AddExplosion(new Vector2(p.X + 9 * p.Scale, p.Y), p.contentManager, 4, 15, "blood", 32);
-                                p.DX = 4f;
-                                p.Push = true;
-                                p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg);
-                                sounds.PlayHurt(p, z);
-                                z.realoadTime = 0.0f;
-                            }
-                        }
 
-                        if (z.DX < 0 && p.DX < 0 && !p.Push)
-                            z.X = p.X - 15 * z.Scale;
-                        else if (z.DX > 0 && p.DX > 0 && !p.Push)
-                            z.X = p.X + 12 * z.Scale;
+                            if (z.DX < 0 && p.DX < 0 && !p.Push)
+                                z.X = p.X - 15 * z.Scale;
+                            else if (z.DX > 0 && p.DX > 0 && !p.Push)
+                                z.X = p.X + 12 * z.Scale;
+                        }
+                        else
+                            z.Collide = false;
                     }
-                    else
-                        z.Collide = false;
-                }
-            
         }
 
         public void HandleDoorCollision(Player p, EnemyHandler e)

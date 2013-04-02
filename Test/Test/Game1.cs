@@ -28,7 +28,8 @@ namespace Test
         const int WIDTH = 800;
         const int HEIGHT = 480;
 
-        int currentLevel = 0;
+        int currentLevel = 0
+            ;
         string currentLevelType = industrial;
 
         public bool ChangeLevel { get; set; }
@@ -126,7 +127,7 @@ namespace Test
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera, explosions);
 
-            enemies.Update(p, gameTime, explosions, items, sounds);
+            enemies.Update(p, gameTime, explosions, items, sounds, camera);
 
             explosions.Update();
 
@@ -151,7 +152,7 @@ namespace Test
 
             if(ChangeLevel)
             {
-                if (currentLevel < 2)
+                if (currentLevel < 4)
                 {
                     currentLevel++;
                 }

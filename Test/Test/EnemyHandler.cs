@@ -58,16 +58,16 @@ namespace Test
                 z.LoadContent(theContentManager);
         }
 
-        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih, SoundHandler sounds)
+        public void Update(Player player, GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih, SoundHandler sounds, Camera c)
         {
             foreach (Tower t in towers)
-                t.Update(player, theGameTime, explosions, sounds);
+                t.Update(player, theGameTime, explosions, sounds, c);
 
             foreach (FlashDoor f in doors)
                 f.Update(theGameTime);
 
             foreach (ZombieDispenser z in zombies)
-                z.Update(theGameTime, explosions, ih);
+                z.Update(theGameTime, explosions, ih, c);
         }
 
         public void Draw(SpriteBatch theSpriteBatch)

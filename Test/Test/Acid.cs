@@ -18,8 +18,6 @@ namespace Test
 
         public bool Exploded { get; set; }
 
-        public bool Visible { get; set; }
-
         float lifeTime;
 
         public Acid(Vector2 position, float dx, float friction)
@@ -58,7 +56,7 @@ namespace Test
             }
         }
 
-        public void Draw(SpriteBatch theSpritebatch)
+        public override void Draw(SpriteBatch theSpritebatch)
         {
             theSpritebatch.Draw(this.texture, new Vector2(this.X, this.Y), this.Source, Color.White, this.Rotation, new Vector2(8, 8), 1.0f, SpriteEffects.None, 0f);
         }

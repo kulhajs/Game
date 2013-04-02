@@ -57,8 +57,7 @@ namespace Test
             {
                 currentFrame++;
                 frame = 0;
-            }
-            
+            }   
         }
 
         public void Draw(SpriteBatch theSpriteBatch)

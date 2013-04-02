@@ -43,7 +43,7 @@ namespace Test
             Source = sources[0];
         }
 
-        public void Update(GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih)
+        public void Update(GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih, Camera c)
         {
             if(random.Next(200) == 1)
             {
@@ -55,7 +55,7 @@ namespace Test
 
             foreach (Zombie z in zombies)
                 if (z.Visible)
-                    z.Update(theGameTime);
+                    z.Update(theGameTime, c);
 
 
             this.RemoveZombies(explosions, ih);

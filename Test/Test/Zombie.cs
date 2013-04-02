@@ -47,6 +47,8 @@ namespace Test
 
         public bool Visible { get; set; }
 
+        public bool OnScreen { get; set; }
+
         public int Hitpoints { get; set; }
 
         public float DX { get { return direction.X; } set { direction.X = value; } }
@@ -73,12 +75,14 @@ namespace Test
             Source = sources[0];
         }
 
-        public void Update(GameTime theGameTime)
+        public void Update(GameTime theGameTime, Camera c)
         {
             if (realoadTime < initReloadTime)
                 realoadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            CanBite = realoadTime >= initReloadTime ? true : false;
+            this.CanBite = realoadTime >= initReloadTime ? true : false;
+
+            this.OnScreen = this.X - c.origin.X < 820 ? true : false;
 
             if (Falling)
             {
@@ -88,7 +92,7 @@ namespace Test
             else
                 velocity.Y = 0;
 
-            Position += direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
+            this.Position += direction * velocity * (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
             if (!this.Falling)
                 this.Animate();
