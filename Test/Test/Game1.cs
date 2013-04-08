@@ -28,8 +28,7 @@ namespace Test
         const int WIDTH = 800;
         const int HEIGHT = 480;
 
-        int currentLevel = 0
-            ;
+        int currentLevel = 0;
         string currentLevelType = industrial;
 
         public bool ChangeLevel { get; set; }
@@ -169,7 +168,6 @@ namespace Test
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             spriteBatch.Begin(SpriteSortMode.Deferred,
                 BlendState.AlphaBlend,
                 null, null, null, null,
