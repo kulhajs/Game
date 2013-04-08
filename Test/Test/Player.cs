@@ -130,7 +130,7 @@ namespace Test
         {
             hb.Update(camera, (int)((double)Hitpoints * 1.18));
 
-            if ((mouseState.X - camera.origin.X) - (this.X - camera.origin.X) > 0)
+            if ((mouseState.X + camera.origin.X) - this.X > 0)
                 currentFacing = Facing.Right;
             else
                 currentFacing = Facing.Left;
