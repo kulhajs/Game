@@ -16,12 +16,15 @@ namespace Test
 
         public bool Visible { get; set; }
 
+        public bool SprayBlood { get; set; }
+
         public Bullet(Vector2 position, Vector2 direction, float rotation)
         {
             this.Position = position;
             this.direction = direction;
             this.Rotation = rotation;
             this.Visible = true;
+            this.SprayBlood = false;
         }
 
         public void LoadContent(ContentManager theContentManager)

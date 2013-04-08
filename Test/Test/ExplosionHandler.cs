@@ -32,9 +32,9 @@ namespace Test
         /// <param name="animationLength">count of all frames drawn on screen (blood, explosion = 15; acid = 27)</param>
         /// <param name="frameSize">width & height of one animation frame - assuming frame is squared (blood, explosion = 32; acid = 16)</param>
         /// <param name="sourceCount">number of animation frames (blood = 4; explosion = 5; acid = 9)</param>
-        public void AddExplosion(Vector2 position, ContentManager theContentManager, int sourceCount, int animationLength, string explosionType, int frameSize)
+        public void AddExplosion(Vector2 position, ContentManager theContentManager, int sourceCount, int animationLength, string explosionType, int frameSize, float scale=1.0f)
         {
-            newExplosion = new Explosion(position, sourceCount, animationLength, explosionType, frameSize);
+            newExplosion = new Explosion(position, sourceCount, animationLength, explosionType, frameSize, scale);
             newExplosion.LoadContent(theContentManager);
             explosions.Add(newExplosion);
             newExplosion = null;

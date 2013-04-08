@@ -178,7 +178,8 @@ namespace Test
                 if (!b.Visible)
                 {
                     bullets.Remove(b);
-                    explosions.AddExplosion(b.Position, contentManager, 4, 15, "blood", 32);
+                    if (b.SprayBlood)
+                        explosions.AddExplosion(b.Position, contentManager, 4, 15, "blood", 32);
                     break;
                 }
         }

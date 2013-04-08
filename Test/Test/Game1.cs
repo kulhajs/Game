@@ -119,6 +119,7 @@ namespace Test
             ch.HandleZombiesMovingCollision(enemies, l);
             ch.HandleZombiePlayerCollision(p, enemies, explosions, sounds);
             ch.HandleBulletZombieCollision(p, enemies);
+            ch.HandleBulletTurretCollision(p, enemies, explosions);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
             ch.HandleItemCollision(p, items, explosions, l);

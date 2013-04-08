@@ -25,7 +25,7 @@ namespace Test
 
         public bool Visible { get; set; }
 
-        public Explosion(Vector2 position, int sourceCount, int animationLength, string explosionType, int frameSize)
+        public Explosion(Vector2 position, int sourceCount, int animationLength, string explosionType, int frameSize, float scale=1.0f)
         {
             sources = new Rectangle[sourceCount];
             this.Position = position;
@@ -33,6 +33,7 @@ namespace Test
             this.explosionType = explosionType;
             this.animationLength = animationLength;
             this.frameSize = frameSize;
+            this.Scale = scale;
             frameTime = animationLength / sourceCount;
 
             for (int i = 0; i < sources.Length; i++)

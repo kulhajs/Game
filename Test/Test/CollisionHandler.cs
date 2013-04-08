@@ -203,15 +203,31 @@ namespace Test
                                 if (bulletRectangle.Intersects(zombieRectangle))
                                 {
                                     z.Hitpoints -= bulletDmg;
+                                    b.SprayBlood = true;
                                     b.Visible = false;
                                 }
                                 else if(bulletRectangle.Intersects(zombieHeadRectangle))
                                 {
                                     z.Hitpoints = 0;
+                                    b.SprayBlood = true;
                                     b.Visible = false;
                                 }
                             }
                 }
+        }
+
+        public void HandleBulletTurretCollision(Player p, EnemyHandler e, ExplosionHandler eh)
+        {
+            foreach(Bullet b in p.bullets)
+            {
+                bulletRectangle = new Rectangle((int)b.X, (int)b.Y, 2, 1);
+                foreach(Tower t in e.towers)
+                    if(bulletRectangle.Intersects(t.GetRectangle()))
+                    {
+                        b.Visible = false;
+                        eh.AddExplosion(b.Position, t.contentManager, 5, 15, "explosion", 32, 0.2f);
+                    }
+            }
         }
 
         public void HandleItemCollision(Player p, ItemHandler i, ExplosionHandler explosions, Level l)
