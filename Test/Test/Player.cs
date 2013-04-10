@@ -256,12 +256,10 @@ namespace Test
                 if (currentKeyboardState.IsKeyDown(Keys.D) && oldKeyboardState.IsKeyUp(Keys.A)  && !Crouching) //!jumping && !falling so you cannot modify horizontal movement while jumping/falling
                 {
                     DX = 1;
-                    //currentFacing = Facing.Right;
                 }
                 else if (currentKeyboardState.IsKeyDown(Keys.A) && oldKeyboardState.IsKeyUp(Keys.D) && !Crouching)
                 {
                     DX = -1;
-                    //currentFacing = Facing.Left;
                 }
                 else //if (!Jumping && !Falling) //if not jumping or falling, horizontal velocity = 0 no matter the previous key
                     DX = 0.0f;
@@ -311,8 +309,8 @@ namespace Test
             else
                 velocity.Y = 0;
 
-            //if not in air or already sliding then crouch, if crouch while running then slide! 
-            if (currentKeyboardState.IsKeyDown(Keys.S) && !Falling && !Jumping && !Crouching)
+            //if not in air or already sliding then crouch, if crouch while running then slide!  - can't slide while running backwards
+            if (currentKeyboardState.IsKeyDown(Keys.S) && ((currentFacing == Facing.Right && DX > 0) || (currentFacing == Facing.Left && DX < 0)) && !Falling && !Jumping && !Crouching)
             {
                 this.Crouching = true;
                 if (DX != 0)
