@@ -310,7 +310,7 @@ namespace Test
                 velocity.Y = 0;
 
             //if not in air or already sliding then crouch, if crouch while running then slide!  - can't slide while running backwards
-            if (currentKeyboardState.IsKeyDown(Keys.S) && ((currentFacing == Facing.Right && DX > 0) || (currentFacing == Facing.Left && DX < 0)) && !Falling && !Jumping && !Crouching)
+            if (currentKeyboardState.IsKeyDown(Keys.S) && ((currentFacing == Facing.Right && DX >= 0) || (currentFacing == Facing.Left && DX <= 0)) && !Falling && !Jumping && !Crouching)
             {
                 this.Crouching = true;
                 if (DX != 0)

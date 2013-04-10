@@ -225,7 +225,7 @@ namespace Test
                     if(bulletRectangle.Intersects(t.GetRectangle()))
                     {
                         b.Visible = false;
-                        eh.AddExplosion(b.Position, t.contentManager, 5, 15, "explosion", 32, 0.2f);
+                        eh.AddExplosion(b.Position, t.contentManager, 5, 15, "explosion", 32, 0.33f);
                     }
             }
         }
