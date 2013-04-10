@@ -137,8 +137,9 @@ namespace Test
 
             //aiming
             float dx = (mouseState.X + camera.origin.X) - this.X;
-            float dy = mouseState.Y - this.Y;
-            this.Rotation = (float)Math.Atan((double)(dy / dx));
+            float dy = (mouseState.Y + camera.origin.Y) - this.Y;
+            if (dx > 15 || dx < 15)
+                this.Rotation = FAtan((dy / 10) / (dx / 10));
 
             //door switch interaction
             if (IntersectWithSwitch != null && IntersectWithSwitch.Switch && UseKeyPressed(currentKeyboardState, oldKeyboardState))
@@ -189,9 +190,6 @@ namespace Test
             //direction of new bullet
             float x = mouseState.X - (this.X - camera.origin.X);
             float y = mouseState.Y - (this.Y - camera.origin.Y);
-            //if mouse is pointing in opposite direction than player, you can't shoot
-            if ((x < 0 && currentFacing == Facing.Right) || (x > 0 && currentFacing == Facing.Left))
-                return;
             
             Vector2 dir = new Vector2(x, y);
             dir.Normalize();
@@ -246,26 +244,6 @@ namespace Test
                         currentFrame--;
                     frame = 0;
                 }
-
-                //if (currentFrame < animationLenght / 8)
-                //    Source = sources[2];
-                //else if (currentFrame < animationLenght * 2 / 8)
-                //    Source = sources[3];
-                //else if (currentFrame < animationLenght * 3 / 8)
-                //    Source = sources[4];
-                //else if (currentFrame < animationLenght * 4 / 8)
-                //    Source = sources[5];
-                //else if (currentFrame < animationLenght * 5 / 8)
-                //    Source = sources[6];
-                //else if (currentFrame < animationLenght * 6 / 8)
-                //    Source = sources[7];
-                //else if (currentFrame < animationLenght * 7 / 8)
-                //    Source = sources[8];
-                //else if (currentFrame < animationLenght)
-                //    Source = sources[9];
-                //else currentFrame = 0;
-
-                //currentFrame++;
             }
         }
 
@@ -373,7 +351,7 @@ namespace Test
                 currentFacing == Facing.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0.0f);
 
             //drawcrosshair
-            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), currentFacing == Facing.Right && crosshairPosition.X > this.X || currentFacing == Facing.Left && crosshairPosition.X < this.X ? Color.Green : Color.Red);
+            theSpriteBatch.Draw(crosshair, crosshairPosition, new Rectangle(0, 0, 16, 16), Color.Green);
             
             foreach (Bullet b in bullets)
                 if (b.Visible)

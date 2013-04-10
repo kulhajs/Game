@@ -114,7 +114,7 @@ namespace Test
 
         public Rectangle GetRectangle()
         {
-            return new Rectangle((int)(X + 10 * Scale), (int)(Y + 5 * Scale), (int)(15 * Scale), (int)(50 * Scale));
+            return new Rectangle((int)(X + 15 * Scale), (int)(Y + 5 * Scale), (int)(15 * Scale), (int)(50 * Scale));
         }
 
         private void RemoveRocket(ExplosionHandler explosions, SoundHandler sounds, Player p)
