@@ -22,7 +22,7 @@ namespace Test
         public MacroBlock(int[] id, int layer, int column)
         {
             this.id = id;
-            this.initPos = new Vector2(column * 64, layer * 66);
+            this.initPos = new Vector2(column * 64, layer * 64);
             blocks = new List<Block>(50);
         }
 

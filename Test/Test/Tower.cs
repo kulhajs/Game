@@ -57,9 +57,10 @@ namespace Test
         public void LoadContent(ContentManager theContentManager)
         {
             contentManager = theContentManager;
-            gun = contentManager.Load<Texture2D>("enemy_tower_gun");
-            body = contentManager.Load<Texture2D>("enemy_tower_body");
-            Source = sources[1];}
+            gun = contentManager.Load<Texture2D>("turretGun_rowan");
+            body = contentManager.Load<Texture2D>("turretBody_rowan");
+            Source = sources[0]; //Source = sources[1]; using my assets
+        }
 
         public void Update(Player p, GameTime theGameTime, ExplosionHandler explosions, SoundHandler sounds, Camera c)
         {
@@ -72,7 +73,7 @@ namespace Test
             if (reloadTime < initRealoadTime)
                 reloadTime += (float)theGameTime.ElapsedGameTime.TotalSeconds;
 
-            this.Animate();
+            //this.Animate();
             this.RemoveRocket(explosions, sounds, p);
 
             this.OnScreen = this.X - c.origin.X < 800 ? true : false;
@@ -150,9 +151,9 @@ namespace Test
                     r.Draw(theSpriteBatch);
 
             theSpriteBatch.Draw(gun, 
-                new Vector2(this.Position.X + 33 * this.Scale, this.Position.Y + 9 * this.Scale), 
-                new Rectangle(0,0,64,64), Color.White, this.Rotation, 
-                new Vector2(33, 9), this.Scale ,SpriteEffects.None, 0);
+                new Vector2(this.Position.X + 28 * this.Scale, this.Position.Y + 12 * this.Scale),  //X+33; Y+9 using own assets
+                new Rectangle(0,0,64,64), Color.White, this.Rotation,
+                new Vector2(28, 12), this.Scale, SpriteEffects.None, 0);  //Vector2(33,9)
 
             theSpriteBatch.Draw(body, this.Position, this.Source, Color.White, 0.0f, Vector2.Zero, this.Scale, SpriteEffects.None, 0.0f);
         }

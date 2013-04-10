@@ -17,8 +17,8 @@ namespace Test
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        const string industrial = "blocks_industrial";
-        const string stone = "blocks_stone";
+        const string industrial = "industrial_rowan"; //blocks_industrial
+        const string stone = "stone_rowan"; //blocks_stone
         const string grass = "blocks_grass";
         
         int FPS = 0;
@@ -29,7 +29,7 @@ namespace Test
         const int HEIGHT = 480;
 
         int currentLevel = 0;
-        string currentLevelType = industrial;
+        string currentLevelType = stone;
 
         public bool ChangeLevel { get; set; }
 

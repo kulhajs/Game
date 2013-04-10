@@ -35,7 +35,7 @@ namespace Test
                     {
                         objParams = line.Split('\t');
                         if (objParams[0] == "T")
-                            towers.Add(new Tower(new Vector2(float.Parse(objParams[1]) * 64, float.Parse(objParams[2]) * 64 + 24 * 1 / 0.667f)));
+                            towers.Add(new Tower(new Vector2(float.Parse(objParams[1]) * 64, float.Parse(objParams[2]) * 64 + 16 * 1 / 0.667f))); 
                         else if (objParams[0] == "D")
                             doors.Add(new FlashDoor(new Vector2(float.Parse(objParams[1]) * 64, float.Parse(objParams[2]) * 64 + 4),
                                                     new Vector2(float.Parse(objParams[3]) * 64, float.Parse(objParams[4]) * 64 + 16)));
