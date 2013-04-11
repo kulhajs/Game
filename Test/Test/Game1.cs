@@ -29,7 +29,7 @@ namespace Test
         const int HEIGHT = 480;
 
         int currentLevel = 0;
-        string currentLevelType = stone;
+        string currentLevelType = industrial;
 
         public bool ChangeLevel { get; set; }
 
