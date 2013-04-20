@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -27,6 +28,8 @@ namespace Test
 
         const int coinCount = 15;
 
+        string[] args;
+
         public ItemHandler(ContentManager theContentmanager)
         {
             coins = new List<Coin>(coinCount);
@@ -51,11 +54,32 @@ namespace Test
             newAcid = null;
         }
 
-        public void Initialize()
+        public void Initialize(int level)
         {
-            for (int i = 0; i < coinCount; i++)
+            string path = "Content/Coins/level" + (level + 1) + ".coins";
+            try
             {
-                coins.Add(new Coin(new Vector2(random.Next(36) * 64 - 24, random.Next(3, 6) * 64 - 16), Color.White, 0.0f));
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if (line.StartsWith("#"))
+                            continue;
+                        else
+                        {
+                            args = line.Split('\t');
+                            coins.Add(new Coin(new Vector2(float.Parse(args[0]) * 64 + 24, float.Parse(args[1]) * 64 + 32), Color.White, 0.0f));
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                for (int i = 0; i < coinCount; i++)
+                {
+                    coins.Add(new Coin(new Vector2(random.Next(36) * 64 - 24, random.Next(3, 6) * 64 - 16), Color.White, 0.0f));
+                }
             }
         }
 

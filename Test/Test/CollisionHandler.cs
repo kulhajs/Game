@@ -209,6 +209,7 @@ namespace Test
                                 else if(bulletRectangle.Intersects(zombieHeadRectangle))
                                 {
                                     z.Hitpoints = 0;
+                                    p.Score += 5;
                                     b.SprayBlood = true;
                                     b.Visible = false;
                                 }

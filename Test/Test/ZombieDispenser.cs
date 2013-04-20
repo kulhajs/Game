@@ -46,7 +46,7 @@ namespace Test
 
         public void Update(GameTime theGameTime, ExplosionHandler explosions, ItemHandler ih, Camera c)
         {
-            if(random.Next(200) == (int)this.X / 64)
+            if(random.Next(200) == (int)X / 64)
             {
                 if (random.Next(2) == 0) newZombie = new Zombie(new Vector2(this.X + 8, this.Y + 48), new Vector2(-1, 1)); else newZombie = new Zombie(new Vector2(this.X + 8, this.Y + 48), new Vector2(1, 1));
                 newZombie.LoadContent(contentManager);

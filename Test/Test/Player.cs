@@ -45,9 +45,10 @@ namespace Test
         public Facing currentFacing = Facing.Right;
 
         int animationLenght = 35; //40
+        int frameCount = 8;
         int currentFrame = 0;
         int frame = 0;
-        int frameTime = 35 / 8;
+        int frameTime;
 
         float jumpHeight = 300f;        
 
@@ -113,6 +114,7 @@ namespace Test
             this.Sliding = false;
             this.Push = false;
             this.bullets = new List<Bullet>(100);
+            this.frameTime = animationLenght / frameCount;
             hb = new HealthBar();
         }
 

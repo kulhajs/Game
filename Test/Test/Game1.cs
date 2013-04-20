@@ -71,7 +71,7 @@ namespace Test
             l.Initialize(currentLevel, currentLevelType);
 
             items = new ItemHandler(this.Content);
-            items.Initialize();
+            items.Initialize(currentLevel);
 
             enemies = new EnemyHandler();
             enemies.Initiliaze(currentLevel);
@@ -94,7 +94,7 @@ namespace Test
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             font = Content.Load<SpriteFont>("Font_1");
-            backgroundIndustrial = Content.Load<Texture2D>("background_industrial");
+            backgroundIndustrial = Content.Load<Texture2D>("background_industrial_rowan");
             clouds = Content.Load<Texture2D>("clouds");
 
             p.LoadContent(this.Content);
@@ -189,7 +189,6 @@ namespace Test
             spriteBatch.DrawString(font, FPS + " FPS ", new Vector2(camera.origin.X + 10, camera.origin.Y + 10), Color.Black);
             spriteBatch.DrawString(font, "SCORE: " + p.Score, new Vector2(camera.origin.X + 350, camera.origin.Y + 10), Color.Black);
             p.hb.Draw(this.spriteBatch, new Vector2(camera.origin.X + 670, camera.origin.Y + 10));
-            //spriteBatch.DrawString(font, p.Hitpoints + " HP", new Vector2(camera.origin.X + 720, camera.origin.Y + 10), Color.Black);
 
             frame++;
             spriteBatch.End();
