@@ -231,7 +231,7 @@ namespace Test
             }
         }
 
-        public void HandleItemCollision(Player p, ItemHandler i, ExplosionHandler explosions, Level l)
+        public void HandleItemCollision(Player p, ItemHandler i, ExplosionHandler explosions, Level l, SoundHandler sounds)
         {
             if (p.Jumping || p.Falling)
                 playerRectangle = new Rectangle((int)(p.X + 24 * p.Scale), (int)p.Y, (int)(9 * p.Scale), (int)(48 * p.Scale));
@@ -247,6 +247,7 @@ namespace Test
                     coinRectangle = new Rectangle((int)c.X, (int)c.Y, 16, 16);
                     if (coinRectangle.Intersects(playerRectangle))
                     {
+                        sounds.PlayPickUp();
                         c.Visible = false;
                         p.Score += 5;
                     }
@@ -283,6 +284,7 @@ namespace Test
                 }
                 if(playerRectangle.Intersects(acidRectangle) && !a.Exploded)
                 {
+                    sounds.PlayHurt(p);
                     p.Hitpoints -= random.Next(minZombieDmg, maxZombieDmg) / 2;
                     explosions.AddExplosion(new Vector2(a.Position.X - 8, a.Position.Y - 8), a.contentManager, 9, 27, "acid", 16);
                     a.Exploded = true;

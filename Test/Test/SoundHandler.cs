@@ -16,13 +16,13 @@ namespace Test
     {
         SoundEffect explosion;
         SoundEffect hurt;
-        //SoundEffect pickUp;
+        SoundEffect pickUp;
 
         public void LoadContent(ContentManager theContentManager)
         {
             explosion = theContentManager.Load<SoundEffect>("Sounds/explosion");
             hurt = theContentManager.Load<SoundEffect>("Sounds/hurt");
-            //pickUp = theContentManager.Load<SoundEffect>("Sounds/pickUp");
+            pickUp = theContentManager.Load<SoundEffect>("Sounds/pick");
         }
 
         public void PlayExplosion(Player p, Rocket r)
@@ -31,15 +31,18 @@ namespace Test
             explosion.Play(volume > 0.0f ? volume : 0.0f, 0.0f, r.X - p.X > 0 ? 0.25f : -0.25f);
         }
 
-        public void PlayHurt(Player p, Zombie z)
+        public void PlayHurt(Player p, Zombie z=null)
         {
-            hurt.Play(0.25f, 0.0f, z.X - p.X > 0 ? 0.20f : -0.20f);
+            if (z != null)
+                hurt.Play(0.25f, 0.0f, z.X - p.X > 0 ? 0.20f : -0.20f);
+            else
+                hurt.Play(0.15f, 0.0f, 0.0f);
         }
 
-        //public void PlayPickUp()
-        //{
-        //    pickUp.Play(0.25f, 0.0f, 0.0f);
-        //}
+        public void PlayPickUp()
+        {
+            pickUp.Play(0.25f, 0.0f, 0.0f);
+        }
 
         private float FAbs(float x)
         {

@@ -122,7 +122,7 @@ namespace Test
             ch.HandleBulletTurretCollision(p, enemies, explosions);
             ch.HandleDoorCollision(p, enemies);
             ch.HandleRocketCollision(p, enemies);
-            ch.HandleItemCollision(p, items, explosions, l);
+            ch.HandleItemCollision(p, items, explosions, l, sounds);
             ch.HandleEndLevel(this, p, l);
 
             p.Update(Mouse.GetState(), currentKeyboardState, oldKeyboardState, gameTime, camera, explosions);
