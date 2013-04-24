@@ -76,8 +76,8 @@ namespace Test
         public void LoadContent(ContentManager theContentManager)
         {
             contentManager = theContentManager;
-            _switch = contentManager.Load<Texture2D>("flashDoor");
-            door = contentManager.Load<Texture2D>("flashDoor");
+            _switch = contentManager.Load<Texture2D>("flashdoor"); //flashdoor
+            door = contentManager.Load<Texture2D>("flashdoor");
             Source = sources[0];
         }
         

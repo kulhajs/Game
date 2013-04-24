@@ -12,6 +12,13 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Test
 {
+    enum State{
+        Menu,
+        GameRunning,
+        GamePaused,
+        GameOver,
+    };
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
