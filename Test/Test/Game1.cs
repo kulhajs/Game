@@ -17,6 +17,7 @@ namespace Test
         GameRunning,
         GamePaused,
         GameOver,
+        Credits
     };
 
     public class Game1 : Microsoft.Xna.Framework.Game
