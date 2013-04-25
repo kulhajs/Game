@@ -1,0 +1,19 @@
+#enemy type
+#x * 64 position
+#y * 64 position
+T	10	5
+T	15	4
+T	26	3
+T	35	4
+T	42	4
+T	49	4
+T	49	2
+T	55	4
+D	9	2	6	4
+D	19	1	17	3
+D	30	2	23	1
+D	42	1	38	3
+Z	10	0
+Z	30	0
+Z	41	0
+Z	52	0
